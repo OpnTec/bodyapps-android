@@ -1,0 +1,146 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="fossasia.valentina.bodyapp.main.CreateActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" 
+        android:weightSum="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:orientation="vertical" 
+            android:layout_weight=".07">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:gravity="center"
+            android:weightSum="1.0" 
+            android:layout_weight=".56">
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".9"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/create_txt_gmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:singleLine="true"
+                    android:hint="@string/gmail"
+                    android:inputType="textPersonName" >
+
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/create_txt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:ems="10"
+                    android:singleLine="true"
+                    android:hint="@string/name" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0" >
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gender" 
+                        android:layout_weight=".3"/>
+
+                    <Spinner
+                        android:id="@+id/create_spn_gender"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".7" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1.0" >
+
+                    <TextView
+                        android:id="@+id/vsa_txt_mid_neck_girth"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:text="@string/unit" 
+                        android:layout_weight=".3"/>
+
+                    <Spinner
+                        android:id="@+id/create_spn_unit"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".7"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:orientation="vertical" 
+            android:layout_weight=".07">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:gravity="center_horizontal"
+            android:layout_weight=".3"
+            android:weightSum="1.0" >
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight=".6"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/create_btn_create"
+                    style="@style/btnStyleios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create"
+                    android:textColor="@drawable/btn_txt" />
+
+                <Button
+                    android:id="@+id/create_btn_cancel"
+                    style="@style/btnStyleios"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:textColor="@drawable/btn_txt"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
+

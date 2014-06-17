@@ -1,0 +1,145 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fossasia.valentina.bodyapp.main.ItemActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Arm"
+            android:textColor="#F09918"
+            android:textSize="48sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+
+            <EditText
+                android:id="@+id/arm_length"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:ems="10"
+                android:hint="Arm length" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/vsa_txt_mid_neck_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3" />
+
+            <Button
+                android:id="@+id/btn_arm_length"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:text="@string/help" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+
+            <EditText
+                android:id="@+id/upper_arm_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:ems="10"
+                android:hint="Upper arm girth" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/vsa_txt_mid_neck_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3" />
+
+            <Button
+                android:id="@+id/btn_upper_arm_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:text="@string/help" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+
+            <EditText
+                android:id="@+id/armscye_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:ems="10"
+                android:hint="Armscye_girth" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/vsa_txt_mid_neck_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:text="" />
+
+            <Button
+                android:id="@+id/btn_armscye_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:text="@string/help" />
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+
+            <EditText
+                android:id="@+id/wrist_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:ems="10"
+                android:hint="Wrist girth" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/vsa_txt_mid_neck_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:text="" />
+
+            <Button
+                android:id="@+id/btn_wrist_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:text="@string/help" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

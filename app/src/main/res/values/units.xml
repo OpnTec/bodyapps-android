@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="units_array">
+        <item>centimeter (cm)</item>
+        <item>Inch</item>
+    </string-array>
+</resources>

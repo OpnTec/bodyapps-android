@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" 
+    android:weightSum="1.0" >
+<FrameLayout 
+    android:id="@+id/item_container"
+    android:layout_width="match_parent"
+    android:layout_height="0dip"
+    android:layout_weight=".9"
+/>
+
+<LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_gravity="center_vertical"
+            android:layout_weight=".1"
+            android:weightSum="1.0" >
+
+            <Button
+                android:id="@+id/item_btn_prev"
+                style="@style/btnStyleios"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight=".5"
+                android:text="Previous"
+                android:textColor="@drawable/btn_txt" />
+
+            <Button
+                android:id="@+id/item_btn_next"
+                style="@style/btnStyleios"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight=".5"
+                android:text="Next"
+                android:textColor="@drawable/btn_txt" />
+
+        </LinearLayout>
+
+</LinearLayout>

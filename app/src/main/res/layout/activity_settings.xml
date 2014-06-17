@@ -1,0 +1,96 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fossasia.valentina.bodyapp.main.SettingsActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:weightSum="1.0" >
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/settings_btn_signin"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight=".5" >
+
+            </com.google.android.gms.common.SignInButton>
+
+        </LinearLayout>
+
+        <LinearLayout            
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="1.0" >
+
+            <LinearLayout
+                android:id="@+id/settings_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" 
+                android:visibility="gone" >
+
+                <ImageView
+                    android:id="@+id/settings_img_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp" />
+
+                <TextView
+                    android:id="@+id/settings_txt_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:id="@+id/settings_txt_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" />
+                <TextView
+                    android:id="@+id/settings_txt_connected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" />
+
+                <Button
+                    android:id="@+id/settings_btn_signout"
+                    style="@style/btnStyleios"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Sign Out"
+                    android:textColor="@drawable/btn_txt" />
+
+                <Button
+                    android:id="@+id/settings_btn_reovke"
+                    style="@style/btnStyleios"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Revoke"
+                    android:textColor="@drawable/btn_txt" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        
+    </LinearLayout>
+
+</FrameLayout>
+

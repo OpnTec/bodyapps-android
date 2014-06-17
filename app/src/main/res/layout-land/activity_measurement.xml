@@ -1,0 +1,32 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fossasia.valentina.bodyapp.main.MeasurementActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1" >
+
+        <fragment
+            android:id="@+id/fragment1"
+            android:name="fossasia.valentina.bodyapp.main.MeasurementActivity$GridFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+
+        <FrameLayout
+            android:id="@+id/measurement_frame"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" >
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
+
