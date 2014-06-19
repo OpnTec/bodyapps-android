@@ -60,9 +60,14 @@ public class SyncMeasurement extends Sync {
 			jsonObject.accumulate("user_id", measurement.getUserID());
 			jsonObject.accumulate("person.name", person.getName());
 			jsonObject.accumulate("person.email_id", person.getEmail());
-			jsonObject.accumulate("person.dob", "12/10/1990");// just dummy data
-																// to fulfill
-																// API post
+			jsonObject.accumulate("person.dob", "12/10/1990");// just dummy data to fulfill API post
+
+            if(person.getGender()==1){
+                jsonObject.accumulate("person.gender", "male");
+            }else{
+                jsonObject.accumulate("person.gender", "female");
+            }
+
 			json = jsonObject.toString();
 			
 		} catch (JSONException e) {

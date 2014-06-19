@@ -389,7 +389,8 @@ public class MeasurementActivity extends Activity {
 		 * @return
 		 */
 		public boolean DBSaver(Context context) {
-			MeasurementManager.getInstance(context).addMeasurement(measurement);
+            Measurement m=measurement;
+			MeasurementManager.getInstance(context).addMeasurement(m);
 			return true;
 		}
 
@@ -480,7 +481,6 @@ public class MeasurementActivity extends Activity {
 		
 		@Override
 		public void onBackPressed() {
-			//alertDialog=null;
 			finish();
 		}
 
