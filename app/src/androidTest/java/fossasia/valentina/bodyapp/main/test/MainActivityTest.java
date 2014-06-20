@@ -67,7 +67,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     public void testCreateActivity() throws Exception {
         Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(CreateActivity.class.getName(), null, false);
         TouchUtils.clickView(this, create);
-        CreateActivity startedActivity = (CreateActivity) monitor.waitForActivityWithTimeout(3000);
+        CreateActivity startedActivity = (CreateActivity) monitor.waitForActivityWithTimeout(1000);
         assertNotNull(startedActivity);
         this.sendKeys(KeyEvent.KEYCODE_BACK);
     }
