@@ -34,7 +34,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     @Override
     public void setUp() throws Exception {
         super.setUp();
-
         activity = getActivity();
         create = (Button) activity.findViewById(R.id.main_btn_create);
         saved = (Button) activity.findViewById(R.id.main_btn_saved);
@@ -43,7 +42,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     }
 
     @SmallTest
-    public void testButton() throws Exception {
+    public void testButtons() throws Exception {
         Boolean val = create != null && saved != null && settings != null && exit != null;
         assertTrue(val);
     }

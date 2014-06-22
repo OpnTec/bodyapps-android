@@ -30,6 +30,10 @@ public class UnitTest extends TestCase {
     public void testMeasurement() throws Exception {
         Measurement measurement=new Measurement("test","test2",1,1);
         assertNotNull(measurement);
+        assertEquals("test",measurement.getID());
+        assertEquals("test2",measurement.getUserID());
+        assertEquals(1,measurement.getPersonID());
+        assertEquals(1,measurement.getUnit());
 
     }
 }
