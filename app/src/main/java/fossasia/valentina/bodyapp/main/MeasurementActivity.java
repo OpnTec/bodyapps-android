@@ -48,10 +48,10 @@ public class MeasurementActivity extends Activity {
 	private static ProgressDialog progress;
 	private static GridView gridView;
 
-	private final static String HEAD_FILL = "/0";
+	private final static String HEAD_FILL = "/2";
 	private final static String NECK_FILL = "/1";
-	private final static String SHOULDER_FILL = "/3";
-	private final static String CHEST_FILL = "/1";
+	private final static String SHOULDER_FILL = "/5";
+	private final static String CHEST_FILL = "/2";
 	private final static String ARM_FILL = "/4";
 	private final static String HAND_FILL = "/0";
 	private final static String HIP_AND_WAIST_FILL = "/2";
@@ -60,22 +60,8 @@ public class MeasurementActivity extends Activity {
 	private final static String TRUNK_FILL = "/0";
 	private final static String HEIGHTS_FILL = "/2";
 	private final static String PICS_FILL = "/3";
-	private static String[] filledFields = { "0/0", "0/1", "0/3", "0/1", "0/4",
+	private static String[] filledFields = { "0/2", "0/1", "0/5", "0/2", "0/4",
 			"0/0", "0/2", "0/0", "0/0", "0/0", "0/2", "0/3" };
-
-	private static EditText mid_neck_girth;
-	private static EditText bust_girth;
-	private static EditText waist_girth;
-	private static EditText hip_girth;
-	private static EditText across_back_shoulder_width;
-	private static EditText shoulder_drop;
-	private static EditText shoulder_slope_degrees;
-	private static EditText arm_length;
-	private static EditText upper_arm_girth;
-	private static EditText armscye_girth;
-	private static EditText height;
-	private static EditText hip_height;
-	private static EditText wrist_girth;
 
 	// Constants to separate measurement fragments at switch
 	private final static int HEAD = 0;
@@ -491,15 +477,42 @@ public class MeasurementActivity extends Activity {
 	 */
 
 	public static class Head extends Fragment {
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        private static EditText head_girth;
+        private static EditText head_and_neck_length;
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.head, container, false);
+            head_girth=(EditText)rootView.findViewById(R.id.head_girth);
+            head_and_neck_length=(EditText)rootView.findViewById(R.id.head_and_neck_length);
+
+            head_girth.setText(measurement.getHead_girth());
+            head_and_neck_length.setText(measurement.getHead_and_neck_length());
 			return rootView;
 		}
 
+        @Override
+        public void onDestroy() {
+            // TODO Auto-generated method stub
+            super.onDestroy();
+            int filled = 0;
+            Log.d("measurement", "onDestroy");
+            measurement.setHead_girth(head_girth.getText().toString());
+            measurement.setHead_and_neck_length(head_and_neck_length.getText().toString());
+            if (!head_girth.getText().toString().equals("")) {
+                filled += 1;
+            }
+            if (!head_and_neck_length.getText().toString().equals("")) {
+                filled += 1;
+            }
+            GridAdapter ga = new GridAdapter(context);
+            filledFields[HEAD] = filled + HEAD_FILL;
+            ga.result = filledFields;
+            gridView.setAdapter(ga);
+        }
 	}
 
 	public static class Neck extends Fragment {
+        private static EditText mid_neck_girth;
 
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -531,6 +544,12 @@ public class MeasurementActivity extends Activity {
 	}
 
 	public static class Shoulder extends Fragment {
+        private static EditText shoulder_length;
+        private static EditText shoulder_and_arm_length;
+        private static EditText across_back_shoulder_width;
+        private static EditText shoulder_drop;
+        private static EditText shoulder_slope_degrees;
+
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.shoulder, container,
@@ -542,12 +561,20 @@ public class MeasurementActivity extends Activity {
 					.findViewById(R.id.shoulder_drop);
 			shoulder_slope_degrees = (EditText) rootView
 					.findViewById(R.id.shoulder_slope_degrees);
+            shoulder_length=(EditText) rootView
+                    .findViewById(R.id.shoulder_length);
+            shoulder_and_arm_length=(EditText) rootView
+                    .findViewById(R.id.shoulder_and_arm_length);
+
 
 			across_back_shoulder_width.setText(measurement
 					.getAcross_back_shoulder_width());
 			shoulder_drop.setText(measurement.getShoulder_drop());
 			shoulder_slope_degrees.setText(measurement
 					.getShoulder_slope_degrees());
+            shoulder_length.setText(measurement.getShoulder_length());
+            shoulder_and_arm_length
+                    .setText(measurement.getShoulder_and_arm_length());
 
 			return rootView;
 		}
@@ -564,6 +591,8 @@ public class MeasurementActivity extends Activity {
 			measurement.setShoulder_drop(shoulder_drop.getText().toString());
 			measurement.setShoulder_slope_degrees(shoulder_slope_degrees
 					.getText().toString());
+            measurement.setShoulder_length(shoulder_length.getText().toString());
+            measurement.setShoulder_and_arm_length(shoulder_and_arm_length.getText().toString());
 
 			if (!across_back_shoulder_width.getText().toString().equals("")) {
 				filled += 1;
@@ -574,6 +603,12 @@ public class MeasurementActivity extends Activity {
 			if (!shoulder_slope_degrees.getText().toString().equals("")) {
 				filled += 1;
 			}
+            if (!shoulder_length.getText().toString().equals("")) {
+                filled += 1;
+            }
+            if (!shoulder_and_arm_length.getText().toString().equals("")) {
+                filled += 1;
+            }
 
 			GridAdapter ga = new GridAdapter(context);
 			filledFields[SHOULDER] = filled + SHOULDER_FILL;
@@ -584,12 +619,16 @@ public class MeasurementActivity extends Activity {
 	}
 
 	public static class Chest extends Fragment {
+        private static EditText bust_girth;
+        private static EditText upper_chest_girth;
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.chest, container, false);
 			bust_girth = (EditText) rootView.findViewById(R.id.bust_girth);
+            upper_chest_girth=(EditText) rootView.findViewById(R.id.upper_chest_girth);
 
 			bust_girth.setText(measurement.getBust_girth());
+            upper_chest_girth.setText(measurement.getUpper_chest_girth());
 			return rootView;
 		}
 
@@ -599,9 +638,13 @@ public class MeasurementActivity extends Activity {
 			super.onDestroy();
 			int filled = 0;
 			measurement.setBust_girth(bust_girth.getText().toString());
+            measurement.setUpper_chest_girth(upper_chest_girth.getText().toString());
 			if (!bust_girth.getText().toString().equals("")) {
 				filled += 1;
 			}
+            if (!upper_chest_girth.getText().toString().equals("")) {
+                filled += 1;
+            }
 			GridAdapter ga = new GridAdapter(context);
 			filledFields[CHEST] = filled + CHEST_FILL;
 			ga.result = filledFields;
@@ -611,6 +654,11 @@ public class MeasurementActivity extends Activity {
 	}
 
 	public static class Arm extends Fragment {
+        private static EditText arm_length;
+        private static EditText upper_arm_girth;
+        private static EditText armscye_girth;
+        private static EditText wrist_girth;
+
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.arm, container, false);
@@ -670,6 +718,8 @@ public class MeasurementActivity extends Activity {
 	}
 
 	public static class HipAndWaist extends Fragment {
+        private static EditText waist_girth;
+        private static EditText hip_girth;
 
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -731,6 +781,9 @@ public class MeasurementActivity extends Activity {
 	}
 
 	public static class Heights extends Fragment {
+        private static EditText height;
+        private static EditText hip_height;
+
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater

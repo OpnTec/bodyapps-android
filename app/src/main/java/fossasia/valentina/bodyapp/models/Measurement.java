@@ -33,8 +33,80 @@ public class Measurement implements Serializable {
 	private String height;
 	private String hip_height;
 	private String wrist_girth;
+    private String head_girth;
+    private String head_and_neck_length;
+    private String upper_chest_girth;
+    private String shoulder_length;
+    private String shoulder_and_arm_length;
+    private String pic_front;
+    private String pic_side;
+    private String pic_back;
 
-	public Measurement(String iD, String userID, int personID, int unit) {
+    public String getPic_front() {
+        return pic_front;
+    }
+
+    public void setPic_front(String pic_front) {
+        this.pic_front = pic_front;
+    }
+
+    public String getPic_side() {
+        return pic_side;
+    }
+
+    public void setPic_side(String pic_side) {
+        this.pic_side = pic_side;
+    }
+
+    public String getPic_back() {
+        return pic_back;
+    }
+
+    public void setPic_back(String pic_back) {
+        this.pic_back = pic_back;
+    }
+
+    public String getHead_girth() {
+        return head_girth;
+    }
+
+    public void setHead_girth(String head_girth) {
+        this.head_girth = head_girth;
+    }
+
+    public String getHead_and_neck_length() {
+        return head_and_neck_length;
+    }
+
+    public void setHead_and_neck_length(String head_and_neck_length) {
+        this.head_and_neck_length = head_and_neck_length;
+    }
+
+    public String getUpper_chest_girth() {
+        return upper_chest_girth;
+    }
+
+    public void setUpper_chest_girth(String upper_chest_girth) {
+        this.upper_chest_girth = upper_chest_girth;
+    }
+
+    public String getShoulder_length() {
+        return shoulder_length;
+    }
+
+    public void setShoulder_length(String shoulder_length) {
+        this.shoulder_length = shoulder_length;
+    }
+
+    public String getShoulder_and_arm_length() {
+        return shoulder_and_arm_length;
+    }
+
+    public void setShoulder_and_arm_length(String shoulder_and_arm_length) {
+        this.shoulder_and_arm_length = shoulder_and_arm_length;
+    }
+
+    public Measurement(String iD, String userID, int personID, int unit) {
 		super();
 		ID = iD;
 		this.userID = userID;

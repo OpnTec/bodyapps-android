@@ -84,6 +84,22 @@ public class MeasurementManager {
 				measurement.getHip_height());
 		values.put(DBContract.Measurement.COLUMN_NAME_WRIST_GIRTH,
 				measurement.getWrist_girth());
+        values.put(DBContract.Measurement.COLUMN_NAME_HEAD_GIRTH,
+                measurement.getHead_girth());
+        values.put(DBContract.Measurement.COLUMN_NAME_HEAD_AND_NECK_LENGTH,
+                measurement.getHead_and_neck_length());
+        values.put(DBContract.Measurement.COLUMN_NAME_UPPER_CHEST_GIRTH,
+                measurement.getUpper_chest_girth());
+        values.put(DBContract.Measurement.COLUMN_NAME_SHOULDER_LENGTH,
+                measurement.getShoulder_length());
+        values.put(DBContract.Measurement.COLUMN_NAME_SHOULDER_AND_ARM_LENGTH,
+                measurement.getShoulder_and_arm_length());
+        values.put(DBContract.Measurement.COLUMN_NAME_PIC_FRONT,
+                measurement.getPic_front());
+        values.put(DBContract.Measurement.COLUMN_NAME_PIC_SIDE,
+                measurement.getPic_side());
+        values.put(DBContract.Measurement.COLUMN_NAME_PIC_BACK,
+                measurement.getPic_back());
 
 		database.insert(DBContract.Measurement.TABLE_NAME, null, values);
 		database.close();

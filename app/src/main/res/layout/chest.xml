@@ -37,13 +37,43 @@
             </EditText>
 
             <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
+                android:id="@+id/vsa_txt_bust_girth"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight=".3" />
 
             <Button
                 android:id="@+id/btn_bust_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:text="@string/help" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+
+            <EditText
+                android:id="@+id/upper_chest_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:ems="10"
+                android:hint="Upper chest girth" >
+
+            </EditText>
+
+            <TextView
+                android:id="@+id/vsa_txt_upper_chest_girth"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3" />
+
+            <Button
+                android:id="@+id/btn_upper_chest_girth"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight=".2"
