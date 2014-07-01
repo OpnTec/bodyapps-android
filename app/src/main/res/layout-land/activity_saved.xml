@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fossasia.valentina.bodyapp.main.SavedActivity"
+    tools:context="org.fashiontec.bodyapp.main.SavedActivity"
     tools:ignore="MergeRootFrame" 
     android:weightSum="1.0">
 
@@ -15,7 +15,7 @@
 
         <fragment
             android:id="@+id/fragment1"
-            android:name="fossasia.valentina.bodyapp.main.SavedActivity$SavedList"
+            android:name="org.fashiontec.bodyapp.main.SavedActivity$SavedList"
             android:layout_width="0dip"
             android:layout_height="match_parent" 
             android:layout_weight=".4"/>

@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fossasia.valentina.bodyapp.main.MeasurementActivity"
+    tools:context="org.fashiontec.bodyapp.main.MeasurementActivity"
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout
@@ -13,7 +13,7 @@
 
         <fragment
             android:id="@+id/fragment1"
-            android:name="fossasia.valentina.bodyapp.main.MeasurementActivity$GridFragment"
+            android:name="org.fashiontec.bodyapp.main.MeasurementActivity$GridFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5" />

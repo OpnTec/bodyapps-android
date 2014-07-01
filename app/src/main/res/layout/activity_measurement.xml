@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context="fossasia.valentina.bodyapp.main.MeasurementActivity"
+    tools:context="org.fashiontec.bodyapp.main.MeasurementActivity"
     tools:ignore="MergeRootFrame" >
 
     <fragment
         android:id="@+id/fragment1"
-        android:name="fossasia.valentina.bodyapp.main.MeasurementActivity$GridFragment"
+        android:name="org.fashiontec.bodyapp.main.MeasurementActivity$GridFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
