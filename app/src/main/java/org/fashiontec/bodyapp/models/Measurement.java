@@ -125,6 +125,9 @@ public class Measurement implements Serializable {
 		this.height = "";
 		this.hip_height = "";
 		this.wrist_girth = "";
+        this.pic_front="";
+        this.pic_side="";
+        this.pic_back="";
 	}
 
 	public String getID() {

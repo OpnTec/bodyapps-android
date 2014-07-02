@@ -44,6 +44,7 @@ import org.fashiontec.bodyapp.managers.PersonManager;
 import org.fashiontec.bodyapp.models.Measurement;
 import org.fashiontec.bodyapp.models.Person;
 import org.fashiontec.bodyapp.sync.SyncMeasurement;
+import org.fashiontec.bodyapp.sync.SyncPic;
 
 /**
  * This is the view for adding data to created measurement. This view consist of
