@@ -54,7 +54,7 @@ public class Sync {
 			if (inputStream != null)
 				result = convertInputStreamToString(inputStream);
 			else
-				result = "Did not work!";
+				result = "";
 			System.out.println(result + "result");
 
 		} catch (Exception e) {

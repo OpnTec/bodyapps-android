@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -990,19 +991,19 @@ public class MeasurementActivity extends Activity {
                             options);
                     imgFront.setVisibility(View.VISIBLE);
                     imgFront.setImageBitmap(bitmap);
-                    imgFront.setScaleType(ImageView.ScaleType.FIT_START);
+                    imgFront.setRotation(90);
                 } else if (type == SIDE) {
                     final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_side(),
                             options);
                     imgSide.setVisibility(View.VISIBLE);
                     imgSide.setImageBitmap(bitmap);
-                    imgSide.setScaleType(ImageView.ScaleType.FIT_START);
+                    imgSide.setRotation(90);
                 } else if (type == BACK) {
                     final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_back(),
                             options);
                     imgBack.setVisibility(View.VISIBLE);
                     imgBack.setImageBitmap(bitmap);
-                    imgBack.setScaleType(ImageView.ScaleType.FIT_START);
+                    imgBack.setRotation(90);
                 }
             } catch (NullPointerException e) {
                 e.printStackTrace();

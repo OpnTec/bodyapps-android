@@ -31,11 +31,11 @@
             android:layout_marginBottom="5dp">
 
             <ImageView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
+                android:layout_width="300dip"
+                android:layout_height="300dip"
                 android:id="@+id/pics_img_front"
-                android:layout_weight=".8"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:scaleType="fitCenter"/>
         </LinearLayout>
 
         <LinearLayout
@@ -44,7 +44,8 @@
             android:layout_height="fill_parent"
             android:weightSum="1.0"
             android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="5dp">
 
             <Button
                 android:layout_width="0dip"
@@ -65,11 +66,11 @@
             android:layout_marginBottom="5dp">
 
             <ImageView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
+                android:layout_width="300dip"
+                android:layout_height="300dip"
                 android:id="@+id/pics_img_side"
-                android:layout_weight=".8"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:scaleType="fitCenter"/>
         </LinearLayout>
 
         <LinearLayout
@@ -99,10 +100,10 @@
             android:gravity="center_horizontal">
 
             <ImageView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
+                android:layout_width="300dip"
+                android:layout_height="300dip"
                 android:id="@+id/pics_img_back"
-                android:layout_weight=".8"
+                android:scaleType="fitCenter"
                 android:visibility="gone"/>
         </LinearLayout>
 

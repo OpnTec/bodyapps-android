@@ -373,14 +373,14 @@ public class SettingsActivity extends ActionBarActivity implements
 				// user.
 				// Then he will be added to the DB and set as current user.
 				progress.show();
-				new HttpAsyncTaskUser().execute("http://192.168.1.2:8020/user");
+				new HttpAsyncTaskUser().execute("http://192.168.1.2:8020/users");
 			} else {
 
 				if (isUser.equals("NoID")) {
 					// if user exists in DB and doesn't have a ID, try to get ID
 					progress.show();
 					new HttpAsyncTaskUser()
-							.execute("http://192.168.1.2:8020/user");
+							.execute("http://192.168.1.2:8020/users");
 				} else {
 					// if user exists in DB and has a ID just sets him current
 					// user

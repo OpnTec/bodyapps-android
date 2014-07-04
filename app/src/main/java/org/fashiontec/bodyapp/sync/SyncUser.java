@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class SyncUser extends Sync {
 
 	private static String json;
-	private static final String URL = "http://192.168.1.2:8020/user";
+	private static final String URL = "http://192.168.1.2:8020/users";
 	private static String result;
 	private static final int CON_TIMEOUT=5000;
 	private static final int SOC_TIMEOUT=5000;
@@ -38,8 +38,9 @@ public class SyncUser extends Sync {
 			jsonObject.accumulate("name", name);
 			jsonObject.accumulate("age", "22");
 			jsonObject.accumulate("dob", "12/10/1990");
-			jsonObject.accumulate("emailId", email);
+			jsonObject.accumulate("email", email);
 			json = jsonObject.toString();
+            System.out.println("json : "+json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -61,12 +62,14 @@ public class SyncUser extends Sync {
 			result += line;
 
 		inputStream.close();
-		result = result.replaceAll("\"", "");
+		//result = result.replaceAll("\"", "");
+        System.out.println("result : "+result);
 		JSONObject jObject;
 		String out=null;
 		try {
 			jObject = new JSONObject(result);
-			out= jObject.getString("user_id");
+			out= jObject.getString("data");
+            jObject = new JSONObject("id");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
