@@ -5,6 +5,8 @@
 
 package org.fashiontec.bodyapp.sync;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,7 +18,7 @@ import org.fashiontec.bodyapp.models.Person;
  */
 public class SyncMeasurement extends Sync {
 
-    private static final String URL = "http://192.168.1.2:8020/user/measurements";
+    private static final String URL = "http://192.168.1.2:8020/users/measurements";
     private static String result;
     private static final int CON_TIMEOUT = 10000;
     private static final int SOC_TIMEOUT = 20000;
@@ -60,17 +62,20 @@ public class SyncMeasurement extends Sync {
             jsonObject.accumulate("height", measurement.getHeight());
             jsonObject.accumulate("hip_height", measurement.getHip_height());
             jsonObject.accumulate("user_id", measurement.getUserID());
-            jsonObject.accumulate("person.name", person.getName());
-            jsonObject.accumulate("person.email_id", person.getEmail());
-            jsonObject.accumulate("person.dob", "12/10/1990");// just dummy data to fulfill API post
+            JSONObject personJSON=new JSONObject();
+            personJSON.accumulate("name", person.getName());
+            personJSON.accumulate("email", person.getEmail());
+            personJSON.accumulate("dob", "12/10/1990");// just dummy data to fulfill API post
 
             if (person.getGender() == 1) {
-                jsonObject.accumulate("person.gender", "male");
+                personJSON.accumulate("gender", "male");
             } else {
-                jsonObject.accumulate("person.gender", "female");
+                personJSON.accumulate("gender", "female");
             }
+            jsonObject.put("person",personJSON);
 
             json = jsonObject.toString();
+            Log.d("syncMeasure",json);
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
