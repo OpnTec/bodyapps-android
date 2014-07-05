@@ -69,7 +69,8 @@ public class SyncUser extends Sync {
 		try {
 			jObject = new JSONObject(result);
 			out= jObject.getString("data");
-            jObject = new JSONObject("id");
+            jObject = new JSONObject(out);
+            out=jObject.getString("id");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
