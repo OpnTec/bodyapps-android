@@ -6,7 +6,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.fashiontec.bodyapp.main.SettingsActivity"
+    tools:context="org.fashiontec.bodyapps.main.SettingsActivity"
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context="org.fashiontec.bodyapp.main.CreateActivity"
+    tools:context="org.fashiontec.bodyapps.main.CreateActivity"
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout

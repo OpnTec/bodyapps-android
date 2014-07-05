@@ -7,7 +7,7 @@
     android:layout_height="fill_parent"
     android:background="#FFFFFF"
 
-    tools:context="org.fashiontec.bodyapp.main.SavedActivity$PlaceholderFragment" >
+    tools:context="org.fashiontec.bodyapps.main.SavedActivity$PlaceholderFragment" >
 
     <LinearLayout
         android:layout_width="fill_parent"

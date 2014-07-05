@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.fashiontec.bodyapp.main"
+    package="org.fashiontec.bodyapps.main"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -25,7 +25,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="org.fashiontec.bodyapp.main.MainActivity"
+            android:name="org.fashiontec.bodyapps.main.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,27 +34,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.fashiontec.bodyapp.main.SavedActivity"
+            android:name="org.fashiontec.bodyapps.main.SavedActivity"
             android:label="@string/title_activity_saved" >
         </activity>
         <activity
-            android:name="org.fashiontec.bodyapp.main.SavedActivity$ViewSavedActivity"
+            android:name="org.fashiontec.bodyapps.main.SavedActivity$ViewSavedActivity"
             android:label="@string/title_activity_view_saved" >
         </activity>
         <activity
-            android:name="org.fashiontec.bodyapp.main.SettingsActivity"
+            android:name="org.fashiontec.bodyapps.main.SettingsActivity"
             android:label="@string/title_activity_seetings" >
         </activity>
         <activity
-            android:name="org.fashiontec.bodyapp.main.CreateActivity"
+            android:name="org.fashiontec.bodyapps.main.CreateActivity"
             android:label="@string/title_activity_create" >
         </activity>
         <activity
-            android:name="org.fashiontec.bodyapp.main.MeasurementActivity"
+            android:name="org.fashiontec.bodyapps.main.MeasurementActivity"
             android:label="@string/title_activity_measurement">
         </activity>
         <activity
-            android:name="org.fashiontec.bodyapp.main.MeasurementActivity$ItemActivity"
+            android:name="org.fashiontec.bodyapps.main.MeasurementActivity$ItemActivity"
             android:label="@string/title_activity_item" >
         </activity>
     </application>

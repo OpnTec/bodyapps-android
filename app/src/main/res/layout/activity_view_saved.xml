@@ -6,6 +6,6 @@
     android:id="@+id/container2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.fashiontec.bodyapp.main.ViewSavedActivity"
+    tools:context="org.fashiontec.bodyapps.main.ViewSavedActivity"
     tools:ignore="MergeRootFrame" />
 
