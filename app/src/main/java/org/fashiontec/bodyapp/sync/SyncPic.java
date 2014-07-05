@@ -32,8 +32,8 @@ public class SyncPic {
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.accumulate("m_id",mid);
-                jsonObject.accumulate("body_part","front");
-                jsonObject.accumulate("m_id","jpg");
+                jsonObject.accumulate("side","front");
+                jsonObject.accumulate("type","jpg");
                 jsonObject.accumulate("binary_data",frontEnc);
                 frontEnc=jsonObject.toString();
 
@@ -50,7 +50,7 @@ public class SyncPic {
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.accumulate("m_id",mid);
-                jsonObject.accumulate("body_part","side");
+                jsonObject.accumulate("side","side");
                 jsonObject.accumulate("m_id","jpg");
                 jsonObject.accumulate("binary_data",sideEnc);
                 sideEnc=jsonObject.toString();
@@ -68,7 +68,7 @@ public class SyncPic {
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.accumulate("m_id",mid);
-                jsonObject.accumulate("body_part","back");
+                jsonObject.accumulate("side","back");
                 jsonObject.accumulate("m_id","jpg");
                 jsonObject.accumulate("binary_data",backEnc);
                 backEnc=jsonObject.toString();
