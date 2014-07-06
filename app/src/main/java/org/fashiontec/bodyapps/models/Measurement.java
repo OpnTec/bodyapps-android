@@ -41,6 +41,39 @@ public class Measurement implements Serializable {
     private String pic_front;
     private String pic_side;
     private String pic_back;
+    private String notes;
+
+    public Measurement(String iD, String userID, int personID, int unit) {
+        super();
+        ID = iD;
+        this.userID = userID;
+        this.personID = personID;
+        this.unit = unit;
+        this.mid_neck_girth = "";
+        this.bust_girth = "";
+        this.waist_girth = "";
+        this.hip_girth = "";
+        this.across_back_shoulder_width = "";
+        this.shoulder_drop = "";
+        this.shoulder_slope_degrees = "";
+        this.arm_length = "";
+        this.upper_arm_girth = "";
+        this.armscye_girth = "";
+        this.height = "";
+        this.hip_height = "";
+        this.wrist_girth = "";
+        this.pic_front="";
+        this.pic_side="";
+        this.pic_back="";
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 
     public String getPic_front() {
         return pic_front;
@@ -105,30 +138,6 @@ public class Measurement implements Serializable {
     public void setShoulder_and_arm_length(String shoulder_and_arm_length) {
         this.shoulder_and_arm_length = shoulder_and_arm_length;
     }
-
-    public Measurement(String iD, String userID, int personID, int unit) {
-		super();
-		ID = iD;
-		this.userID = userID;
-		this.personID = personID;
-		this.unit = unit;
-		this.mid_neck_girth = "";
-		this.bust_girth = "";
-		this.waist_girth = "";
-		this.hip_girth = "";
-		this.across_back_shoulder_width = "";
-		this.shoulder_drop = "";
-		this.shoulder_slope_degrees = "";
-		this.arm_length = "";
-		this.upper_arm_girth = "";
-		this.armscye_girth = "";
-		this.height = "";
-		this.hip_height = "";
-		this.wrist_girth = "";
-        this.pic_front="";
-        this.pic_side="";
-        this.pic_back="";
-	}
 
 	public String getID() {
 		return ID;

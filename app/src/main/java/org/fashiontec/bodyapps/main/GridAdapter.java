@@ -23,14 +23,14 @@ import android.widget.TextView;
 public class GridAdapter extends BaseAdapter {
 	private Context mContext;
 	private static LayoutInflater inflater=null;
-	public String[] result={"0/0","0/1","0/3","0/1","0/4","0/0","0/2","0/0","0/0","0/0","0/2","0/3"};
+	public String[] result={"0/0","0/1","0/3","0/1","0/4","0/0","0/2","0/0","0/0","0/0","0/2","0/3","0/1"};
 
 	// Keep all Images in array
 	public Integer[] mThumbIds = { R.drawable.head, R.drawable.neck,
 			R.drawable.shoulders, R.drawable.chest, R.drawable.arm,
 			R.drawable.hand, R.drawable.hip_waist, R.drawable.leg,
 			R.drawable.foot, R.drawable.trunk, R.drawable.heights,
-			R.drawable.pics };
+			R.drawable.pics, R.drawable.ic_launcher };
 
 	// Constructor
 	public GridAdapter(Context c) {

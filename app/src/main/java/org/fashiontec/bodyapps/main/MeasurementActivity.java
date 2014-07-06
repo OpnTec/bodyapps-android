@@ -70,8 +70,9 @@ public class MeasurementActivity extends Activity {
     private final static String TRUNK_FILL = "/0";
     private final static String HEIGHTS_FILL = "/2";
     private final static String PICS_FILL = "/3";
+    private final static String NOTES_FILL = "/1";
     private static String[] filledFields = {"0/2", "0/1", "0/5", "0/2", "0/4",
-            "0/0", "0/2", "0/0", "0/0", "0/0", "0/2", "0/3"};
+            "0/0", "0/2", "0/0", "0/0", "0/0", "0/2", "0/3","0/1"};
 
     // Constants to separate measurement fragments at switch
     private final static int HEAD = 0;
@@ -86,6 +87,7 @@ public class MeasurementActivity extends Activity {
     private final static int TRUNK = 9;
     private final static int HEIGHTS = 10;
     private final static int PICS = 11;
+    private final static int NOTES = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -365,6 +367,9 @@ public class MeasurementActivity extends Activity {
                     return fragment;
                 case PICS:
                     fragment = new Pics();
+                    return fragment;
+                case NOTES:
+                    fragment = new Notes();
                     return fragment;
 
             }
@@ -1049,6 +1054,39 @@ public class MeasurementActivity extends Activity {
             gridView.setAdapter(ga);
         }
 
+    }
+
+    public static class Notes extends Fragment {
+        private static EditText note;
+
+
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater
+                    .inflate(R.layout.notes, container, false);
+
+            note = (EditText) rootView.findViewById(R.id.notes_txt_note);
+
+            note.setText(measurement.getNotes());
+            return rootView;
+        }
+
+        @Override
+        public void onDestroy() {
+
+            super.onDestroy();
+            int filled = 0;
+
+            measurement.setNotes(note.getText().toString());
+
+            if (!note.getText().toString().equals("")) {
+                filled += 1;
+            }
+            GridAdapter ga = new GridAdapter(context);
+            filledFields[NOTES] = filled + NOTES_FILL;
+            ga.result = filledFields;
+            gridView.setAdapter(ga);
+        }
     }
 
 

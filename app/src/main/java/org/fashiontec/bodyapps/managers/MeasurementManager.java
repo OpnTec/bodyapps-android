@@ -99,6 +99,7 @@ public class MeasurementManager {
                 measurement.getPic_side());
         values.put(DBContract.Measurement.COLUMN_NAME_PIC_BACK,
                 measurement.getPic_back());
+        values.put(DBContract.Measurement.COLUMN_NAME_NOTES,measurement.getNotes());
 
 		database.insert(DBContract.Measurement.TABLE_NAME, null, values);
 		database.close();
