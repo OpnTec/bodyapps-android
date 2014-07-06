@@ -9,7 +9,9 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.view.KeyEvent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 
 import org.fashiontec.bodyapps.main.CreateActivity;
 import org.fashiontec.bodyapps.main.MainActivity;
@@ -66,6 +68,10 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(CreateActivity.class.getName(), null, false);
         TouchUtils.clickView(this, create);
         CreateActivity startedActivity = (CreateActivity) monitor.waitForActivityWithTimeout(1000);
+        EditText email = (EditText) startedActivity.findViewById(R.id.create_txt_gmail);
+        InputMethodManager imm = (InputMethodManager)activity.getBaseContext().getSystemService(
+                activity.getBaseContext().INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(email.getWindowToken(), 0);
         assertNotNull(startedActivity);
         this.sendKeys(KeyEvent.KEYCODE_BACK);
     }

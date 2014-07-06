@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_corner_color"
-            android:text="Person"
+            android:text="@string/person"
             android:textColor="#ffffff" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_corner_color"
-            android:text="Neck"
+            android:text="@string/neck"
             android:textColor="#ffffff"
             android:textSize="16sp" />
 
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_corner_color"
-            android:text="Shoulders"
+            android:text="@string/shoulders"
             android:textColor="#ffffff"
             android:textSize="16sp" />
         <TextView
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_corner_color"
-            android:text="Chest"
+            android:text="@string/chest"
             android:textColor="#ffffff"
             android:textSize="16sp" />
         <TextView
@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_corner_color"
-            android:text="Arm"
+            android:text="@string/arm"
             android:textColor="#ffffff"
             android:textSize="16sp" />
         <TextView
@@ -119,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_corner_color"
-            android:text="Hip and Waist"
+            android:text="@string/hip_and_waist"
             android:textColor="#ffffff"
             android:textSize="16sp" />
         <TextView
@@ -138,7 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_corner_color"
-            android:text="Heights"
+            android:text="@string/heights"
             android:textColor="#ffffff"
             android:textSize="16sp" />
         <TextView

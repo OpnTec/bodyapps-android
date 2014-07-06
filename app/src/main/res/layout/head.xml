@@ -19,9 +19,17 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Head"
+            android:text="@string/head"
             android:textColor="#F09918"
             android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/head_girth"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,25 +42,27 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Head girth" >
+                android:inputType="numberDecimal">
 
                 <requestFocus />
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_head_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3" />
-
-            <Button
-                android:id="@+id/btn_head_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_head_girth"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/head_and_neck_length"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Head &amp; Neck length" >
+                android:inputType="numberDecimal">
 
                 <requestFocus />
             </EditText>
@@ -76,12 +86,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".3" />
 
-            <Button
-                android:id="@+id/btn_head_and_neck_length"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_head_and_neck_length"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
 
         </LinearLayout>
     </LinearLayout>

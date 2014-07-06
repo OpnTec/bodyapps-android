@@ -19,9 +19,17 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hip and Waist"
+            android:text="@string/hip_and_waist"
             android:textColor="#F09918"
             android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hip_girth"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,26 +42,28 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Hip girth" >
-
+                android:inputType="numberDecimal">
                 <requestFocus />
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3" />
-
-            <Button
-                android:id="@+id/btn_hip_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_hip_girth"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
 
         </LinearLayout>
-          <LinearLayout
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/waist_girth"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="1" >
@@ -64,23 +74,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Waist girth" >
-
-                <requestFocus />
+                android:inputType="numberDecimal">
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3" />
-
-            <Button
-                android:id="@+id/btn_wrist_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_wrist_girth"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
         </LinearLayout>
 
     </LinearLayout>

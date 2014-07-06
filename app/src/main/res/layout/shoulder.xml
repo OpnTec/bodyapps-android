@@ -16,10 +16,16 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shoulder"
+            android:text="@string/shoulders"
             android:textColor="#F09918"
             android:textSize="48sp" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/across_back_shoulder_width"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Across back shoulder width" >
+                android:inputType="numberDecimal">
                 <requestFocus />
             </EditText>
 
@@ -41,14 +47,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".3" />
 
-            <Button
-                android:id="@+id/btn_across_back_shoulder_width"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_across_back_shoulder_width"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
         </LinearLayout>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shoulder_drop"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,22 +72,24 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Shoulder drop" >
+                android:inputType="numberDecimal">
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3" />
-
-            <Button
-                android:id="@+id/btn_shoulder_drop"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_shoulder_drop"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shoulder_slope_degrees"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,25 +102,25 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Shoulder slope degrees" >
+                android:hint="degrees"
+                android:inputType="numberDecimal">
 
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3"
-                android:text="degrees" />
-
-            <Button
-                android:id="@+id/btn_shoulder_slope_degrees"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_shoulder_slope_degrees"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
         </LinearLayout>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shoulder_length"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,24 +132,24 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Shoulder length" >
+                android:inputType="numberDecimal">
 
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3"/>
-
-            <Button
-                android:id="@+id/btn_shoulder_length"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_shoulder_length"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
         </LinearLayout>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shoulder_and_arm_length"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -147,22 +161,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Shoulder &amp; arm length" >
-
+                android:inputType="numberDecimal">
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3"/>
-
-            <Button
-                android:id="@+id/btn_shoulder_and_arm_length"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_shoulder_and_arm_length"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
         </LinearLayout>
     </LinearLayout>
 

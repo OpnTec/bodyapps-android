@@ -30,7 +30,7 @@ public class GridAdapter extends BaseAdapter {
 			R.drawable.shoulders, R.drawable.chest, R.drawable.arm,
 			R.drawable.hand, R.drawable.hip_waist, R.drawable.leg,
 			R.drawable.foot, R.drawable.trunk, R.drawable.heights,
-			R.drawable.pics, R.drawable.ic_launcher };
+			R.drawable.pics, R.drawable.notes };
 
 	// Constructor
 	public GridAdapter(Context c) {

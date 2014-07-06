@@ -4,7 +4,7 @@
 
 <resources>
     <string-array name="gender_array">
-        <item>Female</item>
-        <item>Male</item>
+        <item>@string/female</item>
+        <item>@string/male</item>
     </string-array>
 </resources>

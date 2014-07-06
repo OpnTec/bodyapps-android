@@ -19,10 +19,16 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Arm"
+            android:text="@string/arm"
             android:textColor="#F09918"
             android:textSize="48sp" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/arm_length"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,24 +40,25 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Arm length" >
-
+                android:inputType="numberDecimal">
                 <requestFocus />
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3" />
-
-            <Button
-                android:id="@+id/btn_arm_length"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_arm_length"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upper_arm_girth"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,24 +71,24 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Upper arm girth" >
-
-                <requestFocus />
+                android:inputType="numberDecimal">
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3" />
-
-            <Button
-                android:id="@+id/btn_upper_arm_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_upper_arm_girth"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/armscye_girth"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -94,25 +101,25 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Armscye_girth" >
-
-                <requestFocus />
+                android:inputType="numberDecimal">
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3"
-                android:text="" />
-
-            <Button
-                android:id="@+id/btn_armscye_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_armscye_girth"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wrist_girth"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
+
          <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -124,24 +131,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:ems="10"
-                android:hint="Wrist girth" >
-
-                <requestFocus />
+                android:inputType="numberDecimal">
             </EditText>
 
-            <TextView
-                android:id="@+id/vsa_txt_mid_neck_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3"
-                android:text="" />
-
-            <Button
-                android:id="@+id/btn_wrist_girth"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight=".2"
-                android:text="@string/help" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_wrist_girth"-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".2"-->
+                <!--android:text="@string/help" />-->
         </LinearLayout>
     </LinearLayout>
 

@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="New"
+                android:text="@string/new_string"
                 android:textColor="@drawable/btn_txt" />
 
             <Button
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:text="Saved"
+                android:text="@string/saved"
                 android:textColor="@drawable/btn_txt" />
 
             <Button
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:text="Settings"
+                android:text="@string/settings"
                 android:textColor="@drawable/btn_txt" />
 
             <Button
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/abc_action_bar_default_height"
-                android:text="Exit"
+                android:text="@string/exit"
                 android:textColor="@drawable/btn_txt" />
         </LinearLayout>
     </LinearLayout>

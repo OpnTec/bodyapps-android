@@ -4,7 +4,7 @@
 
 <resources>
     <string-array name="units_array">
-        <item>centimeter (cm)</item>
-        <item>Inch</item>
+        <item>@string/centimeter</item>
+        <item>@string/inch</item>
     </string-array>
 </resources>

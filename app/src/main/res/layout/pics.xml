@@ -16,7 +16,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pics"
+        android:text="@string/pics"
         android:textColor="#F09918"
         android:textSize="48sp"
         android:layout_marginBottom="50dp" />
@@ -50,7 +50,7 @@
             <Button
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:text="Front"
+                android:text="@string/front"
                 android:id="@+id/pics_btn_front"
                 style="@style/btnStyleios"
                 android:layout_weight=".5"
@@ -85,7 +85,7 @@
             <Button
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:text="Side"
+                android:text="@string/side"
                 android:id="@+id/pics_btn_side"
                 style="@style/btnStyleios"
                 android:layout_weight=".5"
@@ -118,7 +118,7 @@
             <Button
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:text="Back"
+                android:text="@string/back"
                 android:id="@+id/pics_btn_back"
                 style="@style/btnStyleios"
                 android:layout_weight=".5"

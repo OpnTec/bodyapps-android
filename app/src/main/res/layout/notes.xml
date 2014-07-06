@@ -13,7 +13,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Notes"
+            android:text="@string/notes"
             android:textColor="#F09918"
             android:textSize="48sp"
             android:layout_marginBottom="50dp" />
