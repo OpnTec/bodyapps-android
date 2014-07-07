@@ -62,5 +62,7 @@
     <string name="saved">Saved</string>
     <string name="settings">Settings</string>
     <string name="exit">Exit</string>
+    <string name="edit">Edit</string>
+    <string name="get_hdf">Get HDF</string>
 
 </resources>

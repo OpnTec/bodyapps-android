@@ -41,6 +41,7 @@ public class MeasurementManager {
 
 	public void addMeasurement(Measurement measurement) {
 		Log.d("measurementmanager", "addMeasurement");
+        boolean available=isMeasurement(measurement.getID());
 		this.database = this.dbHandler.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(DBContract.Measurement.COLUMN_NAME_ID, measurement.getID());
@@ -101,7 +102,14 @@ public class MeasurementManager {
                 measurement.getPic_back());
         values.put(DBContract.Measurement.COLUMN_NAME_NOTES,measurement.getNotes());
 
-		database.insert(DBContract.Measurement.TABLE_NAME, null, values);
+        if(available){
+            database.update(DBContract.Measurement.TABLE_NAME, values,
+                    DBContract.Measurement.COLUMN_NAME_ID + "='" + measurement.getID()
+                    + "'", null);
+        }else{
+            database.insert(DBContract.Measurement.TABLE_NAME, null, values);
+        }
+
 		database.close();
 	}
 
@@ -123,6 +131,10 @@ public class MeasurementManager {
 		}
 	}
 
+    /**
+     * Returns a list to populate saved measurements list.
+     * @return
+     */
 	public List<MeasurementListModel> getList() {
 
 		List<MeasurementListModel> measurementList = new ArrayList<MeasurementListModel>();
@@ -191,7 +203,12 @@ public class MeasurementManager {
 						+ "'", null);
 		database.close();
 	}
-	
+
+    /**
+     * Get measurement by measurement ID
+     * @param ID
+     * @return
+     */
 	public Measurement getMeasurement(String ID){
 		Log.d("measurementmanager", "getMeasurement");
 		this.database = this.dbHandler.getReadableDatabase();
@@ -219,10 +236,36 @@ public class MeasurementManager {
 			ms.setHeight(cursor.getString(17));
 			ms.setHip_height(cursor.getString(18));
 			ms.setWrist_girth(cursor.getString(19));
-			
+            ms.setHead_girth(cursor.getString(20));
+            ms.setHead_and_neck_length(cursor.getString(21));
+            ms.setUpper_chest_girth(cursor.getString(22));
+            ms.setShoulder_length(cursor.getString(23));
+            ms.setShoulder_and_arm_length(cursor.getString(24));
+            ms.setPic_front(cursor.getString(25));
+            ms.setPic_side(cursor.getString(26));
+            ms.setPic_back(cursor.getString(27));
+            ms.setNotes(cursor.getString(28));
+
 			cursor.close();
 			database.close();
 		}
 		return ms;
 	}
+
+    public boolean isMeasurement(String ID){
+        this.database = this.dbHandler.getReadableDatabase();
+        Cursor cursor = database
+                .query(DBContract.Measurement.TABLE_NAME,DBContract.Measurement.allColumns,
+                        DBContract.Measurement.COLUMN_NAME_ID + " ='" + ID
+                                + "'", null, null, null, null);
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            database.close();
+            return true;
+        }else {
+            cursor.close();
+            database.close();
+            return false;
+        }
+    }
 }

@@ -21,8 +21,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +50,7 @@ public class SavedActivity extends Activity {
 		finish();
 	}
 
-	/**
+    /**
 	 * UI fragment to display a list of measurements.
 	 */
 	public static class SavedList extends Fragment {
@@ -83,6 +85,7 @@ public class SavedActivity extends Activity {
 			}
 
 			list = (ListView) rootView.findViewById(R.id.listView1);
+            registerForContextMenu(list);
 			measurementsList = getDataForListView(rootView.getContext().getApplicationContext());
 			ListAdapter adapter = new SavedAdapter(rootView.getContext(),
 					measurementsList);
@@ -116,7 +119,30 @@ public class SavedActivity extends Activity {
 			}
 		}
 
-		/**
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            Activity activity=(Activity)v.getContext();
+            MenuInflater inflator = activity.getMenuInflater();
+            inflator.inflate(R.menu.saved_context, menu);
+
+        }
+
+        @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            AdapterView.AdapterContextMenuInfo iteminfo =(AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+            int index=iteminfo.position;
+            String ID=(String)measurementsList.get(index).getID();
+            switch (item.getItemId()){
+                case R.id.saved_cont_menu_edit:
+                    edit(ID);
+                    return true;
+
+            }
+            return super.onContextItemSelected(item);
+        }
+
+        /**
 		 * Checks if UI has two panes or not. If it has two panes(If device is
 		 * horizontal) load measurement data in same activity. Otherwise start a
 		 * new activity to show data.
@@ -153,6 +179,13 @@ public class SavedActivity extends Activity {
 
 			outState.putInt("shownIndex", shownIndex);
 		}
+
+        public void edit(String ID){
+            Measurement editMeasurement=MeasurementManager.getInstance(list.getContext().getApplicationContext()).getMeasurement(ID);
+            Intent intent=new Intent(list.getContext(),MeasurementActivity.class);
+            intent.putExtra("measurement", editMeasurement);
+            startActivity(intent);
+        }
 
 	}
 

@@ -227,6 +227,9 @@ public class MeasurementActivity extends Activity {
             }
         }
 
+        /**
+         * Set the number of filled fields.
+         */
         public static void filledSet() {
             int neck = 0;
             int shoulders = 0;
@@ -240,6 +243,7 @@ public class MeasurementActivity extends Activity {
             int trunk = 0;
             int heights = 0;
             int pics = 0;
+            int note=0;
             System.out.println(measurement.getMid_neck_girth() + "*");
 
             if (!measurement.getMid_neck_girth().equals("")) {
@@ -286,6 +290,34 @@ public class MeasurementActivity extends Activity {
             if (!measurement.getHip_height().equals("")) {
                 heights += 1;
             }
+            if (!measurement.getHead_girth().equals("")) {
+                head += 1;
+            }
+            if (!measurement.getHead_and_neck_length().equals("")) {
+                head += 1;
+            }
+            if (!measurement.getPic_front().equals("")) {
+                pics += 1;
+            }
+            if (!measurement.getPic_side().equals("")) {
+                pics += 1;
+            }
+            if (!measurement.getPic_back().equals("")) {
+                pics += 1;
+            }
+            if (!measurement.getNotes().equals("")) {
+                note += 1;
+            }
+            if (!measurement.getUpper_chest_girth().equals("")) {
+                chest += 1;
+            }
+            if (!measurement.getShoulder_and_arm_length().equals("")) {
+                shoulders += 1;
+            }
+            if (!measurement.getShoulder_length().equals("")) {
+                shoulders += 1;
+            }
+
 
             filledFields[HEAD] = head + HEAD_FILL;
             filledFields[HAND] = hand + HAND_FILL;
@@ -299,7 +331,8 @@ public class MeasurementActivity extends Activity {
             filledFields[HIP_AND_WAIST] = hipAndWaist + HIP_AND_WAIST_FILL;
             filledFields[SHOULDER] = shoulders + SHOULDER_FILL;
             filledFields[HEIGHTS] = heights + HEIGHTS_FILL;
-
+            filledFields[PICS] = pics + PICS_FILL;
+            filledFields[NOTES] = note + NOTES_FILL;
 
         }
 
@@ -437,27 +470,6 @@ public class MeasurementActivity extends Activity {
                 }
             });
 
-        }
-
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-
-            // Inflate the menu; this adds items to the action bar if it is
-            // present.
-            getMenuInflater().inflate(R.menu.item, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-            if (id == R.id.action_settings) {
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
         }
 
         @Override

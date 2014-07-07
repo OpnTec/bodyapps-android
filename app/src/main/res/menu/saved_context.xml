@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/saved_cont_menu_edit"
+        android:title="@string/edit"
+        android:icon="@drawable/ic_launcher"/>
+    <item
+        android:id="@+id/saved_cont_menu_hdf"
+        android:title="@string/get_hdf"
+        android:icon="@drawable/ic_launcher"/>
+</menu>
