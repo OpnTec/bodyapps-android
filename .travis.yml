@@ -9,6 +9,8 @@ before_install:
 android:
   components:
     - build-tools-19.1.0
+  licenses:
+    - android-sdk-license-5be876d5
 
 before_script:
   # Create and start emulator
