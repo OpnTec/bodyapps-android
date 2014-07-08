@@ -165,7 +165,7 @@ public class MeasurementActivity extends Activity {
                     progress.show();
                     context = v.getContext();
                     new HttpAsyncTaskMeasurement()
-                            .execute("http://192.168.1.2:8020/users/measurements");
+                            .execute("http://192.168.1.3:8020/users/measurements");
 
                 }
             });

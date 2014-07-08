@@ -4,9 +4,9 @@
     tools:context="org.fashiontec.bodyapps.main.ViewSavedActivity" >
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        android:id="@+id/saved_options_menu_edit"
+        android:title="@string/edit"
+        android:icon="@drawable/edit"
+        app:showAsAction="ifRoom"/>
 
 </menu>

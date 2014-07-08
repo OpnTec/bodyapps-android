@@ -65,6 +65,12 @@ public class Measurement implements Serializable {
         this.pic_front="";
         this.pic_side="";
         this.pic_back="";
+        this.head_girth="";
+        this.head_and_neck_length="";
+        this.shoulder_length="";
+        this.shoulder_and_arm_length="";
+        this.upper_chest_girth="";
+        this.notes="";
     }
 
     public String getNotes() {

@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class SyncUser extends Sync {
 
 	private static String json;
-	private static final String URL = "http://192.168.1.2:8020/users";
+	private static final String URL = "http://192.168.1.3:8020/users";
 	private static String result;
 	private static final int CON_TIMEOUT=5000;
 	private static final int SOC_TIMEOUT=5000;
