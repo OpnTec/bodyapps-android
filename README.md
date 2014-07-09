@@ -1,9 +1,11 @@
-bodyapps-android-gradle
+bodyapps-android
 =======================
-Android app for the #bodyapps project with Gradle
+Android app for the #bodyapps project with Gradle  
 
+**Travis build state** : [![Build Status](https://travis-ci.org/fashiontec/bodyapps-android.svg?branch=master)](https://travis-ci.org/fashiontec/bodyapps-android)  
+**Travis CI link** : https://travis-ci.org/fashiontec/bodyapps-android
 Building the project:
----------------------
+---------------------  
 The recommended IDE is Android Studio. The steps to build project in it are described below.  
 If you are using any other IDE treat the project as any other Gradle project.  
 But you may have to install Android SDK manually.  
