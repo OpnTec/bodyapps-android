@@ -53,7 +53,6 @@ public class CreateActivityTest extends ActivityInstrumentationTestCase2<CreateA
     }
 
     public void testCreateButton() throws Exception {
-        getInstrumentation().waitForIdleSync();
         Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(MeasurementActivity.class.getName(), null, false);
         TouchUtils.clickView(this, create);
         MeasurementActivity startedActivity = (MeasurementActivity) monitor.waitForActivityWithTimeout(1000);
@@ -91,6 +90,5 @@ public class CreateActivityTest extends ActivityInstrumentationTestCase2<CreateA
 
         this.sendKeys(KeyEvent.KEYCODE_BACK);
         this.sendKeys(KeyEvent.KEYCODE_BACK);
-//
     }
 }

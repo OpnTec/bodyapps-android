@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Shows a list of saved measurements in the database.
  */
-public class SavedActivity extends ActionBarActivity {
+public class SavedActivity extends Activity {
 
     public static String shownID;
 
@@ -232,7 +232,7 @@ public class SavedActivity extends ActionBarActivity {
     /**
      * Activity to show saved data if UI is in vertical mode.
      */
-    public static class ViewSavedActivity extends ActionBarActivity {
+    public static class ViewSavedActivity extends Activity {
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
