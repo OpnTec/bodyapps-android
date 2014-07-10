@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
 
     <application
         android:allowBackup="true"
@@ -23,6 +26,34 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <service
+            android:name="org.fashiontec.bodyapps.sync.SyncAuth">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+
+        <service
+            android:name="org.fashiontec.bodyapps.sync.SyncService"
+            android:exported="true"
+            android:process=":sync">
+        <intent-filter>
+            <action android:name="android.content.SyncAdapter"/>
+        </intent-filter>
+        <meta-data
+            android:name="android.content.SyncAdapter"
+            android:resource="@xml/sync_adapter" />
+        </service>
+
+        <provider
+            android:name="org.fashiontec.bodyapps.db.DataContentProvider"
+            android:authorities="org.fashiontec.bodyapps.sync.provider"
+            android:exported="false"
+            android:syncable="true"/>
 
         <activity
             android:name="org.fashiontec.bodyapps.main.MainActivity"

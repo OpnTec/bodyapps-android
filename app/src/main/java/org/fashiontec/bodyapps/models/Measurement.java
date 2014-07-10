@@ -17,8 +17,8 @@ public class Measurement implements Serializable {
 	private String userID;
 	private int personID;
 	private String created;
-	private String lastSync;
-	private String lastEdit;
+	private long lastSync;
+	private long lastEdit;
 	private int unit;
 	private String mid_neck_girth;
 	private String bust_girth;
@@ -49,6 +49,7 @@ public class Measurement implements Serializable {
         this.userID = userID;
         this.personID = personID;
         this.unit = unit;
+        this.lastSync=0;
         this.mid_neck_girth = "";
         this.bust_girth = "";
         this.waist_girth = "";
@@ -177,19 +178,19 @@ public class Measurement implements Serializable {
 		this.created = created;
 	}
 
-	public String getLastSync() {
+	public long getLastSync() {
 		return lastSync;
 	}
 
-	public void setLastSync(String lastSync) {
+	public void setLastSync(long lastSync) {
 		this.lastSync = lastSync;
 	}
 
-	public String getLastEdit() {
+	public long getLastEdit() {
 		return lastEdit;
 	}
 
-	public void setLastEdit(String lastEdit) {
+	public void setLastEdit(long lastEdit) {
 		this.lastEdit = lastEdit;
 	}
 

@@ -38,6 +38,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.fashiontec.bodyapps.managers.MeasurementManager;
 import org.fashiontec.bodyapps.managers.PersonManager;
@@ -403,8 +405,8 @@ public class MeasurementActivity extends Activity {
          * @return
          */
         public boolean DBSaver(Context context) {
-            Measurement m = measurement;
-            MeasurementManager.getInstance(context).addMeasurement(m);
+            measurement.setLastEdit(new Date().getTime());
+            MeasurementManager.getInstance(context).addMeasurement(measurement);
             return true;
         }
 

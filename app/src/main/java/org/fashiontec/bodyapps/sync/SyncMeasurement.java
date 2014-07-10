@@ -18,7 +18,7 @@ import org.fashiontec.bodyapps.models.Person;
  */
 public class SyncMeasurement extends Sync {
 
-    private static final String URL = "http://192.168.1.3:8020/users/measurements";
+    private static final String URL = "http://192.168.1.2:8020/users/measurements";
     private static String result;
     private static final int CON_TIMEOUT = 10000;
     private static final int SOC_TIMEOUT = 20000;
@@ -89,15 +89,15 @@ public class SyncMeasurement extends Sync {
         String[] images = SyncPic.encodePics(measurement.getPic_front(), measurement.getPic_side(),
                 measurement.getPic_back(), measurement.getID());
         if(images[0]!=null){
-            sm.POST("http://192.168.1.3:8020/users/measurements/image",images[0],CON_TIMEOUT,SOC_TIMEOUT);
+            sm.POST("http://192.168.1.2:8020/users/measurements/image",images[0],CON_TIMEOUT,SOC_TIMEOUT);
 //            System.out.println("images = " + "front");
         }
         if(images[1]!=null){
-            sm.POST("http://192.168.1.3:8020/users/measurements/image",images[1],CON_TIMEOUT,SOC_TIMEOUT);
+            sm.POST("http://192.168.1.2:8020/users/measurements/image",images[1],CON_TIMEOUT,SOC_TIMEOUT);
 //            System.out.println("images = side" );
         }
         if(images[2]!=null){
-            sm.POST("http://192.168.1.3:8020/users/measurements/image",images[2],CON_TIMEOUT,SOC_TIMEOUT);
+            sm.POST("http://192.168.1.2:8020/users/measurements/image",images[2],CON_TIMEOUT,SOC_TIMEOUT);
 
         }
         return result;

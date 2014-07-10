@@ -217,39 +217,13 @@ public class MeasurementManager {
 						DBContract.Measurement.COLUMN_NAME_ID + " ='" + ID
 								+ "'", null, null, null, null);
 
-		Measurement ms=null;
+		Measurement out=null;
 		if (cursor.moveToFirst()) {
-			ms=new Measurement(cursor.getString(0),cursor.getString(1),cursor.getInt(2),Integer.parseInt(cursor.getString(6)));
-			ms.setCreated(cursor.getString(3));
-			ms.setLastSync(cursor.getString(4));
-			ms.setLastEdit(cursor.getString(5));
-			ms.setMid_neck_girth(cursor.getString(7));
-			ms.setBust_girth(cursor.getString(8));
-			ms.setWaist_girth(cursor.getString(9));
-			ms.setHip_girth(cursor.getString(10));
-			ms.setAcross_back_shoulder_width(cursor.getString(11));
-			ms.setShoulder_drop(cursor.getString(12));
-			ms.setShoulder_slope_degrees(cursor.getString(13));
-			ms.setArm_length(cursor.getString(14));
-			ms.setUpper_arm_girth(cursor.getString(15));
-			ms.setArmscye_girth(cursor.getString(16));
-			ms.setHeight(cursor.getString(17));
-			ms.setHip_height(cursor.getString(18));
-			ms.setWrist_girth(cursor.getString(19));
-            ms.setHead_girth(cursor.getString(20));
-            ms.setHead_and_neck_length(cursor.getString(21));
-            ms.setUpper_chest_girth(cursor.getString(22));
-            ms.setShoulder_length(cursor.getString(23));
-            ms.setShoulder_and_arm_length(cursor.getString(24));
-            ms.setPic_front(cursor.getString(25));
-            ms.setPic_side(cursor.getString(26));
-            ms.setPic_back(cursor.getString(27));
-            ms.setNotes(cursor.getString(28));
-
+            out=createMeasurement(cursor);
 			cursor.close();
 			database.close();
 		}
-		return ms;
+		return out;
 	}
 
     public boolean isMeasurement(String ID){
@@ -267,5 +241,54 @@ public class MeasurementManager {
             database.close();
             return false;
         }
+    }
+
+    public Measurement getMeasurementSync(){
+        Measurement out=null;
+        this.database = this.dbHandler.getReadableDatabase();
+        Cursor cursor = database
+                .query(DBContract.Measurement.TABLE_NAME,DBContract.Measurement.allColumns,
+                        DBContract.Measurement.COLUMN_NAME_LAST_EDIT + " > "
+                                + DBContract.Measurement.COLUMN_NAME_LAST_SYNC
+                                , null, null, null, null);
+        if (cursor.moveToFirst()) {
+            out=createMeasurement(cursor);
+            System.out.println("MeasurementManager.getMeasurementSync"+out.getID());
+            cursor.close();
+            database.close();
+        }
+        return out;
+    }
+
+    private Measurement createMeasurement(Cursor cursor){
+        Measurement ms=null;
+        ms=new Measurement(cursor.getString(0),cursor.getString(1),cursor.getInt(2),Integer.parseInt(cursor.getString(6)));
+        ms.setCreated(cursor.getString(3));
+        ms.setLastSync(cursor.getLong(4));
+        ms.setLastEdit(cursor.getLong(5));
+        ms.setMid_neck_girth(cursor.getString(7));
+        ms.setBust_girth(cursor.getString(8));
+        ms.setWaist_girth(cursor.getString(9));
+        ms.setHip_girth(cursor.getString(10));
+        ms.setAcross_back_shoulder_width(cursor.getString(11));
+        ms.setShoulder_drop(cursor.getString(12));
+        ms.setShoulder_slope_degrees(cursor.getString(13));
+        ms.setArm_length(cursor.getString(14));
+        ms.setUpper_arm_girth(cursor.getString(15));
+        ms.setArmscye_girth(cursor.getString(16));
+        ms.setHeight(cursor.getString(17));
+        ms.setHip_height(cursor.getString(18));
+        ms.setWrist_girth(cursor.getString(19));
+        ms.setHead_girth(cursor.getString(20));
+        ms.setHead_and_neck_length(cursor.getString(21));
+        ms.setUpper_chest_girth(cursor.getString(22));
+        ms.setShoulder_length(cursor.getString(23));
+        ms.setShoulder_and_arm_length(cursor.getString(24));
+        ms.setPic_front(cursor.getString(25));
+        ms.setPic_side(cursor.getString(26));
+        ms.setPic_back(cursor.getString(27));
+        ms.setNotes(cursor.getString(28));
+
+        return ms;
     }
 }
