@@ -399,7 +399,7 @@ public class MeasurementActivity extends Activity {
          * @return
          */
         public boolean DBSaver(Context context) {
-            measurement.setLastEdit(new Date().getTime());
+            measurement.setSynced(false);
             MeasurementManager.getInstance(context).addMeasurement(measurement);
             return true;
         }

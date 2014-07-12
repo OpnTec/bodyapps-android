@@ -108,6 +108,7 @@ public abstract class DBContract {
         public static final String COLUMN_NAME_PIC_SIDE = "pic_side";
         public static final String COLUMN_NAME_PIC_BACK = "pic_back";
         public static final String COLUMN_NAME_NOTES = "notes";
+        public static final String COLUMN_NAME_IS_SYNCED = "is_synced";
 		
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+Measurement.TABLE_NAME+"("
@@ -139,7 +140,8 @@ public abstract class DBContract {
                 +Measurement.COLUMN_NAME_PIC_FRONT+TEXT_TYPE+COMMA_SEP
                 +Measurement.COLUMN_NAME_PIC_SIDE+TEXT_TYPE+COMMA_SEP
                 +Measurement.COLUMN_NAME_PIC_BACK+TEXT_TYPE+COMMA_SEP
-                +Measurement.COLUMN_NAME_NOTES
+                +Measurement.COLUMN_NAME_NOTES+TEXT_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_IS_SYNCED+NUMBER_TYPE
 				+")";
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 				+ Measurement.TABLE_NAME;
@@ -173,7 +175,8 @@ public abstract class DBContract {
             Measurement.COLUMN_NAME_PIC_FRONT,
             Measurement.COLUMN_NAME_PIC_SIDE,
             Measurement.COLUMN_NAME_PIC_BACK,
-            Measurement.COLUMN_NAME_NOTES
+            Measurement.COLUMN_NAME_NOTES,
+            Measurement.COLUMN_NAME_IS_SYNCED
 		};
 	}
 	

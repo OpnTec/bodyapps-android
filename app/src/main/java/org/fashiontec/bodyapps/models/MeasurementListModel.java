@@ -14,8 +14,17 @@ public class MeasurementListModel {
 	private String personName;
 	private String created;
 	private String personEmail;
+    private boolean isSynced;
 
-	public String getPersonEmail() {
+    public boolean isSynced() {
+        return isSynced;
+    }
+
+    public void setSynced(boolean isSynced) {
+        this.isSynced = isSynced;
+    }
+
+    public String getPersonEmail() {
 		return personEmail;
 	}
 

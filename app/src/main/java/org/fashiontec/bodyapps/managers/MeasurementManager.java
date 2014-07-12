@@ -51,10 +51,6 @@ public class MeasurementManager {
 				measurement.getPersonID());
 		values.put(DBContract.Measurement.COLUMN_NAME_CREATED,
 				measurement.getCreated());
-		values.put(DBContract.Measurement.COLUMN_NAME_LAST_SYNC,
-				measurement.getLastSync());
-		values.put(DBContract.Measurement.COLUMN_NAME_LAST_EDIT,
-				measurement.getLastEdit());
 		values.put(DBContract.Measurement.COLUMN_NAME_UNIT,
 				measurement.getUnit());
 		values.put(DBContract.Measurement.COLUMN_NAME_MID_NECK_GIRTH,
@@ -101,7 +97,7 @@ public class MeasurementManager {
         values.put(DBContract.Measurement.COLUMN_NAME_PIC_BACK,
                 measurement.getPic_back());
         values.put(DBContract.Measurement.COLUMN_NAME_NOTES,measurement.getNotes());
-
+        values.put(DBContract.Measurement.COLUMN_NAME_IS_SYNCED,measurement.isSynced());
         if(available){
             database.update(DBContract.Measurement.TABLE_NAME, values,
                     DBContract.Measurement.COLUMN_NAME_ID + "='" + measurement.getID()
@@ -147,6 +143,7 @@ public class MeasurementManager {
 					+ ", " + DBContract.Measurement.COLUMN_NAME_PERSON_ID
 					+ " AS pid" + ", "
 					+ DBContract.Measurement.COLUMN_NAME_CREATED + ", "
+                    + DBContract.Measurement.COLUMN_NAME_IS_SYNCED + ", "
 					+ DBContract.Person.COLUMN_NAME_NAME + ", "
 					+ DBContract.Person.COLUMN_NAME_EMAIL + " FROM "
 					+ DBContract.Measurement.TABLE_NAME + " AS C JOIN "
@@ -161,6 +158,7 @@ public class MeasurementManager {
 					+ ", " + DBContract.Measurement.COLUMN_NAME_PERSON_ID
 					+ " AS pid" + ", "
 					+ DBContract.Measurement.COLUMN_NAME_CREATED + ", "
+                    + DBContract.Measurement.COLUMN_NAME_IS_SYNCED + ", "
 					+ DBContract.Person.COLUMN_NAME_NAME + ", "
 					+ DBContract.Person.COLUMN_NAME_EMAIL + " FROM "
 					+ DBContract.Measurement.TABLE_NAME + " AS C JOIN "
@@ -179,9 +177,12 @@ public class MeasurementManager {
 				MeasurementListModel msmnt = new MeasurementListModel();
 				msmnt.setID(cursor.getString(0));
 				msmnt.setPersonID(Integer.parseInt(cursor.getString(1)));
+                if(cursor.getInt(3)==1){
+                    msmnt.setSynced(true);
+                }
 				msmnt.setCreated(cursor.getString(2));
-				msmnt.setPersonName(cursor.getString(3));
-				msmnt.setPersonEmail(cursor.getString(4));
+				msmnt.setPersonName(cursor.getString(4));
+				msmnt.setPersonEmail(cursor.getString(5));
 				// Adding msmnt to list
 				measurementList.add(msmnt);
 			} while (cursor.moveToNext());
@@ -248,9 +249,8 @@ public class MeasurementManager {
         this.database = this.dbHandler.getReadableDatabase();
         Cursor cursor = database
                 .query(DBContract.Measurement.TABLE_NAME,DBContract.Measurement.allColumns,
-                        DBContract.Measurement.COLUMN_NAME_LAST_EDIT + " > "
-                                + DBContract.Measurement.COLUMN_NAME_LAST_SYNC
-                                , null, null, null, null);
+                        DBContract.Measurement.COLUMN_NAME_IS_SYNCED + " = " +0
+                        , null, null, null, null);
         if (cursor.moveToFirst()) {
             out=createMeasurement(cursor);
             System.out.println("MeasurementManager.getMeasurementSync"+out.getID());
@@ -264,8 +264,6 @@ public class MeasurementManager {
         Measurement ms=null;
         ms=new Measurement(cursor.getString(0),cursor.getString(1),cursor.getInt(2),Integer.parseInt(cursor.getString(6)));
         ms.setCreated(cursor.getString(3));
-        ms.setLastSync(cursor.getLong(4));
-        ms.setLastEdit(cursor.getLong(5));
         ms.setMid_neck_girth(cursor.getString(7));
         ms.setBust_girth(cursor.getString(8));
         ms.setWaist_girth(cursor.getString(9));

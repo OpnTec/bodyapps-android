@@ -68,6 +68,9 @@ public class SavedAdapter extends BaseAdapter {
 		holder.txtName.setText(list.get(position).getPersonName());
 		holder.txtDate.setText(list.get(position).getPersonEmail());
 		holder.txtsync.setText(list.get(position).getCreated());
+        if(list.get(position).isSynced()){
+            holder.img.setImageResource(R.drawable.pro_pic);
+        }
 
 		return convertView;
 	}

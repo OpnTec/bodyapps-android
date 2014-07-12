@@ -17,8 +17,6 @@ public class Measurement implements Serializable {
 	private String userID;
 	private int personID;
 	private String created;
-	private long lastSync;
-	private long lastEdit;
 	private int unit;
 	private String mid_neck_girth;
 	private String bust_girth;
@@ -42,6 +40,7 @@ public class Measurement implements Serializable {
     private String pic_side;
     private String pic_back;
     private String notes;
+    boolean isSynced;
 
     public Measurement(String iD, String userID, int personID, int unit) {
         super();
@@ -49,7 +48,6 @@ public class Measurement implements Serializable {
         this.userID = userID;
         this.personID = personID;
         this.unit = unit;
-        this.lastSync=0;
         this.mid_neck_girth = "";
         this.bust_girth = "";
         this.waist_girth = "";
@@ -72,6 +70,8 @@ public class Measurement implements Serializable {
         this.shoulder_and_arm_length="";
         this.upper_chest_girth="";
         this.notes="";
+        this.isSynced=false;
+
     }
 
     public String getNotes() {
@@ -176,22 +176,6 @@ public class Measurement implements Serializable {
 
 	public void setCreated(String created) {
 		this.created = created;
-	}
-
-	public long getLastSync() {
-		return lastSync;
-	}
-
-	public void setLastSync(long lastSync) {
-		this.lastSync = lastSync;
-	}
-
-	public long getLastEdit() {
-		return lastEdit;
-	}
-
-	public void setLastEdit(long lastEdit) {
-		this.lastEdit = lastEdit;
 	}
 
 	public int getUnit() {
@@ -305,4 +289,12 @@ public class Measurement implements Serializable {
 	public void setWrist_girth(String wrist_girth) {
 		this.wrist_girth = wrist_girth;
 	}
+
+    public boolean isSynced() {
+        return isSynced;
+    }
+
+    public void setSynced(boolean isSynced) {
+        this.isSynced = isSynced;
+    }
 }
