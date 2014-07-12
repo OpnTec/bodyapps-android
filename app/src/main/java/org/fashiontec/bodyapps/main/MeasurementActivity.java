@@ -5,10 +5,13 @@
 
 package org.fashiontec.bodyapps.main;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -43,6 +46,7 @@ import java.util.Date;
 
 import org.fashiontec.bodyapps.managers.MeasurementManager;
 import org.fashiontec.bodyapps.managers.PersonManager;
+import org.fashiontec.bodyapps.managers.UserManager;
 import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.Person;
 import org.fashiontec.bodyapps.sync.SyncMeasurement;
@@ -115,7 +119,6 @@ public class MeasurementActivity extends Activity {
         int shownIndex = 0;// gets the index of shown measurement set
 
         private Button btnSave;
-        private Button btnSaveSync;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -149,26 +152,21 @@ public class MeasurementActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     DBSaver(v.getContext().getApplicationContext());
+                    String AUTHORITY = "org.fashiontec.bodyapps.sync.provider";
+                    // An account type, in the form of a domain name
+                    final String ACCOUNT_TYPE = "fashiontec.org";
+                    // The account name
+                    final String ACCOUNT = "dummyaccount";
+                    if(UserManager.getInstance(v.getContext().getApplicationContext()).getAutoSync()) {
+                        System.out.println("MainActivity.onCreate");
+                        Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
+                        AccountManager accountManager = (AccountManager) v.getContext().getSystemService(ACCOUNT_SERVICE);
+                        accountManager.addAccountExplicitly(newAccount, null, null);
+                        ContentResolver.setSyncAutomatically(newAccount, AUTHORITY, true);
+                        ContentResolver.requestSync(newAccount, "org.fashiontec.bodyapps.sync.provider", Bundle.EMPTY);
+                    }
                     Activity host = (Activity) v.getContext();
                     host.finish();
-                }
-            });
-
-            btnSaveSync = (Button) rootView
-                    .findViewById(R.id.measurement_btn_save_sync);
-            btnSaveSync.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    DBSaver(v.getContext().getApplicationContext());
-                    person = PersonManager.getInstance(v.getContext().getApplicationContext())
-                            .getPersonbyID(measurement.getPersonID());
-                    System.out.println(person.getName());
-                    progress.show();
-                    context = v.getContext();
-                    new HttpAsyncTaskMeasurement()
-                            .execute("http://192.168.1.3:8020/users/measurements");
-
                 }
             });
 
@@ -196,10 +194,6 @@ public class MeasurementActivity extends Activity {
                 viewSet(getView());
             }
 
-            if (measurement.getUserID().equals("NoID")
-                    || measurement.getUserID().equals("NoUser")) {
-                btnSaveSync.setEnabled(false);
-            }
         }
 
         /**
@@ -1080,42 +1074,6 @@ public class MeasurementActivity extends Activity {
             filledFields[NOTES] = filled + NOTES_FILL;
             ga.result = filledFields;
             gridView.setAdapter(ga);
-        }
-    }
-
-
-    public static void postUser(String url) {
-
-        mID = SyncMeasurement.sendMeasurement(measurement, person);
-    }
-
-    /**
-     * Async task to send measurement to web application
-     */
-    private static class HttpAsyncTaskMeasurement extends
-            AsyncTask<String, Void, String> {
-
-        // onPostExecute displays the results of the AsyncTask.
-        @Override
-        protected void onPostExecute(String result) {
-            Log.d("settings", "dataSent");
-            // Insert the user to the DataBase
-            if (mID != null) {
-                Log.d("settings", "done");
-                progress.dismiss();
-                Activity host = (Activity) context;
-                host.finish();
-            } else {
-                Log.d("settings", "cannot");
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... urls) {
-
-            postUser(urls[0]);
-            System.out.println(mID + "async");
-            return mID;
         }
     }
 

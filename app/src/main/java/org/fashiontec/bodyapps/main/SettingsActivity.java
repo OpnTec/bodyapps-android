@@ -383,10 +383,9 @@ public class SettingsActivity extends ActionBarActivity implements
 					txtConnected.setText("User connected");
 					userID = isUser;
                     chkAutoSync.setChecked(UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync());
-                    System.out.println("SettingsActivity.onConnected"+UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync());
                 }
 			}
-			// Update the UI after signin
+			// Update the UI after sign in
 			updateUI(true);
 		} else {
 			alertDialog2.show();

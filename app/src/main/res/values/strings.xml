@@ -64,5 +64,6 @@
     <string name="exit">Exit</string>
     <string name="edit">Edit</string>
     <string name="get_hdf">Get HDF</string>
+    <string name="save">Save</string>
 
 </resources>

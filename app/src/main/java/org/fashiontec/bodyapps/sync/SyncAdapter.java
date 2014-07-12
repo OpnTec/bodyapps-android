@@ -41,10 +41,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         while ((measurement = MeasurementManager.getInstance(getContext().getApplicationContext()).getMeasurementSync())!=null) {
             Person person = PersonManager.getInstance(getContext().getApplicationContext()).getPersonbyID(measurement.getPersonID());
             String out = SyncMeasurement.sendMeasurement(measurement, person);
-            measurement.setLastSync(new Date().getTime());
-            System.out.println("Date().getTime() = " + new Date().getTime());
-            System.out.println("measurement = " + measurement.getLastEdit());
-            MeasurementManager.getInstance(getContext().getApplicationContext()).addMeasurement(measurement);
+            if(out.equals(measurement.getID())) {
+                measurement.setLastSync(new Date().getTime());
+                System.out.println("Date().getTime() = " + new Date().getTime());
+                System.out.println("measurement = " + measurement.getLastEdit());
+                MeasurementManager.getInstance(getContext().getApplicationContext()).addMeasurement(measurement);
+            }
             System.out.println("out = " + out);
         }
 

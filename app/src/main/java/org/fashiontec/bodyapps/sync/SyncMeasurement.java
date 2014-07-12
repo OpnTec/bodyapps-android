@@ -13,6 +13,11 @@ import org.json.JSONObject;
 import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.Person;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /**
  * Handles the Sync of measurements
  */
@@ -101,6 +106,35 @@ public class SyncMeasurement extends Sync {
 
         }
         return result;
+    }
+
+    @Override
+    public String convertInputStreamToString(InputStream inputStream)
+            throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while ((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        //result = result.replaceAll("\"", "");
+        System.out.println("result : "+result);
+        JSONObject jObject;
+        String out=null;
+        try {
+            jObject = new JSONObject(result);
+            out= jObject.getString("data");
+            jObject = new JSONObject(out);
+            out=jObject.getString("m_id");
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return out;
+
     }
 
 }
