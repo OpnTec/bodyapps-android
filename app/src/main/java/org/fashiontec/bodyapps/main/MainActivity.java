@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import org.fashiontec.bodyapps.managers.UserManager;
+
 /**
  * 
  * Landing Screen of the app. All the functions will start from here.
@@ -51,11 +53,14 @@ public class MainActivity extends Activity implements OnClickListener{
 		settings.setOnClickListener(this);
 		create=(Button)findViewById(R.id.main_btn_create);
 		create.setOnClickListener(this);
-        Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
-        AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
-        accountManager.addAccountExplicitly(newAccount, null, null);
-        ContentResolver.setSyncAutomatically(newAccount, AUTHORITY, true);
-        ContentResolver.requestSync(newAccount, "org.fashiontec.bodyapps.sync.provider", Bundle.EMPTY);
+        if(UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync()) {
+            System.out.println("MainActivity.onCreate");
+            Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
+            AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
+            accountManager.addAccountExplicitly(newAccount, null, null);
+            ContentResolver.setSyncAutomatically(newAccount, AUTHORITY, true);
+            ContentResolver.requestSync(newAccount, "org.fashiontec.bodyapps.sync.provider", Bundle.EMPTY);
+        }
 	}
 
 	@Override

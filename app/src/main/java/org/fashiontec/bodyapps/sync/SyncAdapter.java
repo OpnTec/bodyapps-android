@@ -36,7 +36,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle bundle, String s,
                               ContentProviderClient contentProviderClient,
                               SyncResult syncResult) {
-        System.out.println("sync happen");
+        System.out.println("sync happend");
         Measurement measurement;
         while ((measurement = MeasurementManager.getInstance(getContext().getApplicationContext()).getMeasurementSync())!=null) {
             Person person = PersonManager.getInstance(getContext().getApplicationContext()).getPersonbyID(measurement.getPersonID());

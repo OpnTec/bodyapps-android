@@ -50,13 +50,15 @@ public abstract class DBContract {
 		public static final String COLUMN_NAME_NAME = "name";
 		public static final String COLUMN_NAME_IS_CURRENT = "current_user";
 		public static final String COLUMN_NAME_ID = "id";
+        public static final String COLUMN_NAME_AUTO_SYNC = "auto_sync";
 		
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+User.TABLE_NAME+"("
 				+User.COLUMN_NAME_ID+TEXT_TYPE+COMMA_SEP
 				+User.COLUMN_NAME_EMAIL+" TEXT PRIMARY KEY"+COMMA_SEP
 				+User.COLUMN_NAME_NAME+TEXT_TYPE+COMMA_SEP
-				+User.COLUMN_NAME_IS_CURRENT+NUMBER_TYPE
+				+User.COLUMN_NAME_IS_CURRENT+NUMBER_TYPE+COMMA_SEP
+                +User.COLUMN_NAME_AUTO_SYNC+NUMBER_TYPE
 				+")";
 		
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
@@ -66,7 +68,8 @@ public abstract class DBContract {
 			User.COLUMN_NAME_ID,
 			User.COLUMN_NAME_EMAIL,
 			User.COLUMN_NAME_NAME,
-			User.COLUMN_NAME_IS_CURRENT
+			User.COLUMN_NAME_IS_CURRENT,
+            User.COLUMN_NAME_AUTO_SYNC
 		};
 
 	}
