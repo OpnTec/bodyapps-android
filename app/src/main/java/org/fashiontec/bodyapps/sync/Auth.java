@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2014, Fashiontec (http://fashiontec.org)
+ * Licensed under LGPL, Version 3
+ */
 package org.fashiontec.bodyapps.sync;
 
 import android.accounts.AbstractAccountAuthenticator;
@@ -7,9 +11,6 @@ import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.os.Bundle;
 
-/**
- * Created by RAND on 7/9/2014.
- */
 public class Auth extends AbstractAccountAuthenticator {
     public Auth(Context context) {
         super(context);

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2014, Fashiontec (http://fashiontec.org)
+ * Licensed under LGPL, Version 3
+ */
 package org.fashiontec.bodyapps.sync;
 
 import android.accounts.Account;
@@ -15,6 +19,9 @@ import org.fashiontec.bodyapps.models.Person;
 
 import java.util.Date;
 
+/**
+ * Manages the automatic sync of measurements with web API
+ */
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     ContentResolver mContentResolver;

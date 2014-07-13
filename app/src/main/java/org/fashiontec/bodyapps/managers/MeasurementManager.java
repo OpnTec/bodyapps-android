@@ -39,6 +39,10 @@ public class MeasurementManager {
 		return measurementManager;
 	}
 
+    /**
+     * Adds given measurement to the database
+     * @param measurement
+     */
 	public void addMeasurement(Measurement measurement) {
 		Log.d("measurementmanager", "addMeasurement");
         boolean available=isMeasurement(measurement.getID());
@@ -190,6 +194,10 @@ public class MeasurementManager {
 		return measurementList;
 	}
 
+    /**
+     * Set the given user ID to all the measurements which have no user ID.
+     * @param ID
+     */
 	public void setUserID(String ID) {
 		Log.d("measurementManager", "setUserID");
 
@@ -227,6 +235,11 @@ public class MeasurementManager {
 		return out;
 	}
 
+    /**
+     * Check whether the given measurement exists
+     * @param ID
+     * @return
+     */
     public boolean isMeasurement(String ID){
         this.database = this.dbHandler.getReadableDatabase();
         Cursor cursor = database
@@ -244,6 +257,10 @@ public class MeasurementManager {
         }
     }
 
+    /**
+     * Checks for un synced measurements and gets them
+     * @return
+     */
     public Measurement getMeasurementSync(){
         Measurement out=null;
         this.database = this.dbHandler.getReadableDatabase();
@@ -260,6 +277,11 @@ public class MeasurementManager {
         return out;
     }
 
+    /**
+     * Creates the measurement object using the fields in the given Cursor
+     * @param cursor
+     * @return
+     */
     private Measurement createMeasurement(Cursor cursor){
         Measurement ms=null;
         ms=new Measurement(cursor.getString(0),cursor.getString(1),cursor.getInt(2),Integer.parseInt(cursor.getString(6)));

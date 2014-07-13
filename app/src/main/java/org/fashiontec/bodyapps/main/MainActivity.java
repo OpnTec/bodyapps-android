@@ -32,13 +32,10 @@ public class MainActivity extends Activity implements OnClickListener{
 	private Button saved;
 	private Button settings;
 	private Button exit;
+
     public static final String AUTHORITY = "org.fashiontec.bodyapps.sync.provider";
-    // An account type, in the form of a domain name
     public static final String ACCOUNT_TYPE = "fashiontec.org";
-    // The account name
     public static final String ACCOUNT = "dummyaccount";
-    // Instance fields
-    Account mAccount;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
