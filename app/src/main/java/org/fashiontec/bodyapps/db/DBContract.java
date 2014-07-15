@@ -109,6 +109,11 @@ public abstract class DBContract {
         public static final String COLUMN_NAME_PIC_BACK = "pic_back";
         public static final String COLUMN_NAME_NOTES = "notes";
         public static final String COLUMN_NAME_IS_SYNCED = "is_synced";
+        public static final String COLUMN_NAME_SHOULDER_TYPE= "shoulder_type";
+        public static final String COLUMN_NAME_ARM_TYPE = "arm_type";
+        public static final String COLUMN_NAME_CHEST_TYPE = "chest_type";
+        public static final String COLUMN_NAME_BACK_SHAPE = "back_shape";
+        public static final String COLUMN_NAME_STOMACH_SHAPE = "stomach_shape";
 		
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+Measurement.TABLE_NAME+"("
@@ -141,7 +146,12 @@ public abstract class DBContract {
                 +Measurement.COLUMN_NAME_PIC_SIDE+TEXT_TYPE+COMMA_SEP
                 +Measurement.COLUMN_NAME_PIC_BACK+TEXT_TYPE+COMMA_SEP
                 +Measurement.COLUMN_NAME_NOTES+TEXT_TYPE+COMMA_SEP
-                +Measurement.COLUMN_NAME_IS_SYNCED+NUMBER_TYPE
+                +Measurement.COLUMN_NAME_IS_SYNCED+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_SHOULDER_TYPE+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_ARM_TYPE+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_CHEST_TYPE+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_BACK_SHAPE+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_STOMACH_SHAPE+NUMBER_TYPE
 				+")";
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 				+ Measurement.TABLE_NAME;
@@ -176,7 +186,12 @@ public abstract class DBContract {
             Measurement.COLUMN_NAME_PIC_SIDE,
             Measurement.COLUMN_NAME_PIC_BACK,
             Measurement.COLUMN_NAME_NOTES,
-            Measurement.COLUMN_NAME_IS_SYNCED
+            Measurement.COLUMN_NAME_IS_SYNCED,
+            Measurement.COLUMN_NAME_SHOULDER_TYPE,
+            Measurement.COLUMN_NAME_ARM_TYPE,
+            Measurement.COLUMN_NAME_CHEST_TYPE,
+            Measurement.COLUMN_NAME_BACK_SHAPE,
+            Measurement.COLUMN_NAME_STOMACH_SHAPE+NUMBER_TYPE
 		};
 	}
 	

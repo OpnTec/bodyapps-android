@@ -31,10 +31,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -553,6 +555,7 @@ public class MeasurementActivity extends Activity {
         private static EditText across_back_shoulder_width;
         private static EditText shoulder_drop;
         private static EditText shoulder_slope_degrees;
+        private static Spinner shoulder_type;
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -569,6 +572,11 @@ public class MeasurementActivity extends Activity {
                     .findViewById(R.id.shoulder_length);
             shoulder_and_arm_length = (EditText) rootView
                     .findViewById(R.id.shoulder_and_arm_length);
+            shoulder_type=(Spinner) rootView.findViewById(R.id.shoulder_type);
+            ArrayAdapter<CharSequence> shoulderAdapter = ArrayAdapter
+                    .createFromResource(rootView.getContext(), R.array.shoulder_type_array,
+                            android.R.layout.simple_spinner_item);
+            shoulder_type.setAdapter(shoulderAdapter);
 
 
             across_back_shoulder_width.setText(measurement
@@ -579,6 +587,7 @@ public class MeasurementActivity extends Activity {
             shoulder_length.setText(measurement.getShoulder_length());
             shoulder_and_arm_length
                     .setText(measurement.getShoulder_and_arm_length());
+            shoulder_type.setSelection(measurement.getShoulder_type());
 
             return rootView;
         }
@@ -597,6 +606,7 @@ public class MeasurementActivity extends Activity {
                     .getText().toString());
             measurement.setShoulder_length(shoulder_length.getText().toString());
             measurement.setShoulder_and_arm_length(shoulder_and_arm_length.getText().toString());
+            measurement.setShoulder_type(shoulder_type.getSelectedItemPosition());
 
             if (!across_back_shoulder_width.getText().toString().equals("")) {
                 filled += 1;
@@ -625,15 +635,22 @@ public class MeasurementActivity extends Activity {
     public static class Chest extends Fragment {
         private static EditText bust_girth;
         private static EditText upper_chest_girth;
+        private static Spinner chest_type;
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.chest, container, false);
             bust_girth = (EditText) rootView.findViewById(R.id.bust_girth);
             upper_chest_girth = (EditText) rootView.findViewById(R.id.upper_chest_girth);
+            chest_type=(Spinner) rootView.findViewById(R.id.chest_type);
+            ArrayAdapter<CharSequence> chestAdapter = ArrayAdapter
+                    .createFromResource(rootView.getContext(), R.array.chest_type_array,
+                            android.R.layout.simple_spinner_item);
+            chest_type.setAdapter(chestAdapter);
 
             bust_girth.setText(measurement.getBust_girth());
             upper_chest_girth.setText(measurement.getUpper_chest_girth());
+            chest_type.setSelection(measurement.getChest_type());
             return rootView;
         }
 
@@ -644,6 +661,7 @@ public class MeasurementActivity extends Activity {
             int filled = 0;
             measurement.setBust_girth(bust_girth.getText().toString());
             measurement.setUpper_chest_girth(upper_chest_girth.getText().toString());
+            measurement.setChest_type(chest_type.getSelectedItemPosition());
             if (!bust_girth.getText().toString().equals("")) {
                 filled += 1;
             }
@@ -663,6 +681,7 @@ public class MeasurementActivity extends Activity {
         private static EditText upper_arm_girth;
         private static EditText armscye_girth;
         private static EditText wrist_girth;
+        private static Spinner arm_type;
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -674,11 +693,17 @@ public class MeasurementActivity extends Activity {
             armscye_girth = (EditText) rootView
                     .findViewById(R.id.armscye_girth);
             wrist_girth = (EditText) rootView.findViewById(R.id.wrist_girth);
+            arm_type=(Spinner) rootView.findViewById(R.id.arm_type);
+            ArrayAdapter<CharSequence> armAdapter = ArrayAdapter
+                    .createFromResource(rootView.getContext(), R.array.arm_type_array,
+                            android.R.layout.simple_spinner_item);
+            arm_type.setAdapter(armAdapter);
 
             arm_length.setText(measurement.getArm_length());
             upper_arm_girth.setText(measurement.getUpper_arm_girth());
             armscye_girth.setText(measurement.getArmscye_girth());
             wrist_girth.setText(measurement.getWrist_girth());
+            arm_type.setSelection(measurement.getArm_type());
             return rootView;
         }
 
@@ -693,6 +718,7 @@ public class MeasurementActivity extends Activity {
                     .setUpper_arm_girth(upper_arm_girth.getText().toString());
             measurement.setArmscye_girth(armscye_girth.getText().toString());
             measurement.setWrist_girth(wrist_girth.getText().toString());
+            measurement.setArm_type(arm_type.getSelectedItemPosition());
 
             if (!arm_length.getText().toString().equals("")) {
                 filled += 1;
@@ -778,10 +804,33 @@ public class MeasurementActivity extends Activity {
     }
 
     public static class Trunk extends Fragment {
+        private static Spinner back_shape;
+        private static Spinner stomach_shape;
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.trunk, container, false);
+            back_shape=(Spinner) rootView.findViewById(R.id.back_shape);
+            ArrayAdapter<CharSequence> backShapeAdapter = ArrayAdapter
+                    .createFromResource(rootView.getContext(), R.array.back_shape_array,
+                            android.R.layout.simple_spinner_item);
+            back_shape.setAdapter(backShapeAdapter);
+
+            stomach_shape=(Spinner) rootView.findViewById(R.id.stomach_shape);
+            ArrayAdapter<CharSequence> stomachShapeAdapter = ArrayAdapter
+                    .createFromResource(rootView.getContext(), R.array.stomach_shape_array,
+                            android.R.layout.simple_spinner_item);
+            stomach_shape.setAdapter(stomachShapeAdapter);
+
+            back_shape.setSelection(measurement.getBack_shape());
+            stomach_shape.setSelection(measurement.getStomach_shape());
             return rootView;
+        }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+            measurement.setBack_shape(back_shape.getSelectedItemPosition());
+            measurement.setStomach_shape(stomach_shape.getSelectedItemPosition());
         }
     }
 

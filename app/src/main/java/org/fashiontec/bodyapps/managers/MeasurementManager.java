@@ -102,6 +102,12 @@ public class MeasurementManager {
                 measurement.getPic_back());
         values.put(DBContract.Measurement.COLUMN_NAME_NOTES,measurement.getNotes());
         values.put(DBContract.Measurement.COLUMN_NAME_IS_SYNCED,measurement.isSynced());
+        values.put(DBContract.Measurement.COLUMN_NAME_SHOULDER_TYPE,measurement.getShoulder_type());
+        values.put(DBContract.Measurement.COLUMN_NAME_CHEST_TYPE,measurement.getChest_type());
+        values.put(DBContract.Measurement.COLUMN_NAME_ARM_TYPE,measurement.getArm_type());
+        values.put(DBContract.Measurement.COLUMN_NAME_BACK_SHAPE,measurement.getBack_shape());
+        values.put(DBContract.Measurement.COLUMN_NAME_STOMACH_SHAPE,measurement.getStomach_shape());
+
         if(available){
             database.update(DBContract.Measurement.TABLE_NAME, values,
                     DBContract.Measurement.COLUMN_NAME_ID + "='" + measurement.getID()
@@ -308,6 +314,11 @@ public class MeasurementManager {
         ms.setPic_side(cursor.getString(26));
         ms.setPic_back(cursor.getString(27));
         ms.setNotes(cursor.getString(28));
+        ms.setShoulder_type(cursor.getInt(30));
+        ms.setArm_type(cursor.getInt(31));
+        ms.setChest_type(cursor.getInt(32));
+        ms.setBack_shape(cursor.getInt(33));
+        ms.setStomach_shape(cursor.getInt(34));
 
         return ms;
     }

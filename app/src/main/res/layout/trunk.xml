@@ -1,17 +1,77 @@
-<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
-<!--Licensed under LGPL, Version 3-->
+<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)--><!--Licensed under LGPL, Version 3-->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.fashiontec.bodyapps.main.ItemActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame">
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/trunk" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trunk"
+            android:textColor="#F09918"
+            android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/back_shape"
+            android:textColor="#d06516"
+            android:textSize="@dimen/abc_action_bar_title_text_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <Spinner
+                android:id="@+id/back_shape"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5" />
+            <!--<Button-->
+            <!--android:id="@+id/btn_wrist_girth"-->
+            <!--android:layout_width="0dip"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight=".2"-->
+            <!--android:text="@string/help" />-->
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/stomach_shape"
+            android:textColor="#d06516"
+            android:textSize="@dimen/abc_action_bar_title_text_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <Spinner
+                android:id="@+id/stomach_shape"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5" />
+            <!--<Button-->
+            <!--android:id="@+id/btn_wrist_girth"-->
+            <!--android:layout_width="0dip"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight=".2"-->
+            <!--android:text="@string/help" />-->
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

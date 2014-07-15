@@ -385,7 +385,7 @@ public class SavedActivity extends ActionBarActivity {
                 upper_arm_girth.setText("Upper arm girth : " + measurement.getUpper_arm_girth() + unit);
                 wrist_girth.setText("Wrist girth : " + measurement.getWrist_girth() + unit);
                 hip_girth.setText("Hip girth : " + measurement.getHip_girth() + unit);
-                waist_girth.setText("Wiast girth : " + measurement.getWaist_girth() + unit);
+                waist_girth.setText("Waist girth : " + measurement.getWaist_girth() + unit);
                 height.setText("Height : " + measurement.getHeight() + unit);
                 hip_height.setText("Hip height : " + measurement.getHip_height() + unit);
 

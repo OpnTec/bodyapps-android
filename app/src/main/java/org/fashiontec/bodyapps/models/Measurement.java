@@ -41,6 +41,11 @@ public class Measurement implements Serializable {
     private String pic_back;
     private String notes;
     boolean isSynced;
+    private int shoulder_type;
+    private int arm_type;
+    private int chest_type;
+    private int back_shape;
+    private int stomach_shape;
 
     public Measurement(String iD, String userID, int personID, int unit) {
         super();
@@ -296,5 +301,45 @@ public class Measurement implements Serializable {
 
     public void setSynced(boolean isSynced) {
         this.isSynced = isSynced;
+    }
+
+    public int getShoulder_type() {
+        return shoulder_type;
+    }
+
+    public void setShoulder_type(int shoulder_type) {
+        this.shoulder_type = shoulder_type;
+    }
+
+    public int getArm_type() {
+        return arm_type;
+    }
+
+    public void setArm_type(int arm_type) {
+        this.arm_type = arm_type;
+    }
+
+    public int getChest_type() {
+        return chest_type;
+    }
+
+    public void setChest_type(int chest_type) {
+        this.chest_type = chest_type;
+    }
+
+    public int getBack_shape() {
+        return back_shape;
+    }
+
+    public void setBack_shape(int back_shape) {
+        this.back_shape = back_shape;
+    }
+
+    public int getStomach_shape() {
+        return stomach_shape;
+    }
+
+    public void setStomach_shape(int stomach_shape) {
+        this.stomach_shape = stomach_shape;
     }
 }

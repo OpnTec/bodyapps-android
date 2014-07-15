@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
+<!--Licensed under LGPL, Version 3-->
+
+<resources>
+    <string-array name="back_shape_array">
+        <item>@string/normal</item>
+        <item>@string/hunched</item>
+        <item>@string/erect</item>
+        <item>@string/slight_forward_stoop</item>
+        <item>@string/curved_upper_back</item>
+    </string-array>
+</resources>

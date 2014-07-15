@@ -2,12 +2,11 @@
 <resources>
 
     <string name="app_name">BodyApp</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_saved">SavedActivity</string>
-    <string name="title_activity_view_saved">ViewSavedActivity</string>
+    <string name="title_activity_saved">Saved</string>
+    <string name="title_activity_view_saved">Saved</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_create">CreateActivity</string>
+    <string name="title_activity_create">Create</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
     <string name="email">e-mail</string>
@@ -65,5 +64,27 @@
     <string name="edit">Edit</string>
     <string name="get_hdf">Get HDF</string>
     <string name="save">Save</string>
+    <string name="arm_type">Arm type</string>
+    <string name="normal">Normal</string>
+    <string name="muscular_and_developed">Muscular and developed</string>
+    <string name="large_not_muscular">Large, not muscular</string>
+    <string name="normal_flat_chest">Normal flat chest</string>
+    <string name="collapsed_chest">Collapsed chest</string>
+    <string name="large_and_sagging">Large and sagging</string>
+    <string name="chest_type">Chest type</string>
+    <string name="shoulder_type">Shoulder type</string>
+    <string name="square_shoulders">Square shoulders</string>
+    <string name="normal_shoulders">Normal shoulders</string>
+    <string name="sloping_shoulders">Sloping shoulders</string>
+    <string name="back_shape">Back shape</string>
+    <string name="flat_stomach">Flat stomach</string>
+    <string name="slight_stomach">Slight stomach</string>
+    <string name="protruding_stomach">Protruding stomach</string>
+    <string name="stomach_shape">Stomach shape</string>
+    <string name="hunched">Hunched</string>
+    <string name="erect">Erect</string>
+    <string name="slight_forward_stoop">Slight forward stoop</string>
+    <string name="curved_upper_back">Curved upper back</string>
+
 
 </resources>
