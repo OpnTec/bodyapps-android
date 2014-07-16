@@ -314,6 +314,11 @@ public class MeasurementManager {
         ms.setPic_side(cursor.getString(26));
         ms.setPic_back(cursor.getString(27));
         ms.setNotes(cursor.getString(28));
+        if(cursor.getInt(29)==1) {
+            ms.setSynced(true);
+        }else {
+            ms.setSynced(false);
+        }
         ms.setShoulder_type(cursor.getInt(30));
         ms.setArm_type(cursor.getInt(31));
         ms.setChest_type(cursor.getInt(32));

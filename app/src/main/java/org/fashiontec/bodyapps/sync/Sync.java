@@ -6,9 +6,16 @@
 package org.fashiontec.bodyapps.sync;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -84,4 +91,38 @@ public class Sync {
 		return result;
 
 	}
+
+    public int GET(String url, String file){
+
+        try {
+            URL u = new URL(url);
+            HttpURLConnection c = (HttpURLConnection) u.openConnection();
+            c.setConnectTimeout(2000);
+            c.setRequestMethod("GET");
+            c.setDoOutput(true);
+            c.connect();
+
+
+            FileOutputStream f = new FileOutputStream(new File(file));
+            InputStream in = c.getInputStream();
+
+            //here’s the download code
+            byte[] buffer = new byte[1024];
+            int len1 = 0;
+
+            while ((len1 = in.read(buffer)) > 0) {
+                f.write(buffer, 0, len1);
+            }
+            f.close();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+            return -1;
+        }
+        return 1;
+    }
 }

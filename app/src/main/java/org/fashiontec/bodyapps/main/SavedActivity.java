@@ -6,11 +6,15 @@
 package org.fashiontec.bodyapps.main;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
@@ -31,6 +35,7 @@ import org.fashiontec.bodyapps.managers.PersonManager;
 import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.MeasurementListModel;
 import org.fashiontec.bodyapps.models.Person;
+import org.fashiontec.bodyapps.sync.HDF;
 
 import java.io.Serializable;
 import java.util.List;
@@ -41,10 +46,13 @@ import java.util.List;
 public class SavedActivity extends ActionBarActivity {
 
     public static String shownID;
-
+    ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progress=new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
         setContentView(R.layout.activity_saved);
     }
 
@@ -85,6 +93,28 @@ public class SavedActivity extends ActionBarActivity {
             return super.onOptionsItemSelected(item);
         }
         return false;
+    }
+
+    public void getHDF(){
+        Measurement m=MeasurementManager.getInstance(this).getMeasurement(shownID);
+        Person p=PersonManager.getInstance(this).getPersonbyID(m.getPersonID());
+        if(m.isSynced()==true){
+            new DownloadFileAsync().execute(m.getUserID(),shownID,p.getName());
+        }else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Error")
+                    .setMessage("Sync first")
+                    .setIcon(R.drawable.warning)
+                    .setCancelable(false)
+                    .setNegativeButton("Close",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            builder.create().show();
+        }
     }
 
 
@@ -176,12 +206,15 @@ public class SavedActivity extends ActionBarActivity {
             AdapterView.AdapterContextMenuInfo iteminfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int index = iteminfo.position;
             String ID = (String) measurementsList.get(index).getID();
+            SavedActivity sa = (SavedActivity) list.getContext();
             switch (item.getItemId()) {
                 case R.id.saved_cont_menu_edit:
-                    SavedActivity sa = (SavedActivity) list.getContext();
                     sa.edit(ID);
                     return true;
-
+                case R.id.saved_cont_menu_hdf:
+                    System.out.println("SavedActivity.onOptionsItemSelected");
+                    sa.getHDF();
+                    return true;
             }
             return super.onContextItemSelected(item);
         }
@@ -394,8 +427,24 @@ public class SavedActivity extends ActionBarActivity {
 
         }
 
-
     }
+    private class DownloadFileAsync extends AsyncTask<String, String, String> {
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress.show();
+        }
+        @Override
+        protected String doInBackground(String... val) {
+            HDF.getHDF(val[0],val[1],val[2]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String unused) {
+            progress.dismiss();
+        }
+    }
 
 }
