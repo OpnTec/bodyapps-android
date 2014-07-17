@@ -6,12 +6,14 @@ import android.util.Log;
 import java.io.File;
 
 public class HDF extends Sync{
-    private static String URL = "http://192.168.1.2:8020/users/";
+
     private static String result;
 
     public static int getHDF(String userID, String measurementID, String name){
+        String URL = "http://192.168.1.2:8020/users/";
         String HDF_DIRECTORY_NAME = "BodyApp" + File.separator + name;
         URL=URL+userID+"/measurements/"+measurementID;
+        System.out.println("URL = " + URL);
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
