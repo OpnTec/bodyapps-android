@@ -14,9 +14,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,6 +40,7 @@ import org.fashiontec.bodyapps.models.MeasurementListModel;
 import org.fashiontec.bodyapps.models.Person;
 import org.fashiontec.bodyapps.sync.HDF;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
@@ -47,9 +51,11 @@ public class SavedActivity extends ActionBarActivity {
 
     public static String shownID;
     ProgressDialog progress;
+    private static Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity=this;
         progress=new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Wait while loading...");
@@ -99,7 +105,8 @@ public class SavedActivity extends ActionBarActivity {
         Measurement m=MeasurementManager.getInstance(this).getMeasurement(shownID);
         Person p=PersonManager.getInstance(this).getPersonbyID(m.getPersonID());
         if(m.isSynced()==true){
-            new DownloadFileAsync().execute(m.getUserID(),shownID,p.getName());
+            String path=getPath(shownID,p.getName());
+            new DownloadFileAsync().execute(m.getUserID(),m.getID(),path);
         }else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Error")
@@ -117,6 +124,37 @@ public class SavedActivity extends ActionBarActivity {
         }
     }
 
+    public String getPath(String name, String measurementID){
+        String out=null;
+        String HDF_DIRECTORY_NAME = "BodyApp" + File.separator + name;
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                HDF_DIRECTORY_NAME
+        );
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d(HDF_DIRECTORY_NAME, "Oops! Failed create "
+                        + HDF_DIRECTORY_NAME + " directory");
+            }
+        }
+
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + measurementID+".rar");
+        return mediaFile.getPath();
+    }
+
+    public static void mail(String path){
+        File file=new File(path);
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.putExtra(Intent.EXTRA_SUBJECT, "Title");
+        i.putExtra(Intent.EXTRA_TEXT, "Content");
+        i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+        i.setType("text/plain");
+        activity.startActivity(Intent.createChooser(i, "Your email id"));
+    }
 
     /**
      * UI fragment to display a list of measurements.
@@ -429,6 +467,8 @@ public class SavedActivity extends ActionBarActivity {
 
     }
     private class DownloadFileAsync extends AsyncTask<String, String, String> {
+        int result=0;
+        String path;
 
         @Override
         protected void onPreExecute() {
@@ -437,13 +477,34 @@ public class SavedActivity extends ActionBarActivity {
         }
         @Override
         protected String doInBackground(String... val) {
-            HDF.getHDF(val[0],val[1],val[2]);
+            path=val[2];
+            result=HDF.getHDF(val[0],val[1],val[2]);
             return null;
         }
 
         @Override
         protected void onPostExecute(String unused) {
             progress.dismiss();
+            Log.d("asynct1","posr exe");
+//            if(result>0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mail(path);
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+            alert.show();
+            Log.d("asynct1","posr exe2");
+//            }
         }
     }
 
