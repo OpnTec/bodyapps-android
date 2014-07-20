@@ -1,12 +1,9 @@
 <!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
 <!--Licensed under LGPL, Version 3-->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="org.fashiontec.bodyapps.main.ItemActivity"
-    tools:ignore="MergeRootFrame" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <TextView
         android:id="@+id/textView1"
@@ -14,4 +11,4 @@
         android:layout_height="wrap_content"
         android:text="@string/foot" />
 
-</FrameLayout>
+</ScrollView>

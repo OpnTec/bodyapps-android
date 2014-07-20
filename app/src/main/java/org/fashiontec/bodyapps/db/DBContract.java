@@ -50,13 +50,15 @@ public abstract class DBContract {
 		public static final String COLUMN_NAME_NAME = "name";
 		public static final String COLUMN_NAME_IS_CURRENT = "current_user";
 		public static final String COLUMN_NAME_ID = "id";
+        public static final String COLUMN_NAME_AUTO_SYNC = "auto_sync";
 		
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+User.TABLE_NAME+"("
 				+User.COLUMN_NAME_ID+TEXT_TYPE+COMMA_SEP
 				+User.COLUMN_NAME_EMAIL+" TEXT PRIMARY KEY"+COMMA_SEP
 				+User.COLUMN_NAME_NAME+TEXT_TYPE+COMMA_SEP
-				+User.COLUMN_NAME_IS_CURRENT+NUMBER_TYPE
+				+User.COLUMN_NAME_IS_CURRENT+NUMBER_TYPE+COMMA_SEP
+                +User.COLUMN_NAME_AUTO_SYNC+NUMBER_TYPE
 				+")";
 		
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
@@ -66,7 +68,8 @@ public abstract class DBContract {
 			User.COLUMN_NAME_ID,
 			User.COLUMN_NAME_EMAIL,
 			User.COLUMN_NAME_NAME,
-			User.COLUMN_NAME_IS_CURRENT
+			User.COLUMN_NAME_IS_CURRENT,
+            User.COLUMN_NAME_AUTO_SYNC
 		};
 
 	}
@@ -105,6 +108,12 @@ public abstract class DBContract {
         public static final String COLUMN_NAME_PIC_SIDE = "pic_side";
         public static final String COLUMN_NAME_PIC_BACK = "pic_back";
         public static final String COLUMN_NAME_NOTES = "notes";
+        public static final String COLUMN_NAME_IS_SYNCED = "is_synced";
+        public static final String COLUMN_NAME_SHOULDER_TYPE= "shoulder_type";
+        public static final String COLUMN_NAME_ARM_TYPE = "arm_type";
+        public static final String COLUMN_NAME_CHEST_TYPE = "chest_type";
+        public static final String COLUMN_NAME_BACK_SHAPE = "back_shape";
+        public static final String COLUMN_NAME_STOMACH_SHAPE = "stomach_shape";
 		
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+Measurement.TABLE_NAME+"("
@@ -112,8 +121,8 @@ public abstract class DBContract {
 				+Measurement.COLUMN_NAME_USER_ID+TEXT_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_PERSON_ID+NUMBER_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_CREATED+TEXT_TYPE+COMMA_SEP
-				+Measurement.COLUMN_NAME_LAST_SYNC+TEXT_TYPE+COMMA_SEP
-				+Measurement.COLUMN_NAME_LAST_EDIT+TEXT_TYPE+COMMA_SEP
+				+Measurement.COLUMN_NAME_LAST_SYNC+NUMBER_TYPE+COMMA_SEP
+				+Measurement.COLUMN_NAME_LAST_EDIT+NUMBER_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_UNIT+TEXT_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_MID_NECK_GIRTH+TEXT_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_BUST_GIRTH+TEXT_TYPE+COMMA_SEP
@@ -136,7 +145,13 @@ public abstract class DBContract {
                 +Measurement.COLUMN_NAME_PIC_FRONT+TEXT_TYPE+COMMA_SEP
                 +Measurement.COLUMN_NAME_PIC_SIDE+TEXT_TYPE+COMMA_SEP
                 +Measurement.COLUMN_NAME_PIC_BACK+TEXT_TYPE+COMMA_SEP
-                +Measurement.COLUMN_NAME_NOTES
+                +Measurement.COLUMN_NAME_NOTES+TEXT_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_IS_SYNCED+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_SHOULDER_TYPE+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_ARM_TYPE+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_CHEST_TYPE+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_BACK_SHAPE+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_STOMACH_SHAPE+NUMBER_TYPE
 				+")";
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 				+ Measurement.TABLE_NAME;
@@ -170,7 +185,13 @@ public abstract class DBContract {
             Measurement.COLUMN_NAME_PIC_FRONT,
             Measurement.COLUMN_NAME_PIC_SIDE,
             Measurement.COLUMN_NAME_PIC_BACK,
-            Measurement.COLUMN_NAME_NOTES
+            Measurement.COLUMN_NAME_NOTES,
+            Measurement.COLUMN_NAME_IS_SYNCED,
+            Measurement.COLUMN_NAME_SHOULDER_TYPE,
+            Measurement.COLUMN_NAME_ARM_TYPE,
+            Measurement.COLUMN_NAME_CHEST_TYPE,
+            Measurement.COLUMN_NAME_BACK_SHAPE,
+            Measurement.COLUMN_NAME_STOMACH_SHAPE+NUMBER_TYPE
 		};
 	}
 	

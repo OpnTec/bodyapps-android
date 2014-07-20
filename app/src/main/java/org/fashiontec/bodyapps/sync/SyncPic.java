@@ -11,12 +11,16 @@ import android.util.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Class to encode images in JSON
  */
-public class SyncPic {
+public class SyncPic extends Sync{
 
     public static String[] encodePics(String front, String side, String back, String mid){
         String frontEnc=null;
@@ -31,9 +35,6 @@ public class SyncPic {
             frontEnc = Base64.encodeToString(b, Base64.DEFAULT);
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.accumulate("m_id",mid);
-                jsonObject.accumulate("side","front");
-                jsonObject.accumulate("type","jpg");
                 jsonObject.accumulate("binary_data",frontEnc);
                 frontEnc=jsonObject.toString();
 
@@ -49,9 +50,6 @@ public class SyncPic {
             sideEnc = Base64.encodeToString(b, Base64.DEFAULT);
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.accumulate("m_id",mid);
-                jsonObject.accumulate("side","side");
-                jsonObject.accumulate("m_id","jpg");
                 jsonObject.accumulate("binary_data",sideEnc);
                 sideEnc=jsonObject.toString();
 
@@ -67,9 +65,6 @@ public class SyncPic {
             backEnc = Base64.encodeToString(b, Base64.DEFAULT);
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.accumulate("m_id",mid);
-                jsonObject.accumulate("side","back");
-                jsonObject.accumulate("m_id","jpg");
                 jsonObject.accumulate("binary_data",backEnc);
                 backEnc=jsonObject.toString();
 
@@ -82,5 +77,34 @@ public class SyncPic {
 //        System.out.println(frontEnc);
         String[] encoded={frontEnc,sideEnc,backEnc};
         return encoded;
+    }
+
+    @Override
+    public String convertInputStreamToString(InputStream inputStream)
+            throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while ((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        //result = result.replaceAll("\"", "");
+        System.out.println("result : "+result);
+        JSONObject jObject;
+        String out=null;
+        try {
+            jObject = new JSONObject(result);
+            out= jObject.getString("data");
+            jObject = new JSONObject(out);
+            out=jObject.getString("id");
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return out;
+
     }
 }

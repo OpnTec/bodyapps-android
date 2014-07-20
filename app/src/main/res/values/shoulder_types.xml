@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
+<!--Licensed under LGPL, Version 3-->
+
+<resources>
+    <string-array name="shoulder_type_array">
+        <item>@string/square_shoulders</item>
+        <item>@string/normal_shoulders</item>
+        <item>@string/sloping_shoulders</item>
+    </string-array>
+</resources>

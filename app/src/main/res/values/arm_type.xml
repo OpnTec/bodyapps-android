@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
+<!--Licensed under LGPL, Version 3-->
+
+<resources>
+    <string-array name="arm_type_array">
+        <item>@string/normal</item>
+        <item>@string/muscular_and_developed</item>
+        <item>@string/large_not_muscular</item>
+    </string-array>
+</resources>

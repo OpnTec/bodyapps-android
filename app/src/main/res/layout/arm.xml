@@ -1,12 +1,9 @@
 <!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
 <!--Licensed under LGPL, Version 3-->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="org.fashiontec.bodyapps.main.ItemActivity"
-    tools:ignore="MergeRootFrame" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -141,6 +138,31 @@
                 <!--android:layout_weight=".2"-->
                 <!--android:text="@string/help" />-->
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/arm_type"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:layout_marginTop="10dp"
+            android:textColor="#d06516" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+            <Spinner
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:id="@+id/arm_type" />
+            <!--<Button-->
+            <!--android:id="@+id/btn_wrist_girth"-->
+            <!--android:layout_width="0dip"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight=".2"-->
+            <!--android:text="@string/help" />-->
+        </LinearLayout>
     </LinearLayout>
 
-</FrameLayout>
+</ScrollView>

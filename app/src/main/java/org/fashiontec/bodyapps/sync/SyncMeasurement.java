@@ -13,12 +13,17 @@ import org.json.JSONObject;
 import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.Person;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /**
  * Handles the Sync of measurements
  */
 public class SyncMeasurement extends Sync {
 
-    private static final String URL = "http://192.168.1.3:8020/users/measurements";
+//    private static String URL = "http://192.168.1.2:8020/users/";
     private static String result;
     private static final int CON_TIMEOUT = 10000;
     private static final int SOC_TIMEOUT = 20000;
@@ -31,6 +36,8 @@ public class SyncMeasurement extends Sync {
      * @return
      */
     public static String sendMeasurement(Measurement measurement, Person person) {
+        String URL="http://192.168.1.2:8020/users/"+measurement.getUserID()+"/measurements";
+        Log.d("syncMeasure url",URL);
         String json = null;
         JSONObject jsonObject = new JSONObject();
         try {
@@ -85,22 +92,51 @@ public class SyncMeasurement extends Sync {
         SyncMeasurement sm = new SyncMeasurement();
 
         result = sm.POST(URL, json, CON_TIMEOUT, SOC_TIMEOUT);
-//        System.out.println(sm.POST(URL, json, CON_TIMEOUT, SOC_TIMEOUT));
+        Log.d("syncMeasure","finished");
+        String imgURL="http://192.168.1.2:8020/users/"+measurement.getUserID()+"/measurements/"+measurement.getID()+"/image/";
         String[] images = SyncPic.encodePics(measurement.getPic_front(), measurement.getPic_side(),
                 measurement.getPic_back(), measurement.getID());
+
+        SyncPic sp=new SyncPic();
         if(images[0]!=null){
-            sm.POST("http://192.168.1.3:8020/users/measurements/image",images[0],CON_TIMEOUT,SOC_TIMEOUT);
-//            System.out.println("images = " + "front");
+            sp.POST(imgURL+="body_front",images[0],CON_TIMEOUT,SOC_TIMEOUT);
         }
         if(images[1]!=null){
-            sm.POST("http://192.168.1.3:8020/users/measurements/image",images[1],CON_TIMEOUT,SOC_TIMEOUT);
-//            System.out.println("images = side" );
+            sp.POST(imgURL+="body_side",images[1],CON_TIMEOUT,SOC_TIMEOUT);
         }
         if(images[2]!=null){
-            sm.POST("http://192.168.1.3:8020/users/measurements/image",images[2],CON_TIMEOUT,SOC_TIMEOUT);
-
+            sp.POST(imgURL+="body_back",images[2],CON_TIMEOUT,SOC_TIMEOUT);
         }
         return result;
+    }
+
+    @Override
+    public String convertInputStreamToString(InputStream inputStream)
+            throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while ((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        //result = result.replaceAll("\"", "");
+        System.out.println("result : "+result);
+        JSONObject jObject;
+        String out=null;
+        try {
+            jObject = new JSONObject(result);
+            out= jObject.getString("data");
+            jObject = new JSONObject(out);
+            out=jObject.getString("m_id");
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return out;
+
     }
 
 }

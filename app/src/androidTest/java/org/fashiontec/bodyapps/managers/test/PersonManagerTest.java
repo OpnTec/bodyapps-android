@@ -27,11 +27,12 @@ public class PersonManagerTest extends AndroidTestCase {
         assertNotNull(pm.getPerson(person));
     }
 
-    public void testGetPersonByID() throws Exception {
+    public int testGetPersonByID() throws Exception {
         int id=pm.getPerson(person);
         assertFalse("No person",id==-1);
         Person p=pm.getPersonbyID(id);
         assertTrue(person.getEmail().equals(p.getEmail()));
+        return id;
     }
 
 }

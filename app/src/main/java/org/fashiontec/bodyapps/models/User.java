@@ -17,11 +17,14 @@ public class User implements Serializable {
 	private String id;
 	private Boolean isCurrent;
 
-	public User(String email, String name, String id) {
+    private Boolean autoSync;
+
+	public User(String email, String name, String id, boolean autoSync) {
 		super();
 		this.email = email;
 		this.name = name;
 		this.id = id;
+        this.autoSync=autoSync;
 	}
 
 	public String getEmail() {
@@ -56,4 +59,11 @@ public class User implements Serializable {
 		this.isCurrent = isCurrent;
 	}
 
+    public Boolean getAutoSync() {
+        return autoSync;
+    }
+
+    public void setAutoSync(Boolean autoSync) {
+        this.autoSync = autoSync;
+    }
 }

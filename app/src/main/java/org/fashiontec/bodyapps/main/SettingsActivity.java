@@ -39,6 +39,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -77,6 +79,7 @@ public class SettingsActivity extends ActionBarActivity implements
 	private TextView txtEmail;
 	private TextView txtConnected;
 	private LinearLayout llProfileLayout;
+    private CheckBox chkAutoSync;
 	private static ProgressDialog progress;
 	private static AlertDialog alertDialog;
 	private static AlertDialog alertDialog2;
@@ -97,6 +100,18 @@ public class SettingsActivity extends ActionBarActivity implements
 		txtEmail = (TextView) findViewById(R.id.settings_txt_email);
 		txtConnected = (TextView) findViewById(R.id.settings_txt_connected);
 		llProfileLayout = (LinearLayout) findViewById(R.id.settings_layout);
+
+        chkAutoSync=(CheckBox)findViewById(R.id.settings_chk_autosync);
+        chkAutoSync.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    UserManager.getInstance(getBaseContext().getApplicationContext()).setAutoSync(true);
+                }else{
+                    UserManager.getInstance(getBaseContext().getApplicationContext()).setAutoSync(false);
+                }
+            }
+        });
 
 		// Button click listeners
 		btnSignIn.setOnClickListener(this);
@@ -344,7 +359,7 @@ public class SettingsActivity extends ActionBarActivity implements
 		if (email != null && personName != null) {
 			
 			// creates a new user and check if he exists on db
-			User user = new User(email, personName, userID);
+			User user = new User(email, personName, userID, false);
 			String isUser = UserManager.getInstance(getBaseContext().getApplicationContext()).isUser(
 					user);
 
@@ -367,9 +382,10 @@ public class SettingsActivity extends ActionBarActivity implements
 					UserManager.getInstance(getBaseContext().getApplicationContext()).setCurrent(user);
 					txtConnected.setText("User connected");
 					userID = isUser;
-				}
+                    chkAutoSync.setChecked(UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync());
+                }
 			}
-			// Update the UI after signin
+			// Update the UI after sign in
 			updateUI(true);
 		} else {
 			alertDialog2.show();
@@ -444,7 +460,7 @@ public class SettingsActivity extends ActionBarActivity implements
 
 			if (userID != "") {
 
-				User user = new User(email, personName, userID);
+				User user = new User(email, personName, userID, true);
 				String isUser = UserManager.getInstance(getBaseContext().getApplicationContext())
 						.isUser(user);
 				if (isUser == null) {
@@ -453,16 +469,18 @@ public class SettingsActivity extends ActionBarActivity implements
 
 				} else {
 					UserManager.getInstance(getBaseContext().getApplicationContext()).setID(user);
+                    UserManager.getInstance(getBaseContext().getApplicationContext()).setAutoSync(true);
 					UserManager.getInstance(getBaseContext().getApplicationContext()).setCurrent(user);
 				}
 				//if user added measurements before sign in, those measurements will be added to the signed in user
 				MeasurementManager.getInstance(getBaseContext().getApplicationContext()).setUserID(userID);
 				txtConnected.setText("User connected");
+                chkAutoSync.setChecked( UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync());
 			} else {
 				Log.d("settings", "cannot");
 				// adds the user to the DB, but without the ID if the user
 				// currently not on db
-				User user = new User(email, personName, "NoID");
+				User user = new User(email, personName, "NoID", false);
 				String isUser = UserManager.getInstance(getBaseContext().getApplicationContext())
 						.isUser(user);
 				if (isUser == null) {
@@ -473,7 +491,9 @@ public class SettingsActivity extends ActionBarActivity implements
 				MeasurementManager.getInstance(getBaseContext().getApplicationContext()).setUserID("NoID");
 				alertDialog.show();
 				txtConnected.setText("User not connected");
-			}
+                chkAutoSync.setChecked(false);
+                chkAutoSync.setEnabled(false);
+            }
 			progress.dismiss();
 		}
 

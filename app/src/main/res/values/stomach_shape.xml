@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
+<!--Licensed under LGPL, Version 3-->
+
+<resources>
+    <string-array name="stomach_shape_array">
+        <item>@string/flat_stomach</item>
+        <item>@string/slight_stomach</item>
+        <item>@string/protruding_stomach</item>
+    </string-array>
+</resources>

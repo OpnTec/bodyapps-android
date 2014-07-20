@@ -6,13 +6,20 @@
 package org.fashiontec.bodyapps.main;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,7 +38,9 @@ import org.fashiontec.bodyapps.managers.PersonManager;
 import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.MeasurementListModel;
 import org.fashiontec.bodyapps.models.Person;
+import org.fashiontec.bodyapps.sync.HDF;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
@@ -41,10 +50,15 @@ import java.util.List;
 public class SavedActivity extends ActionBarActivity {
 
     public static String shownID;
-
+    ProgressDialog progress;
+    private static Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity=this;
+        progress=new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
         setContentView(R.layout.activity_saved);
     }
 
@@ -53,6 +67,10 @@ public class SavedActivity extends ActionBarActivity {
         finish();
     }
 
+    /**
+     * Go to edit View
+     * @param ID
+     */
     public void edit(String ID) {
         Measurement editMeasurement = MeasurementManager.getInstance(this.getApplicationContext()).getMeasurement(ID);
         Intent intent = new Intent(SavedActivity.this, MeasurementActivity.class);
@@ -64,8 +82,6 @@ public class SavedActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            // Inflate the menu; this adds items to the action bar if it is
-            // present.
             getMenuInflater().inflate(R.menu.view_saved, menu);
             return true;
         }
@@ -87,6 +103,70 @@ public class SavedActivity extends ActionBarActivity {
         return false;
     }
 
+    /**
+     * Manages the HDF getting process
+     */
+    public void getHDF(){
+        Measurement m=MeasurementManager.getInstance(this).getMeasurement(shownID);
+        Person p=PersonManager.getInstance(this).getPersonbyID(m.getPersonID());
+        if(m.isSynced()==true){
+            String path=getPath(p.getName(),shownID);
+            new DownloadFileAsync().execute(m.getUserID(),m.getID(),path,p.getName());
+        }else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Sync needed")
+                    .setMessage("You have to sync before getting HDF!")
+                    .setIcon(R.drawable.warning)
+                    .setCancelable(false)
+                    .setNegativeButton("Close",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            builder.create().show();
+        }
+    }
+
+    /**
+     * Returns a file path to save the HDF
+     * @param name
+     * @param measurementID
+     * @return
+     */
+    public String getPath(String name, String measurementID){
+        String out=null;
+        String HDF_DIRECTORY_NAME = "BodyApp" + File.separator + name;
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                HDF_DIRECTORY_NAME
+        );
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d(HDF_DIRECTORY_NAME, "Oops! Failed create "
+                        + HDF_DIRECTORY_NAME + " directory");
+            }
+        }
+
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + measurementID+".zip");
+        return mediaFile.getPath();
+    }
+
+    public static void mail(String path){
+        File file=new File(path);
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_SUBJECT, "Title");
+        i.putExtra(Intent.EXTRA_TEXT, "Content");
+        i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+        i.setType("text/plain");
+        activity.startActivity(Intent.createChooser(i, "Your email id"));
+    }
 
     /**
      * UI fragment to display a list of measurements.
@@ -176,12 +256,15 @@ public class SavedActivity extends ActionBarActivity {
             AdapterView.AdapterContextMenuInfo iteminfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int index = iteminfo.position;
             String ID = (String) measurementsList.get(index).getID();
+            SavedActivity sa = (SavedActivity) list.getContext();
             switch (item.getItemId()) {
                 case R.id.saved_cont_menu_edit:
-                    SavedActivity sa = (SavedActivity) list.getContext();
                     sa.edit(ID);
                     return true;
-
+                case R.id.saved_cont_menu_hdf:
+                    System.out.println("SavedActivity.onOptionsItemSelected");
+                    sa.getHDF();
+                    return true;
             }
             return super.onContextItemSelected(item);
         }
@@ -385,7 +468,7 @@ public class SavedActivity extends ActionBarActivity {
                 upper_arm_girth.setText("Upper arm girth : " + measurement.getUpper_arm_girth() + unit);
                 wrist_girth.setText("Wrist girth : " + measurement.getWrist_girth() + unit);
                 hip_girth.setText("Hip girth : " + measurement.getHip_girth() + unit);
-                waist_girth.setText("Wiast girth : " + measurement.getWaist_girth() + unit);
+                waist_girth.setText("Waist girth : " + measurement.getWaist_girth() + unit);
                 height.setText("Height : " + measurement.getHeight() + unit);
                 hip_height.setText("Hip height : " + measurement.getHip_height() + unit);
 
@@ -394,8 +477,53 @@ public class SavedActivity extends ActionBarActivity {
 
         }
 
-
     }
 
+    /**
+     * Async task to download the HDF
+     */
+    private class DownloadFileAsync extends AsyncTask<String, String, String> {
+        int result=0;
+        String path="Downloads/BodyApp/";
+        String actualPath;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress.show();
+        }
+        @Override
+        protected String doInBackground(String... val) {
+            path=path+val[3]+"/"+val[1]+".zip";
+            actualPath=val[2];
+            result=HDF.getHDF(val[0],val[1],val[2]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String unused) {
+            progress.dismiss();
+            Log.d("asynct1","posr exe");
+            if(result>0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setMessage("Your HDF is saved at "+path+". Do you want to send it now?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mail(actualPath);
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+            alert.show();
+            Log.d("asynct1","posr exe2");
+            }
+        }
+    }
 
 }

@@ -18,7 +18,7 @@ public class UnitTest extends TestCase {
     }
 
     public void testUser() throws Exception {
-        User user=new User("test1","test2","test3");
+        User user=new User("test1","test2","test3",true);
         assertNotNull(user);
         assertEquals("test1", user.getEmail());
         assertEquals("test2",user.getName());

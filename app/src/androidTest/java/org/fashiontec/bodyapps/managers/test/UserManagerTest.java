@@ -19,7 +19,7 @@ public class UserManagerTest extends AndroidTestCase {
         context = getContext().getApplicationContext();
         um=UserManager.getInstance(context);
         assertNotNull("User Manger null",um);
-        user=new User("test_email","test_name","test_id");
+        user=new User("test_email","test_name","test_id",true);
 
     }
 
