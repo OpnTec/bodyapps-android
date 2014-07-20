@@ -96,19 +96,16 @@ public class SyncMeasurement extends Sync {
         String imgURL="http://192.168.1.2:8020/users/"+measurement.getUserID()+"/measurements/"+measurement.getID()+"/image/";
         String[] images = SyncPic.encodePics(measurement.getPic_front(), measurement.getPic_side(),
                 measurement.getPic_back(), measurement.getID());
+
+        SyncPic sp=new SyncPic();
         if(images[0]!=null){
-            imgURL+="body_front";
-            sm.POST(imgURL,images[0],CON_TIMEOUT,SOC_TIMEOUT);
-            Log.d("syncMeasure img front",images[0]);
-//            System.out.println("images = " + "front");
+            sp.POST(imgURL+="body_front",images[0],CON_TIMEOUT,SOC_TIMEOUT);
         }
         if(images[1]!=null){
-            sm.POST(imgURL,images[1],CON_TIMEOUT,SOC_TIMEOUT);
-//            System.out.println("images = side" );
+            sp.POST(imgURL+="body_side",images[1],CON_TIMEOUT,SOC_TIMEOUT);
         }
         if(images[2]!=null){
-            sm.POST(imgURL,images[2],CON_TIMEOUT,SOC_TIMEOUT);
-
+            sp.POST(imgURL+="body_back",images[2],CON_TIMEOUT,SOC_TIMEOUT);
         }
         return result;
     }

@@ -98,25 +98,19 @@ public class Sync {
             URL u = new URL(url);
             HttpURLConnection c = (HttpURLConnection) u.openConnection();
             c.setConnectTimeout(2000);
-//            c.setRequestMethod("GET");
             c.setRequestProperty ("Accept", "application/vnd.valentina.hdf");
-//            c.setDoOutput(true);
             c.connect();
-
 
             FileOutputStream f = new FileOutputStream(new File(file));
             InputStream in = c.getInputStream();
 
-            //here’s the download code
+            //download code
             byte[] buffer = new byte[1024];
             int len1 = 0;
-            String s="";
 
             while ((len1 = in.read(buffer)) > 0) {
-                s+=new String(buffer);
                 f.write(buffer, 0, len1);
             }
-            Log.d("get",s);
             f.close();
         } catch (ProtocolException e) {
             e.printStackTrace();
