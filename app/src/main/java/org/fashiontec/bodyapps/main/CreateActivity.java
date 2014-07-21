@@ -51,11 +51,8 @@ public class CreateActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				if (setData()) {
-					// System.out.println("here");
-					
-				}else{
-					
+				if (!setData()) {
+                    dialog("Error","Invalid data");
 				}
 
 			}
@@ -125,12 +122,7 @@ public class CreateActivity extends Activity {
 			}
 
 			measurement.setCreated(dateText);
-			
-			if (userID.equals("NoID")) {
-				dialog("Not Connected","You won't be able to sync until you connect to Web App");
-			}else{
-				closer();
-			}
+			closer();
 
 		} else {
 			System.out.println("CA else");
@@ -149,7 +141,7 @@ public class CreateActivity extends Activity {
 			}
 
 			measurement.setCreated(dateText);
-			dialog("No user","Currently no user in app. All measurements will be added to the account of the user who logs in next");
+            closer();
 		}
 		
 
@@ -188,7 +180,6 @@ public class CreateActivity extends Activity {
 							public void onClick(DialogInterface dialog,
 									int id) {
 								dialog.cancel();
-								closer();
 							}
 						});
 		
