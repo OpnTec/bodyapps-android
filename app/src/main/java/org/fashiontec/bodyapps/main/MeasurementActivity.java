@@ -8,6 +8,7 @@ package org.fashiontec.bodyapps.main;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -15,6 +16,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -43,6 +45,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Serializable;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -875,6 +878,7 @@ public class MeasurementActivity extends Activity {
 
     public static class Pics extends Fragment {
         private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
+        private static final int OPEN_IMAGE_REQUEST_CODE=101;
         private static final int FRONT = 1;
         private static final int SIDE = 2;
         private static final int BACK = 3;
@@ -903,7 +907,7 @@ public class MeasurementActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     type = FRONT;
-                    captureImage();
+                    dialog();
                 }
             });
             captureSide = (Button) rootView.findViewById(R.id.pics_btn_side);
@@ -911,7 +915,7 @@ public class MeasurementActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     type = SIDE;
-                    captureImage();
+                    dialog();
                 }
             });
             captureBack = (Button) rootView.findViewById(R.id.pics_btn_back);
@@ -919,7 +923,7 @@ public class MeasurementActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     type = BACK;
-                    captureImage();
+                    dialog();
                 }
             });
             return rootView;
@@ -953,6 +957,9 @@ public class MeasurementActivity extends Activity {
             outState.putInt("type", type);
         }
 
+        /**
+         * open camera
+         */
         private void captureImage() {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             fileUri = getOutputMediaFileUri();
@@ -960,12 +967,32 @@ public class MeasurementActivity extends Activity {
             startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
         }
 
+        /**
+         * open gallery
+         */
+        private void openImage() {
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            photoPickerIntent.setType("image/*");
+            startActivityForResult(photoPickerIntent, OPEN_IMAGE_REQUEST_CODE);
+        }
+
+        private void removeImage() {
+            if(type==FRONT){
+                measurement.setPic_front("");
+            }else if(type==SIDE){
+                measurement.setPic_side("");
+            }
+            else if(type==BACK){
+                measurement.setPic_back("");
+            }
+            previewCapturedImage();
+        }
+
         public Uri getOutputMediaFileUri() {
             return Uri.fromFile(getOutputMediaFile());
         }
 
         private static File getOutputMediaFile() {
-
             File mediaStorageDir = new File(
                     Environment
                             .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
@@ -1004,14 +1031,36 @@ public class MeasurementActivity extends Activity {
                 if (resultCode == RESULT_OK) {
                     if (type == FRONT) {
                         measurement.setPic_front(fileUri.getPath());
-                        System.out.println(fileUri.toString());
-                        System.out.println(fileUri.getPath());
                     } else if (type == SIDE) {
                         measurement.setPic_side(fileUri.getPath());
                     } else if (type == BACK) {
                         measurement.setPic_back(fileUri.getPath());
                     }
                     compress();
+                    previewCapturedImage();
+                }
+            }else if(requestCode ==OPEN_IMAGE_REQUEST_CODE){
+                if (resultCode == RESULT_OK) {
+
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getActivity().getContentResolver().query(
+                            selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String filePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    fileUri= Uri.fromFile(new File(filePath));
+                    Log.d("path",fileUri.getPath());
+
+                    if (type == FRONT) {
+                        measurement.setPic_front(fileUri.getPath());
+                    } else if (type == SIDE) {
+                        measurement.setPic_side(fileUri.getPath());
+                    } else if (type == BACK) {
+                        measurement.setPic_back(fileUri.getPath());
+                    }
+                    //compress();
                     previewCapturedImage();
                 }
             }
@@ -1027,23 +1076,35 @@ public class MeasurementActivity extends Activity {
                 options.inSampleSize = 8;
 
                 if (type == FRONT) {
-                    final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_front(),
-                            options);
-                    imgFront.setVisibility(View.VISIBLE);
-                    imgFront.setImageBitmap(bitmap);
-                    imgFront.setRotation(90);
+                    if(!measurement.getPic_front().equals("")) {
+                        final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_front(),
+                                options);
+                        imgFront.setVisibility(View.VISIBLE);
+                        imgFront.setImageBitmap(bitmap);
+                        imgFront.setRotation(90);
+                    }else {
+                        imgFront.setVisibility(View.GONE);
+                    }
                 } else if (type == SIDE) {
-                    final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_side(),
-                            options);
-                    imgSide.setVisibility(View.VISIBLE);
-                    imgSide.setImageBitmap(bitmap);
-                    imgSide.setRotation(90);
+                    if(!measurement.getPic_side().equals("")) {
+                        final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_side(),
+                                options);
+                        imgSide.setVisibility(View.VISIBLE);
+                        imgSide.setImageBitmap(bitmap);
+                        imgSide.setRotation(90);
+                    }else {
+                        imgSide.setVisibility(View.GONE);
+                    }
                 } else if (type == BACK) {
-                    final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_back(),
-                            options);
-                    imgBack.setVisibility(View.VISIBLE);
-                    imgBack.setImageBitmap(bitmap);
-                    imgBack.setRotation(90);
+                    if(!measurement.getPic_back().equals("")) {
+                        final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_back(),
+                                options);
+                        imgBack.setVisibility(View.VISIBLE);
+                        imgBack.setImageBitmap(bitmap);
+                        imgBack.setRotation(90);
+                    }else {
+                        imgBack.setVisibility(View.GONE);
+                    }
                 }
             } catch (NullPointerException e) {
                 e.printStackTrace();
@@ -1068,6 +1129,39 @@ public class MeasurementActivity extends Activity {
             } catch (Exception e) {
                 Log.e("MyLog", e.toString());
             }
+        }
+
+        public void dialog(){
+            LayoutInflater factory = LayoutInflater.from(getActivity());
+            final View dialogView = factory.inflate(
+                    R.layout.choose_image_dialog, null);
+            final AlertDialog chooseDialog = new AlertDialog.Builder(getActivity()).create();
+            chooseDialog.setView(dialogView);
+            dialogView.findViewById(R.id.imgdialog_btn_cam).setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    captureImage();
+                    chooseDialog.dismiss();
+                }
+            });
+            dialogView.findViewById(R.id.imgdialog_btn_file).setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    openImage();
+                    chooseDialog.dismiss();
+                }
+            });
+            dialogView.findViewById(R.id.imgdialog_btn_remove).setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    removeImage();
+                    chooseDialog.dismiss();
+                }
+            });
+            chooseDialog.show();
         }
 
         @Override

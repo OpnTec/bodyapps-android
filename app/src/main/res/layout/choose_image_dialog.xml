@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose image from :"
+        android:textColor="#F09918"
+        android:textSize="28sp"
+        android:id="@+id/textView" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="5dp">
+
+        <Button
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:text="@string/camera"
+            android:id="@+id/imgdialog_btn_cam"
+            android:textColor="@drawable/btn_txt"
+            style="@style/btnStyleios"
+            android:layout_weight=".5"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:text="@string/from_file"
+            android:id="@+id/imgdialog_btn_file"
+            android:textColor="@drawable/btn_txt"
+            style="@style/btnStyleios"
+            android:layout_weight=".5"
+            android:layout_marginBottom="7dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:weightSum="1"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="7dp">
+
+        <Button
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:text="@string/remove"
+            android:id="@+id/imgdialog_btn_remove"
+            android:textColor="@drawable/btn_txt"
+            style="@style/btnStyleios"
+            android:layout_weight=".5"/>
+
+    </LinearLayout>
+
+</LinearLayout>
