@@ -40,7 +40,6 @@ public class SyncUser extends Sync {
 			jsonObject.accumulate("dob", "12/10/1990");
 			jsonObject.accumulate("email", email);
 			json = jsonObject.toString();
-            System.out.println("json : "+json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -63,7 +62,6 @@ public class SyncUser extends Sync {
 
 		inputStream.close();
 		//result = result.replaceAll("\"", "");
-        System.out.println("result : "+result);
 		JSONObject jObject;
 		String out=null;
 		try {

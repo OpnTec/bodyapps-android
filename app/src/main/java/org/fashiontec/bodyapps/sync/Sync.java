@@ -62,7 +62,6 @@ public class Sync {
 				result = convertInputStreamToString(inputStream);
 			else
 				result = "";
-			System.out.println(result + "result");
 
 		} catch (Exception e) {
 			Log.d("InputStream", e.getLocalizedMessage());

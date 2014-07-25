@@ -64,7 +64,6 @@ public class PersonManager {
 	public void addPerson(Person person){
 		Log.d("personmanager", "addPerson");
 		Log.d("personmanager", person.getEmail());
-		System.out.println(person.getEmail());
 		Log.d("personmanager", person.getName());
 		this.database = this.dbHandler.getWritableDatabase();
 		ContentValues values = new ContentValues();

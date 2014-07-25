@@ -131,7 +131,6 @@ public class MeasurementManager {
 		if (cursor.moveToFirst()) {
 
 			String out = cursor.getString(0);
-			System.out.println(out);
 			cursor.close();
 			database.close();
 		}
@@ -161,7 +160,6 @@ public class MeasurementManager {
 					+ DBContract.Measurement.COLUMN_NAME_PERSON_ID + " = R."
 					+ DBContract.Person.COLUMN_NAME_ID
 					+ " WHERE C."+DBContract.Measurement.COLUMN_NAME_USER_ID+" = 'NoUser'";
-			System.out.println(selectQuery);
 		} else {
 			Log.d("measurementmanager", "user exists");
 			selectQuery = "SELECT  C." + DBContract.Measurement.COLUMN_NAME_ID
@@ -176,7 +174,6 @@ public class MeasurementManager {
 					+ DBContract.Measurement.COLUMN_NAME_PERSON_ID + " = R."
 					+ DBContract.Person.COLUMN_NAME_ID
 					+ " WHERE C."+DBContract.Measurement.COLUMN_NAME_USER_ID+" = '"+user+"'";
-			System.out.println(selectQuery);
 		}
 
 		SQLiteDatabase db = this.dbHandler.getReadableDatabase();
@@ -276,7 +273,6 @@ public class MeasurementManager {
                         , null, null, null, null);
         if (cursor.moveToFirst()) {
             out=createMeasurement(cursor);
-            System.out.println("MeasurementManager.getMeasurementSync"+out.getID());
             cursor.close();
             database.close();
         }

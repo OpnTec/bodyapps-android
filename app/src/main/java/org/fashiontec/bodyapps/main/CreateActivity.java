@@ -80,7 +80,6 @@ public class CreateActivity extends Activity {
 		String email;
 		if (!txtEmail.getText().toString().equals("")) {
 			email = txtEmail.getText().toString();
-			System.out.println(email);
 		} else {
 			return false;
 		}
@@ -101,13 +100,11 @@ public class CreateActivity extends Activity {
 			PersonManager.getInstance(this).addPerson(person);
 			personID = PersonManager.getInstance(this.getApplicationContext()).getPerson(person);
 		}
-		System.out.println(personID);
+
 		person.setID(personID);
 
 		String userID = UserManager.getInstance(this).getCurrent();
-		System.out.println(userID + "uID");
 		if (userID != null) {
-			System.out.println(userID + " createActivity");
 
 			measurement = new Measurement(getID(), userID, person.getID(),
 					spnUnits.getSelectedItemPosition());
@@ -116,7 +113,6 @@ public class CreateActivity extends Activity {
 			try {
 				Date date = new Date();
 				dateText = dateformat.format(date);
-				System.out.println("Current Date Time 2: " + dateText);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -125,7 +121,6 @@ public class CreateActivity extends Activity {
 			closer();
 
 		} else {
-			System.out.println("CA else");
 			Log.d("CreateActivity", "ID==''");
 			measurement = new Measurement(getID(), "NoUser", person.getID(),
 					spnUnits.getSelectedItemPosition());
@@ -135,7 +130,6 @@ public class CreateActivity extends Activity {
 			try {
 				Date date = new Date();
 				dateText = dateformat.format(date);
-				System.out.println("Current Date Time 2: " + dateText);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -155,12 +149,10 @@ public class CreateActivity extends Activity {
 	public String getID() {
 		UUID uuid = UUID.randomUUID();
 		String randomUUIDString = uuid.toString();
-		System.out.println("Random UUID String = " + randomUUIDString);
 		return randomUUIDString;
 	}
 
 	public void closer() {
-		System.out.println("close");
 		Intent intent = new Intent(CreateActivity.this,
 				MeasurementActivity.class);
 		intent.putExtra("measurement", measurement);

@@ -51,7 +51,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		create=(Button)findViewById(R.id.main_btn_create);
 		create.setOnClickListener(this);
         if(UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync()) {
-            System.out.println("MainActivity.onCreate");
             Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
             AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
             accountManager.addAccountExplicitly(newAccount, null, null);

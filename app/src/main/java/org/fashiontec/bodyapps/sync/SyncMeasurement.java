@@ -122,7 +122,6 @@ public class SyncMeasurement extends Sync {
 
         inputStream.close();
         //result = result.replaceAll("\"", "");
-        System.out.println("result : "+result);
         JSONObject jObject;
         String out=null;
         try {

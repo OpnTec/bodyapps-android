@@ -20,14 +20,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -163,7 +160,6 @@ public class MeasurementActivity extends Activity {
                     // The account name
                     final String ACCOUNT = "dummyaccount";
                     if(UserManager.getInstance(v.getContext().getApplicationContext()).getAutoSync()) {
-                        System.out.println("MainActivity.onCreate");
                         Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
                         AccountManager accountManager = (AccountManager) v.getContext().getSystemService(ACCOUNT_SERVICE);
                         accountManager.addAccountExplicitly(newAccount, null, null);
@@ -220,7 +216,6 @@ public class MeasurementActivity extends Activity {
                     ft.commit();
                 }
             } else {
-                System.out.println("else");
                 Intent editnote = new Intent(view.getContext(),
                         ItemActivity.class);
                 editnote.putExtra("item", shownIndex);
@@ -245,12 +240,10 @@ public class MeasurementActivity extends Activity {
             int heights = 0;
             int pics = 0;
             int note=0;
-            System.out.println(measurement.getMid_neck_girth() + "*");
 
             if (!measurement.getMid_neck_girth().equals("")) {
                 neck += 1;
             }
-            System.out.println("chk2");
             if (!measurement.getAcross_back_shoulder_width().equals("")) {
                 shoulders += 1;
             }
@@ -933,17 +926,14 @@ public class MeasurementActivity extends Activity {
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
             if(measurement.getPic_front()!=null && !measurement.getPic_front().equals("")){
-                System.out.println("front");
                 type=FRONT;
                 previewCapturedImage();
             }
             if(measurement.getPic_side()!=null && !measurement.getPic_side().equals("")){
-                System.out.println("back");
                 type=SIDE;
                 previewCapturedImage();
             }
             if(measurement.getPic_back()!=null && !measurement.getPic_back().equals("")){
-                System.out.println("back");
                 type=BACK;
                 previewCapturedImage();
             }

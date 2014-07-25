@@ -64,10 +64,7 @@ public class GridAdapter extends BaseAdapter {
 		float density = mContext.getResources().getDisplayMetrics().density;
 		//get the device width in pixels
 		float width = metrics.widthPixels;
-		//loads image views as thumbnails to grid
-//		ImageView imageView = new ImageView(mContext);
-//		imageView.setImageResource(mThumbIds[position]);
-//		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
 		//sets the each thumbnail size according to the screen size
 		float num;
 		if (mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -76,10 +73,6 @@ public class GridAdapter extends BaseAdapter {
 			num = (width - 50 * density) / 3;
 		}
 
-		// System.out.println(num+" "+width+" "+(width/150)+" "+density);
-//		imageView.setLayoutParams(new GridView.LayoutParams((int) (num),
-//				(int) (num)));
-//		return imageView;
 		 Holder holder=new Holder();
 	        View rowView;
 	 
