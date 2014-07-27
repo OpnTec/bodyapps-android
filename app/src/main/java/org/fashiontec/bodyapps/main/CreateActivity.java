@@ -51,11 +51,8 @@ public class CreateActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				if (setData()) {
-					// System.out.println("here");
-					
-				}else{
-					
+				if (!setData()) {
+                    dialog("Error","Invalid data");
 				}
 
 			}
@@ -83,7 +80,6 @@ public class CreateActivity extends Activity {
 		String email;
 		if (!txtEmail.getText().toString().equals("")) {
 			email = txtEmail.getText().toString();
-			System.out.println(email);
 		} else {
 			return false;
 		}
@@ -104,13 +100,11 @@ public class CreateActivity extends Activity {
 			PersonManager.getInstance(this).addPerson(person);
 			personID = PersonManager.getInstance(this.getApplicationContext()).getPerson(person);
 		}
-		System.out.println(personID);
+
 		person.setID(personID);
 
 		String userID = UserManager.getInstance(this).getCurrent();
-		System.out.println(userID + "uID");
 		if (userID != null) {
-			System.out.println(userID + " createActivity");
 
 			measurement = new Measurement(getID(), userID, person.getID(),
 					spnUnits.getSelectedItemPosition());
@@ -119,21 +113,14 @@ public class CreateActivity extends Activity {
 			try {
 				Date date = new Date();
 				dateText = dateformat.format(date);
-				System.out.println("Current Date Time 2: " + dateText);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 			measurement.setCreated(dateText);
-			
-			if (userID.equals("NoID")) {
-				dialog("Not Connected","You won't be able to sync until you connect to Web App");
-			}else{
-				closer();
-			}
+			closer();
 
 		} else {
-			System.out.println("CA else");
 			Log.d("CreateActivity", "ID==''");
 			measurement = new Measurement(getID(), "NoUser", person.getID(),
 					spnUnits.getSelectedItemPosition());
@@ -143,13 +130,12 @@ public class CreateActivity extends Activity {
 			try {
 				Date date = new Date();
 				dateText = dateformat.format(date);
-				System.out.println("Current Date Time 2: " + dateText);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 			measurement.setCreated(dateText);
-			dialog("No user","Currently no user in app. All measurements will be added to the account of the user who logs in next");
+            closer();
 		}
 		
 
@@ -163,12 +149,10 @@ public class CreateActivity extends Activity {
 	public String getID() {
 		UUID uuid = UUID.randomUUID();
 		String randomUUIDString = uuid.toString();
-		System.out.println("Random UUID String = " + randomUUIDString);
 		return randomUUIDString;
 	}
 
 	public void closer() {
-		System.out.println("close");
 		Intent intent = new Intent(CreateActivity.this,
 				MeasurementActivity.class);
 		intent.putExtra("measurement", measurement);
@@ -188,7 +172,6 @@ public class CreateActivity extends Activity {
 							public void onClick(DialogInterface dialog,
 									int id) {
 								dialog.cancel();
-								closer();
 							}
 						});
 		

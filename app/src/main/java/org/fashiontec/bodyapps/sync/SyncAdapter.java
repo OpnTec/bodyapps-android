@@ -11,6 +11,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
+import android.util.Log;
 
 import org.fashiontec.bodyapps.managers.MeasurementManager;
 import org.fashiontec.bodyapps.managers.PersonManager;
@@ -43,7 +44,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle bundle, String s,
                               ContentProviderClient contentProviderClient,
                               SyncResult syncResult) {
-        System.out.println("sync happend");
+        Log.d("SyncAdapter","sync happened");
         Measurement measurement;
         while ((measurement = MeasurementManager.getInstance(getContext().getApplicationContext()).getMeasurementSync())!=null) {
             Person person = PersonManager.getInstance(getContext().getApplicationContext()).getPersonbyID(measurement.getPersonID());
@@ -52,7 +53,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 measurement.setSynced(true);
                 MeasurementManager.getInstance(getContext().getApplicationContext()).addMeasurement(measurement);
             }
-            System.out.println("out = " + out);
+            Log.d("SyncAdapter",out);
         }
 
     }

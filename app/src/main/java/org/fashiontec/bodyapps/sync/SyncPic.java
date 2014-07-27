@@ -73,8 +73,6 @@ public class SyncPic extends Sync{
             }
         }
 
-
-//        System.out.println(frontEnc);
         String[] encoded={frontEnc,sideEnc,backEnc};
         return encoded;
     }
@@ -91,7 +89,6 @@ public class SyncPic extends Sync{
 
         inputStream.close();
         //result = result.replaceAll("\"", "");
-        System.out.println("result : "+result);
         JSONObject jObject;
         String out=null;
         try {

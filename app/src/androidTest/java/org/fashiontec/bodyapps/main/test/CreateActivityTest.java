@@ -52,14 +52,6 @@ public class CreateActivityTest extends ActivityInstrumentationTestCase2<CreateA
         assertNotNull(gender);
     }
 
-    public void testCreateButton() throws Exception {
-        Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(MeasurementActivity.class.getName(), null, false);
-        TouchUtils.clickView(this, create);
-        MeasurementActivity startedActivity = (MeasurementActivity) monitor.waitForActivityWithTimeout(1000);
-        assertNull(startedActivity);
-        this.sendKeys(KeyEvent.KEYCODE_BACK);
-    }
-
     public void testMeasurementActivity() throws Exception {
         getActivity().runOnUiThread(new Runnable() {
 
@@ -84,7 +76,7 @@ public class CreateActivityTest extends ActivityInstrumentationTestCase2<CreateA
         assertEquals("Email incorrect", "test_email", email.getText().toString());
         Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(MeasurementActivity.class.getName(), null, false);
         activity.setData();
-        activity.closer();
+//        activity.closer();
         MeasurementActivity startedActivity = (MeasurementActivity) monitor.waitForActivityWithTimeout(3000);
         assertNotNull("incorrect",startedActivity);
 

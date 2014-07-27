@@ -179,7 +179,6 @@ public class SettingsActivity extends ActionBarActivity implements
 	}
 
 	private void resolveSignInError() {
-		System.out.println(mConnectionResult);
 		if (mConnectionResult == null) {
 			return;
 		}
@@ -188,13 +187,10 @@ public class SettingsActivity extends ActionBarActivity implements
 
 			try {
 				mIntentInProgress = true;
-				System.out.println(this);
 				mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);
-				System.out.println("RSE");
 			} catch (SendIntentException e) {
 				mIntentInProgress = false;
 				mGoogleApiClient.connect();
-				System.out.println("RSE45");
 			}
 		}
 	}
@@ -456,7 +452,6 @@ public class SettingsActivity extends ActionBarActivity implements
 		@Override
 		protected void onPostExecute(String result) {
 			Log.d("settings", "dataSent");
-			System.out.println(userID + "ID check");
 
 			if (userID != "") {
 
@@ -501,7 +496,6 @@ public class SettingsActivity extends ActionBarActivity implements
 		protected String doInBackground(String... urls) {
 
 			postUser(urls[0]);
-			System.out.println(userID + "async");
 			return userID;
 		}
 	}

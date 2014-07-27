@@ -85,6 +85,9 @@
     <string name="erect">Erect</string>
     <string name="slight_forward_stoop">Slight forward stoop</string>
     <string name="curved_upper_back">Curved upper back</string>
+    <string name="camera">Camera</string>
+    <string name="from_file">From file</string>
+    <string name="remove">Remove</string>
 
 
 </resources>

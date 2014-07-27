@@ -185,7 +185,6 @@ public class SavedActivity extends ActionBarActivity {
          */
         public static List<MeasurementListModel> getDataForListView(
                 Context context) {
-            System.out.println("check");
             return MeasurementManager.getInstance(context).getList();
 
         }
@@ -235,7 +234,6 @@ public class SavedActivity extends ActionBarActivity {
             list.setChoiceMode(ListView.CHOICE_MODE_NONE);
 
             if (dualPane) {
-                System.out.println(shownIndex + "a");
                 if(measurementsList.size()!=0) {
                     viewSet(getView());
                 }
@@ -262,7 +260,6 @@ public class SavedActivity extends ActionBarActivity {
                     sa.edit(ID);
                     return true;
                 case R.id.saved_cont_menu_hdf:
-                    System.out.println("SavedActivity.onOptionsItemSelected");
                     sa.getHDF();
                     return true;
             }
@@ -280,7 +277,6 @@ public class SavedActivity extends ActionBarActivity {
                 ViewSavedFragment vsf = (ViewSavedFragment) getActivity()
                         .getFragmentManager().findFragmentById(R.id.container2);
                 if (vsf == null) {
-                    System.out.println("else");
                     vsf = new ViewSavedFragment();
                     vsf.setItem(measurementsList.get(shownIndex)
                             .getID());
