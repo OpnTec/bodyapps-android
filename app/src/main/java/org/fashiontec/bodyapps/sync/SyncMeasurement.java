@@ -7,6 +7,7 @@ package org.fashiontec.bodyapps.sync;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,16 +18,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  * Handles the Sync of measurements
  */
 public class SyncMeasurement extends Sync {
-
-//    private static String URL = "http://192.168.1.2:8020/users/";
-    private static String result;
-    private static final int CON_TIMEOUT = 10000;
-    private static final int SOC_TIMEOUT = 20000;
 
     /**
      * Converts measurement object to JSON string
@@ -36,9 +33,12 @@ public class SyncMeasurement extends Sync {
      * @return
      */
     public static String sendMeasurement(Measurement measurement, Person person) {
-        String URL="http://192.168.1.2:8020/users/"+measurement.getUserID()+"/measurements";
-        Log.d("syncMeasure url",URL);
+        String result=null;
+        String URL=serverID+"/users/"+measurement.getUserID()+"/measurements";
+        int CON_TIMEOUT = 10000;
+        int SOC_TIMEOUT = 20000;
         String json = null;
+
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.accumulate("m_id", measurement.getID());
@@ -85,15 +85,24 @@ public class SyncMeasurement extends Sync {
             Log.d("syncMeasure",json);
 
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         SyncMeasurement sm = new SyncMeasurement();
+        InputStream inputStream = null;
+        try {
+            inputStream = sm.POST(URL, json, CON_TIMEOUT,SOC_TIMEOUT).getEntity().getContent();
+            if (inputStream != null)
+                result = sm.convertInputStreamToString(inputStream);
+            else
+                result = "";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        result = sm.POST(URL, json, CON_TIMEOUT, SOC_TIMEOUT);
         Log.d("syncMeasure","finished");
-        String imgURL="http://192.168.1.2:8020/users/"+measurement.getUserID()+"/measurements/"+measurement.getID()+"/image/";
+        String imgURL=serverID+"/users/"+measurement.getUserID()+"/measurements/"+measurement.getID()+"/image/";
+
         String[] images = SyncPic.encodePics(measurement.getPic_front(), measurement.getPic_side(),
                 measurement.getPic_back(), measurement.getID());
 
@@ -133,9 +142,57 @@ public class SyncMeasurement extends Sync {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return out;
-
     }
 
+    public static String[] getSyncList (long lastSync){
+        String[] out=null;
+        String URL=serverID+"";
+        SyncMeasurement sm=new SyncMeasurement();
+        String json = null;
+        int CON_TIMEOUT = 2000;
+        int SOC_TIMEOUT = 3000;
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.accumulate("last_sync", lastSync);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        InputStream inputStream = null;
+        try {
+            inputStream = sm.POST(URL, json, CON_TIMEOUT,SOC_TIMEOUT).getEntity().getContent();
+            if (inputStream != null)
+                out = sm.convertInputStreamToList(inputStream);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return out;
+    }
+
+    private String[] convertInputStreamToList(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while ((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        JSONObject jObject;
+        String out[]=null;
+        try {
+            jObject = new JSONObject(result);
+            JSONArray jArray = jObject.getJSONArray("name");
+            int len=jArray.length();
+            out=new String[len];
+            for (int i = 0; i < len; i++) {
+                out[i] = jArray.getString(i);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return out;
+    }
 }

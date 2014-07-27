@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class SyncUser extends Sync {
 
 	private static String json;
-	private static final String URL = "http://192.168.1.2:8020/users";
+	private static final String URL = serverID+"/users";
 	private static String result;
 	private static final int CON_TIMEOUT=5000;
 	private static final int SOC_TIMEOUT=5000;
@@ -45,8 +45,16 @@ public class SyncUser extends Sync {
 		}
 		
 		SyncUser su=new SyncUser();
-
-		result = su.POST(URL, json, CON_TIMEOUT,SOC_TIMEOUT);
+        InputStream inputStream = null;
+        try {
+            inputStream = su.POST(URL, json, CON_TIMEOUT,SOC_TIMEOUT).getEntity().getContent();
+            if (inputStream != null)
+                result = su.convertInputStreamToString(inputStream);
+            else
+                result = "";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		return result;
 	}
 	

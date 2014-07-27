@@ -51,6 +51,7 @@ public abstract class DBContract {
 		public static final String COLUMN_NAME_IS_CURRENT = "current_user";
 		public static final String COLUMN_NAME_ID = "id";
         public static final String COLUMN_NAME_AUTO_SYNC = "auto_sync";
+        public static final String COLUMN_NAME_LAST_SYNC = "sync";
 		
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+User.TABLE_NAME+"("
@@ -58,7 +59,8 @@ public abstract class DBContract {
 				+User.COLUMN_NAME_EMAIL+" TEXT PRIMARY KEY"+COMMA_SEP
 				+User.COLUMN_NAME_NAME+TEXT_TYPE+COMMA_SEP
 				+User.COLUMN_NAME_IS_CURRENT+NUMBER_TYPE+COMMA_SEP
-                +User.COLUMN_NAME_AUTO_SYNC+NUMBER_TYPE
+                +User.COLUMN_NAME_AUTO_SYNC+NUMBER_TYPE+COMMA_SEP
+                +User.COLUMN_NAME_LAST_SYNC+NUMBER_TYPE
 				+")";
 		
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
@@ -69,7 +71,8 @@ public abstract class DBContract {
 			User.COLUMN_NAME_EMAIL,
 			User.COLUMN_NAME_NAME,
 			User.COLUMN_NAME_IS_CURRENT,
-            User.COLUMN_NAME_AUTO_SYNC
+            User.COLUMN_NAME_AUTO_SYNC,
+            User.COLUMN_NAME_LAST_SYNC
 		};
 
 	}
@@ -201,18 +204,16 @@ public abstract class DBContract {
 	public static abstract class Delete {
 		public static final String TABLE_NAME = "Deletes";
 		public static final String COLUMN_NAME_FILE_ID = "file_id";
-		public static final String COLUMN_NAME_DEL_DATE = "date";
 		
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+Delete.TABLE_NAME+"("
-				+Delete.COLUMN_NAME_FILE_ID+" INTEGER PRIMARY KEY"+COMMA_SEP
-				+Delete.COLUMN_NAME_DEL_DATE+TEXT_TYPE
+				+Delete.COLUMN_NAME_FILE_ID+" INTEGER PRIMARY KEY"
 				+")";
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 				+ Delete.TABLE_NAME;
 		public static final String[] allColumns = {
 			Delete.COLUMN_NAME_FILE_ID,
-			Delete.COLUMN_NAME_DEL_DATE
+
 		};
 	}
 

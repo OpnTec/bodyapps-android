@@ -16,6 +16,7 @@ import android.util.Log;
 
 import org.fashiontec.bodyapps.managers.MeasurementManager;
 import org.fashiontec.bodyapps.managers.PersonManager;
+import org.fashiontec.bodyapps.managers.UserManager;
 import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.Person;
 
@@ -56,6 +57,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             }
             Log.d("SyncAdapter",out);
         }
+        UserManager.getInstance(getContext().getApplicationContext()).setLastSync(new Date().getTime());
+        Log.d("SyncAdapter",new Long(UserManager.getInstance(getContext().getApplicationContext()).getLastSync()).toString());
 
     }
 }
