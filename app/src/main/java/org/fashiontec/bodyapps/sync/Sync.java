@@ -19,6 +19,7 @@ import java.net.URL;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -32,7 +33,8 @@ import android.util.Log;
  * Class to handle main sync methods
  */
 public class Sync {
-	
+
+    public static final String serverID="http://192.168.1.2:8020";
 	/**
 	 * Method which makes all the POST calls
 	 * 
@@ -40,11 +42,9 @@ public class Sync {
 	 * @param json
 	 * @return
 	 */
-	public String POST(String url, String json, int conTimeOut, int socTimeOut) {
-
-		InputStream inputStream = null;
-		String result = "";
-		try {
+	public HttpResponse POST(String url, String json, int conTimeOut, int socTimeOut) {
+        HttpResponse response=null;
+        try {
 
 			HttpParams httpParameters = new BasicHttpParams();
 			HttpConnectionParams.setConnectionTimeout(httpParameters,conTimeOut);
@@ -55,19 +55,12 @@ public class Sync {
 			httpPost.setEntity(se);
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setHeader("Content-type", "application/json");
-			HttpResponse httpResponse = httpclient.execute(httpPost);
-			inputStream = httpResponse.getEntity().getContent();
-
-			if (inputStream != null)
-				result = convertInputStreamToString(inputStream);
-			else
-				result = "";
-
+			response= httpclient.execute(httpPost);
 		} catch (Exception e) {
 			Log.d("InputStream", e.getLocalizedMessage());
 		}
 
-		return result;
+		return response;
 	}
 
 	/**
@@ -91,7 +84,7 @@ public class Sync {
 
 	}
 
-    public int GET(String url, String file){
+    public int download(String url, String file){
 
         try {
             URL u = new URL(url);
@@ -121,5 +114,21 @@ public class Sync {
             return -1;
         }
         return 1;
+    }
+
+    public HttpResponse GET(String url, String json, int conTimeOut, int socTimeOut){
+        HttpResponse response=null;
+        try {
+            HttpParams httpParameters = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpParameters,conTimeOut);
+            HttpConnectionParams.setSoTimeout(httpParameters, socTimeOut);
+            HttpClient client = new DefaultHttpClient(httpParameters);
+            HttpGet request = new HttpGet(url);
+            response = client.execute(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+
     }
 }

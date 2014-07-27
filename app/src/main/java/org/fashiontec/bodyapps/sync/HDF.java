@@ -14,6 +14,6 @@ public class HDF extends Sync{
         URL=URL+userID+"/measurements/"+measurementID;
         System.out.println("URL = " + URL);
         HDF hdf = new HDF();
-        return hdf.GET(URL,path);
+        return hdf.download(URL,path);
     }
 }
