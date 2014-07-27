@@ -1,9 +1,25 @@
+[![Build Status](https://travis-ci.org/fashiontec/bodyapps-android.svg?branch=master)](https://travis-ci.org/fashiontec/bodyapps-android)
+
 bodyapps-android
 =======================
 Android app for the #bodyapps project with Gradle  
 
-**Travis build state** : [![Build Status](https://travis-ci.org/fashiontec/bodyapps-android.svg?branch=master)](https://travis-ci.org/fashiontec/bodyapps-android)  
-**Travis CI link** : https://travis-ci.org/fashiontec/bodyapps-android
+IDE Setup
+---------
+Main IDE used by the team is the new, IntelliJ-based [Android Studio](https://developer.android.com/sdk/installing/studio.html). 
+To setup, download and install Android Studio, choose "Import Project" and navigate to the project
+root. Studio should import the Gradle-based structure without much ado.
+
+### Eclipse/ADT?
+
+We feel very comfortable with Android Studio so far and see no need to use ADT. If you want to use
+it, please feel free to contribute patches and/or setup-instructions.
+
+Testing
+-------
+Real device, Emulator or your personal copy of [GenyMotion](http://www.genymotion.com/), if you 
+happen to have one.
+
 Building the project:
 ---------------------  
 The recommended IDE is Android Studio. The steps to build project in it are described below.  
