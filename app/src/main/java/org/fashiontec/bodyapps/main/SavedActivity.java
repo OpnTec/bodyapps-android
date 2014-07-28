@@ -19,6 +19,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -29,8 +31,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.fashiontec.bodyapps.managers.MeasurementManager;
@@ -52,6 +56,8 @@ public class SavedActivity extends ActionBarActivity {
     public static String shownID;
     ProgressDialog progress;
     private static Activity activity;
+    static SearchView search;
+    static SavedAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +91,22 @@ public class SavedActivity extends ActionBarActivity {
             getMenuInflater().inflate(R.menu.view_saved, menu);
             return true;
         }
-        return false;
+        getMenuInflater().inflate(R.menu.saved_options, menu);
+
+        search = (SearchView) menu.findItem(R.id.saved_search).getActionView();
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return true;
+            }
+        });
+        return true;
     }
 
     @Override
@@ -204,7 +225,7 @@ public class SavedActivity extends ActionBarActivity {
             list = (ListView) rootView.findViewById(R.id.listView1);
             registerForContextMenu(list);
             measurementsList = getDataForListView(rootView.getContext().getApplicationContext());
-            ListAdapter adapter = new SavedAdapter(rootView.getContext(),
+            adapter = new SavedAdapter(rootView.getContext(),
                     measurementsList);
             list.setAdapter(adapter);
             if (measurementsList.size()!=0) {
