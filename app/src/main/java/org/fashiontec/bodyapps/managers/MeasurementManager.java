@@ -323,4 +323,22 @@ public class MeasurementManager {
 
         return ms;
     }
+
+    public void setImagePath(int type, String path, String ID){
+        Log.d("measurementManager", "setImagePath");
+        String name=null;
+        if (type == 1) {
+            name = DBContract.Measurement.COLUMN_NAME_PIC_FRONT;
+        } else if (type == 2) {
+            name = DBContract.Measurement.COLUMN_NAME_PIC_SIDE;
+        } else if (type == 3) {
+            name = DBContract.Measurement.COLUMN_NAME_PIC_BACK;
+        }
+        this.database = this.dbHandler.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(name, path);
+        database.update(DBContract.Measurement.TABLE_NAME, values,
+                DBContract.Measurement.COLUMN_NAME_ID + "='" + ID
+                        + "'", null);
+    }
 }
