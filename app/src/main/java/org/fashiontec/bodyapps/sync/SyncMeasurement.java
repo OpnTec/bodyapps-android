@@ -5,8 +5,12 @@
 
 package org.fashiontec.bodyapps.sync;
 
+import android.content.Context;
 import android.util.Log;
 
+import org.apache.http.HttpResponse;
+import org.fashiontec.bodyapps.managers.MeasurementManager;
+import org.fashiontec.bodyapps.managers.PersonManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,7 +100,7 @@ public class SyncMeasurement extends Sync {
                 result = sm.convertInputStreamToString(inputStream);
             else
                 result = "";
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -165,7 +169,7 @@ public class SyncMeasurement extends Sync {
             if (inputStream != null)
                 out = sm.convertInputStreamToList(inputStream);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return out;
@@ -195,4 +199,68 @@ public class SyncMeasurement extends Sync {
         }
         return out;
     }
+
+    public static String getMeasurement(String id, Context context, String userID){
+        String out=null;
+        String URL=serverID+"";
+        int CON_TIMEOUT = 2000;
+        int SOC_TIMEOUT = 3000;
+        SyncMeasurement sm=new SyncMeasurement();
+        InputStream inputStream = null;
+        try {
+            inputStream =sm.GET(URL, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+            if (inputStream != null)
+                out = sm.convertToMeasurement(inputStream, userID, context);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return out;
+    }
+
+    private String convertToMeasurement(InputStream inputStream, String userID,
+                                             Context context) throws IOException {
+        Measurement measurement=null;
+        Person person=null;
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while ((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        JSONObject jObject;
+        JSONObject jPerson;
+        String out[]=null;
+        int personID=0;
+        try {
+            jObject = new JSONObject(result);
+            jPerson=new JSONObject(jObject.getString("person"));
+            int gender=0;
+            if(jPerson.getString("gender").equals("male")){
+                gender=1;
+            }
+            person=new Person(jPerson.getString("email"),jPerson.getString("name"),gender);
+            if(PersonManager.getInstance(context).getPerson(person)==-1){
+                PersonManager.getInstance(context).addPerson(person);
+            }
+            personID=PersonManager.getInstance(context).getPerson(person);
+
+            String unit=jObject.getString("m_unit");
+            int unitInt=0;
+            if (unit.equals("cm")){
+                unitInt=0;
+            }else if (unit.equals("inch")){
+                unitInt=1;
+            }
+            measurement=new Measurement(jObject.getString("m_id"), userID , personID, unitInt);
+            MeasurementManager.getInstance(context).addMeasurement(measurement);
+            return measurement.getID();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

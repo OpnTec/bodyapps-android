@@ -116,7 +116,7 @@ public class Sync {
         return 1;
     }
 
-    public HttpResponse GET(String url, String json, int conTimeOut, int socTimeOut){
+    public HttpResponse GET(String url, int conTimeOut, int socTimeOut){
         HttpResponse response=null;
         try {
             HttpParams httpParameters = new BasicHttpParams();
