@@ -1026,7 +1026,7 @@ public class MeasurementActivity extends Activity {
                     } else if (type == BACK) {
                         measurement.setPic_back(fileUri.getPath());
                     }
-                    compress();
+                    compress(fileUri,fileUri);
                     previewCapturedImage();
                 }
             }else if(requestCode ==OPEN_IMAGE_REQUEST_CODE){
@@ -1040,7 +1040,8 @@ public class MeasurementActivity extends Activity {
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String filePath = cursor.getString(columnIndex);
                     cursor.close();
-                    fileUri= Uri.fromFile(new File(filePath));
+                    Uri inFile= Uri.fromFile(new File(filePath));
+                    fileUri=getOutputMediaFileUri();
                     Log.d("path",fileUri.getPath());
 
                     if (type == FRONT) {
@@ -1050,7 +1051,7 @@ public class MeasurementActivity extends Activity {
                     } else if (type == BACK) {
                         measurement.setPic_back(fileUri.getPath());
                     }
-                    //compress();
+                    compress(inFile, fileUri);
                     previewCapturedImage();
                 }
             }
@@ -1101,17 +1102,17 @@ public class MeasurementActivity extends Activity {
             }
         }
 
-        private void compress() {
+        private void compress(Uri inFile, Uri outFile) {
             try {
                 Bitmap bitmap = null;
-                File file = new File(fileUri.getPath());
+                File file = new File(inFile.getPath());
                 try {
                     bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
                 }
 
-                FileOutputStream fos = new FileOutputStream(fileUri.getPath());
+                FileOutputStream fos = new FileOutputStream(outFile.getPath());
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 75, fos);
 
                 fos.flush();
