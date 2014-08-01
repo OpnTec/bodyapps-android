@@ -90,7 +90,7 @@ public class SavedActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getMenuInflater().inflate(R.menu.view_saved, menu);
+            getMenuInflater().inflate(R.menu.saved_options_land, menu);
             search = (SearchView) menu.findItem(R.id.saved_search_land).getActionView();
             search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override

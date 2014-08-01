@@ -74,7 +74,7 @@ public class SavedAdapter extends BaseAdapter implements Filterable{
 		holder.txtDate.setText(list.get(position).getPersonEmail());
 		holder.txtsync.setText(list.get(position).getCreated());
         if(list.get(position).isSynced()){
-            holder.img.setImageResource(R.drawable.pro_pic);
+            holder.img.setImageResource(R.drawable.synced);
         }
 
 		return convertView;
