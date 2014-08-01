@@ -62,7 +62,7 @@ public class Sync {
 			httpPost.setHeader("Content-type", "application/json");
 			response= httpclient.execute(httpPost);
 		} catch (Exception e) {
-			Log.d("InputStream", e.getLocalizedMessage());
+			Log.d("InputStream", e.getMessage());
 		}
 
 		return response;
