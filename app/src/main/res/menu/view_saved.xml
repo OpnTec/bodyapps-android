@@ -6,6 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.fashiontec.bodyapps.main.ViewSavedActivity" >
 
+    <item android:id="@+id/saved_search_land"
+        android:title="search"
+        android:icon="@drawable/ic_launcher"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.widget.SearchView" />
+
     <item
         android:id="@+id/saved_options_menu_edit"
         android:title="@string/edit"

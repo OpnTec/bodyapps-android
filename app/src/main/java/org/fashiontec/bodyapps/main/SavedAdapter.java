@@ -97,6 +97,7 @@ public class SavedAdapter extends BaseAdapter implements Filterable{
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 list = (List<MeasurementListModel>) filterResults.values;
+                SavedActivity.measurementsList=list;
                 notifyDataSetChanged();
             }
 

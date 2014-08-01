@@ -58,6 +58,8 @@ public class SavedActivity extends ActionBarActivity {
     private static Activity activity;
     static SearchView search;
     static SavedAdapter adapter;
+    public static List<MeasurementListModel> measurementsList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +91,19 @@ public class SavedActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getMenuInflater().inflate(R.menu.view_saved, menu);
+            search = (SearchView) menu.findItem(R.id.saved_search_land).getActionView();
+            search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    adapter.getFilter().filter(s);
+                    return true;
+                }
+            });
             return true;
         }
         getMenuInflater().inflate(R.menu.saved_options, menu);
@@ -196,7 +211,6 @@ public class SavedActivity extends ActionBarActivity {
         int shownIndex = 0;
         ListView list;
         Boolean dualPane;
-        List<MeasurementListModel> measurementsList;
 
         public SavedList() {
         }
