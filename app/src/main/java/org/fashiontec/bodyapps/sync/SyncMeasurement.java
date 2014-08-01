@@ -162,6 +162,7 @@ public class SyncMeasurement extends Sync {
         }catch (Exception e){
             e.printStackTrace();
         }
+        json=jsonObject.toString();
         InputStream inputStream = null;
         try {
             inputStream = sm.POST(URL, json, CON_TIMEOUT,SOC_TIMEOUT).getEntity().getContent();
@@ -185,6 +186,7 @@ public class SyncMeasurement extends Sync {
         inputStream.close();
         JSONObject jObject;
         String out[]=null;
+        Log.d("convertInputStreamToList",result);
         try {
             jObject = new JSONObject(result);
             JSONArray jArray = jObject.getJSONArray("name");
