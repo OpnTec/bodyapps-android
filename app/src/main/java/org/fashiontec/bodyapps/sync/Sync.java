@@ -34,8 +34,13 @@ import android.util.Log;
  */
 public class Sync {
 
-    public static final String serverID="http://192.168.1.2:8020";
-	/**
+    public static String serverID="http://192.168.1.2:8020";
+
+    public static void setServerID(String serverID) {
+        Sync.serverID = serverID;
+    }
+
+    /**
 	 * Method which makes all the POST calls
 	 * 
 	 * @param url
