@@ -54,12 +54,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
             String out = SyncMeasurement.sendMeasurement(measurement, person);
 
-            if (out.equals(measurement.getID())) {
+            if (measurement.getID().equals(out)) {
                 measurement.setSynced(true);
                 MeasurementManager.getInstance(getContext().getApplicationContext())
                         .addMeasurement(measurement);
+            }else {
+                break;
             }
-            Log.d("SyncAdapter", out);
+            Log.d("SyncAdapter", out +"note");
         }
 
         String list[] = SyncMeasurement.getSyncList(UserManager.getInstance(

@@ -95,11 +95,10 @@ public class SyncMeasurement extends Sync {
         SyncMeasurement sm = new SyncMeasurement();
         InputStream inputStream = null;
         try {
-            inputStream = sm.POST(URL, json, CON_TIMEOUT,SOC_TIMEOUT).getEntity().getContent();
-            if (inputStream != null)
+            inputStream = sm.POST(URL, json, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+            if (inputStream != null){
                 result = sm.convertInputStreamToString(inputStream);
-            else
-                result = "";
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
