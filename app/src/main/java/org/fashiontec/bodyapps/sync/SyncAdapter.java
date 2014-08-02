@@ -20,7 +20,11 @@ import org.fashiontec.bodyapps.managers.UserManager;
 import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.Person;
 
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Manages the automatic sync of measurements with web API
@@ -47,6 +51,29 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                               SyncResult syncResult) {
         Log.d("SyncAdapter", "sync happened");
         Measurement measurement;
+
+        String userID = UserManager.getInstance(getContext().getApplicationContext()).getCurrent();
+        String list[] = SyncMeasurement.getSyncList(UserManager.getInstance(
+                getContext().getApplicationContext()).getLastSync(), userID);
+        boolean syncOK = true;
+
+        if (list!=null) {
+
+            for (int i = 0; i < list.length; i++) {
+                String out = SyncMeasurement.getMeasurement(list[i],
+                        getContext().getApplicationContext(), userID);
+                if (out.equals(list[i])) {
+                    Log.d("SyncAdapter", "get happened");
+//                    SyncPic.getPic(list[i], getContext().getApplicationContext(), 1);
+//                    SyncPic.getPic(list[i], getContext().getApplicationContext(), 2);
+//                    SyncPic.getPic(list[i], getContext().getApplicationContext(), 3);
+                } else {
+                    syncOK = false;
+                    break;
+                }
+            }
+        }
+
         while ((measurement = MeasurementManager.getInstance(
                 getContext().getApplicationContext()).getMeasurementSync()) != null) {
 
@@ -65,29 +92,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             Log.d("SyncAdapter", out +"note");
         }
 
-        String list[] = SyncMeasurement.getSyncList(UserManager.getInstance(
-                getContext().getApplicationContext()).getLastSync());
-        boolean syncOK = true;
-
-        if (list!=null) {
-            String userID = UserManager.getInstance(getContext().getApplicationContext()).getCurrent();
-            for (int i = 0; i < list.length; i++) {
-                String out = SyncMeasurement.getMeasurement(list[i],
-                        getContext().getApplicationContext(), userID);
-                if (out.equals(list[i])) {
-                    SyncPic.getPic(list[i], getContext().getApplicationContext(), 1);
-                    SyncPic.getPic(list[i], getContext().getApplicationContext(), 2);
-                    SyncPic.getPic(list[i], getContext().getApplicationContext(), 3);
-                } else {
-                    syncOK = false;
-                    break;
-                }
-            }
-        }
-
         if (syncOK) {
+            DateFormat df = DateFormat.getTimeInstance();
+            df.setTimeZone(TimeZone.getTimeZone("gmt"));
+            String gmtTime = df.format(new Date());
             UserManager.getInstance(getContext().getApplicationContext()).setLastSync(new Date().getTime());
-            Log.d("SyncAdapter", "syncOK");
+            Log.d("SyncAdapter", gmtTime);
         }
 
     }

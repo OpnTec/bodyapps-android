@@ -20,7 +20,7 @@ public class SyncUser extends Sync {
 
 	private static String json;
 	private static final String URL = serverID+"/users";
-	private static String result;
+	private static String result="";
 	private static final int CON_TIMEOUT=5000;
 	private static final int SOC_TIMEOUT=5000;
 	
@@ -52,7 +52,7 @@ public class SyncUser extends Sync {
                 result = su.convertInputStreamToString(inputStream);
             else
                 result = "";
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 		return result;

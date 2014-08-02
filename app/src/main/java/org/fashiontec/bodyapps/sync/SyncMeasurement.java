@@ -22,7 +22,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Handles the Sync of measurements
@@ -148,24 +150,18 @@ public class SyncMeasurement extends Sync {
         return out;
     }
 
-    public static String[] getSyncList (long lastSync){
+    public static String[] getSyncList (long lastSync, String userID){
+        Log.d("last sync",new Long(lastSync).toString());
         String[] out=null;
-        String URL=serverID+"";
+        String URL=serverID+"/users/"+userID+"/measurements/?modifiedAfter="+new Long(lastSync).toString();
         SyncMeasurement sm=new SyncMeasurement();
         String json = null;
         int CON_TIMEOUT = 2000;
         int SOC_TIMEOUT = 3000;
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.accumulate("last_sync", lastSync);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        json=jsonObject.toString();
         InputStream inputStream = null;
         try {
-            inputStream = sm.POST(URL, json, CON_TIMEOUT,SOC_TIMEOUT).getEntity().getContent();
+            inputStream = sm.GET(URL, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
             if (inputStream != null)
                 out = sm.convertInputStreamToList(inputStream);
 
@@ -184,16 +180,15 @@ public class SyncMeasurement extends Sync {
             result += line;
 
         inputStream.close();
-        JSONObject jObject;
         String out[]=null;
         Log.d("convertInputStreamToList",result);
         try {
-            jObject = new JSONObject(result);
-            JSONArray jArray = jObject.getJSONArray("name");
+            JSONArray jArray = new JSONArray(result);
             int len=jArray.length();
             out=new String[len];
             for (int i = 0; i < len; i++) {
-                out[i] = jArray.getString(i);
+                JSONObject jObject = new JSONObject(jArray.getString(i));
+                out[i]=jObject.getString("data");
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -202,8 +197,9 @@ public class SyncMeasurement extends Sync {
     }
 
     public static String getMeasurement(String id, Context context, String userID){
+        Log.d("getMeasurement id",id);
         String out=null;
-        String URL=serverID+"";
+        String URL=serverID+"/users/"+userID+"/measurements/"+id;
         int CON_TIMEOUT = 2000;
         int SOC_TIMEOUT = 3000;
         SyncMeasurement sm=new SyncMeasurement();
@@ -231,13 +227,16 @@ public class SyncMeasurement extends Sync {
             result += line;
 
         inputStream.close();
-        JSONObject jObject;
+        Log.d("convertToMeasurement",result);
+        JSONObject jMeasurement;
         JSONObject jPerson;
+
         String out[]=null;
         int personID=0;
         try {
-            jObject = new JSONObject(result);
-            jPerson=new JSONObject(jObject.getString("person"));
+            JSONObject jObject = new JSONObject(result);
+            jMeasurement=new JSONObject(jObject.getString("data"));
+            jPerson=new JSONObject(jMeasurement.getString("person"));
             int gender=0;
             if(jPerson.getString("gender").equals("male")){
                 gender=1;
@@ -248,14 +247,65 @@ public class SyncMeasurement extends Sync {
             }
             personID=PersonManager.getInstance(context).getPerson(person);
 
-            String unit=jObject.getString("m_unit");
+            String unit=jMeasurement.getString("m_unit");
             int unitInt=0;
             if (unit.equals("cm")){
                 unitInt=0;
             }else if (unit.equals("inch")){
                 unitInt=1;
             }
-            measurement=new Measurement(jObject.getString("m_id"), userID , personID, unitInt);
+            measurement=new Measurement(jMeasurement.getString("m_id"), userID , personID, unitInt);
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+            String dateText = "";
+            try {
+                Date date = new Date();
+                dateText = dateformat.format(date);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            measurement.setCreated(dateText);
+            measurement.setSynced(true);
+            if(!jMeasurement.getString("mid_neck_girth").equals("null")) {
+                measurement.setMid_neck_girth(jMeasurement.getString("mid_neck_girth"));
+            }
+            if(!jMeasurement.getString("bust_girth").equals("null")) {
+                measurement.setBust_girth(jMeasurement.getString("bust_girth"));
+            }
+            if(!jMeasurement.getString("waist_girth").equals("null")) {
+                measurement.setWaist_girth(jMeasurement.getString("waist_girth"));
+            }
+            if(!jMeasurement.getString("hip_girth").equals("null")) {
+                measurement.setHip_girth(jMeasurement.getString("hip_girth"));
+            }
+            if(!jMeasurement.getString("across_back_shoulder_width").equals("null")) {
+                measurement.setAcross_back_shoulder_width(jMeasurement.getString("across_back_shoulder_width"));
+            }
+            if(!jMeasurement.getString("shoulder_drop").equals("null")) {
+                measurement.setShoulder_drop(jMeasurement.getString("shoulder_drop"));
+            }
+//            if(!jMeasurement.getString("shoulder_slope_degrees").equals("null")) {
+//                measurement.setShoulder_slope_degrees(jMeasurement.getString("shoulder_slope_degrees"));
+//            }
+            if(!jMeasurement.getString("arm_length").equals("null")) {
+                measurement.setArm_length(jMeasurement.getString("arm_length"));
+            }
+            if(!jMeasurement.getString("wrist_girth").equals("null")) {
+                measurement.setWrist_girth(jMeasurement.getString("wrist_girth"));
+            }
+            if(!jMeasurement.getString("upper_arm_girth").equals("null")) {
+                measurement.setUpper_arm_girth(jMeasurement.getString("upper_arm_girth"));
+            }
+            if(!jMeasurement.getString("armscye_girth").equals("null")) {
+                measurement.setArmscye_girth(jMeasurement.getString("armscye_girth"));
+            }
+            if(!jMeasurement.getString("height").equals("null")) {
+                measurement.setHeight(jMeasurement.getString("height"));
+            }
+            if(!jMeasurement.getString("hip_height").equals("null")) {
+                measurement.setHip_height(jMeasurement.getString("hip_height"));
+            }
+
             MeasurementManager.getInstance(context).addMeasurement(measurement);
             return measurement.getID();
         }catch (Exception e){
