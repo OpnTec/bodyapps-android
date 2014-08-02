@@ -129,6 +129,7 @@ public class Sync {
             HttpConnectionParams.setSoTimeout(httpParameters, socTimeOut);
             HttpClient client = new DefaultHttpClient(httpParameters);
             HttpGet request = new HttpGet(url);
+            request.setHeader("Accept","application/json");
             response = client.execute(request);
         } catch (Exception e) {
             e.printStackTrace();
