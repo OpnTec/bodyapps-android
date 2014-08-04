@@ -78,13 +78,17 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
             Person person = PersonManager.getInstance(getContext().getApplicationContext())
                     .getPersonbyID(measurement.getPersonID());
+            boolean syncedOnce= MeasurementManager.getInstance(getContext().getApplicationContext())
+                    .isSyncedOnce(measurement.getID());
 
-            String out = SyncMeasurement.sendMeasurement(measurement, person);
+            String out = SyncMeasurement.sendMeasurement(measurement, person, syncedOnce);
 
             if (measurement.getID().equals(out)) {
                 measurement.setSynced(true);
                 MeasurementManager.getInstance(getContext().getApplicationContext())
                         .addMeasurement(measurement);
+                MeasurementManager.getInstance(getContext().getApplicationContext())
+                        .setSyncedOnce(measurement.getID());
             }else {
                 break;
             }
@@ -95,7 +99,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             DateFormat df = DateFormat.getTimeInstance();
             df.setTimeZone(TimeZone.getTimeZone("gmt"));
             String gmtTime = df.format(new Date());
-            UserManager.getInstance(getContext().getApplicationContext()).setLastSync(new Date().getTime());
+            UserManager.getInstance(getContext().getApplicationContext()).setLastSync(new Date().getTime()+120000);
             Log.d("SyncAdapter", gmtTime);
         }
 

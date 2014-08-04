@@ -86,7 +86,7 @@ public abstract class DBContract {
 		public static final String COLUMN_NAME_USER_ID = "user_id";
 		public static final String COLUMN_NAME_PERSON_ID = "person_id";
 		public static final String COLUMN_NAME_CREATED = "created";
-		public static final String COLUMN_NAME_LAST_SYNC = "sync";
+		public static final String COLUMN_NAME_SYNCED_ONCE = "sync";
 		public static final String COLUMN_NAME_LAST_EDIT = "edit";
 		public static final String COLUMN_NAME_UNIT = "unit";
 		public static final String COLUMN_NAME_MID_NECK_GIRTH = "mid_neck_girth";
@@ -124,7 +124,7 @@ public abstract class DBContract {
 				+Measurement.COLUMN_NAME_USER_ID+TEXT_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_PERSON_ID+NUMBER_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_CREATED+TEXT_TYPE+COMMA_SEP
-				+Measurement.COLUMN_NAME_LAST_SYNC+NUMBER_TYPE+COMMA_SEP
+				+Measurement.COLUMN_NAME_SYNCED_ONCE+NUMBER_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_LAST_EDIT+NUMBER_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_UNIT+TEXT_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_MID_NECK_GIRTH+TEXT_TYPE+COMMA_SEP
@@ -164,7 +164,7 @@ public abstract class DBContract {
 			Measurement.COLUMN_NAME_USER_ID,
 			Measurement.COLUMN_NAME_PERSON_ID,
 			Measurement.COLUMN_NAME_CREATED,
-			Measurement.COLUMN_NAME_LAST_SYNC,
+			Measurement.COLUMN_NAME_SYNCED_ONCE,
 			Measurement.COLUMN_NAME_LAST_EDIT,
 			Measurement.COLUMN_NAME_UNIT,
 			Measurement.COLUMN_NAME_MID_NECK_GIRTH,
