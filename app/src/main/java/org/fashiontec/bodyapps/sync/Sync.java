@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -21,6 +22,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
@@ -136,5 +138,24 @@ public class Sync {
         }
         return response;
 
+    }
+
+    public HttpResponse PUT(String url, String json, int conTimeOut, int socTimeOut) {
+        HttpResponse response = null;
+        try {
+            HttpParams httpParameters = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpParameters, conTimeOut);
+            HttpConnectionParams.setSoTimeout(httpParameters, socTimeOut);
+            HttpClient client = new DefaultHttpClient(httpParameters);
+            HttpPut request = new HttpPut(url);
+            StringEntity se = new StringEntity(json);
+            request.setEntity(se);
+            request.setHeader("Accept", "application/json");
+            request.setHeader("Content-type", "application/json");
+            response=client.execute(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 }

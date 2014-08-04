@@ -341,4 +341,38 @@ public class MeasurementManager {
                 DBContract.Measurement.COLUMN_NAME_ID + "='" + ID
                         + "'", null);
     }
+
+    public void setSyncedOnce(String ID){
+        Log.d("measurementManager", "setSyncedOnce");
+
+        this.database = this.dbHandler.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DBContract.Measurement.COLUMN_NAME_SYNCED_ONCE, 1);
+        database.update(DBContract.Measurement.TABLE_NAME, values,
+                DBContract.Measurement.COLUMN_NAME_ID + "='" + ID
+                        + "'", null);
+
+        database.close();
+    }
+
+    public boolean isSyncedOnce(String ID){
+        Log.d("measurementManager", "isSyncedOnce");
+        this.database = this.dbHandler.getReadableDatabase();
+        Cursor cursor = database
+                .query(DBContract.Measurement.TABLE_NAME,
+                        new String[] {DBContract.Measurement.COLUMN_NAME_SYNCED_ONCE},
+                        DBContract.Measurement.COLUMN_NAME_ID + " = '" +ID+"'"
+                        , null, null, null, null);
+        if (cursor.moveToFirst()) {
+            int val=cursor.getInt(0);
+            cursor.close();
+            database.close();
+            if(val==1){
+                return true;
+            }else {
+                return false;
+            }
+        }
+        return false;
+    }
 }

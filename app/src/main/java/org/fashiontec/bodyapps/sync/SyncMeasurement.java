@@ -38,7 +38,7 @@ public class SyncMeasurement extends Sync {
      * @param person
      * @return
      */
-    public static String sendMeasurement(Measurement measurement, Person person) {
+    public static String sendMeasurement(Measurement measurement, Person person, boolean syncedOnce) {
         String result=null;
         String URL=serverID+"/users/"+measurement.getUserID()+"/measurements";
         int CON_TIMEOUT = 10000;
@@ -96,30 +96,51 @@ public class SyncMeasurement extends Sync {
 
         SyncMeasurement sm = new SyncMeasurement();
         InputStream inputStream = null;
-        try {
-            inputStream = sm.POST(URL, json, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
-            if (inputStream != null){
-                result = sm.convertInputStreamToString(inputStream);
+        if(syncedOnce){
+            Log.d("syncMeasure","syncedOnce");
+            try {
+                URL+="/"+measurement.getID();
+                inputStream = sm.PUT(URL, json, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                if (inputStream != null){
+                    result = sm.convertInputStreamToString(inputStream);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        }else {
+            Log.d("syncMeasure","not syncedOnce");
+            try {
+                inputStream = sm.POST(URL, json, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                if (inputStream != null) {
+                    result = sm.convertInputStreamToString(inputStream);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         Log.d("syncMeasure","finished");
-        String imgURL=serverID+"/users/"+measurement.getUserID()+"/measurements/"+measurement.getID()+"/image/";
 
+        String imgURL=serverID+"/users/"+measurement.getUserID()+"/measurements/"+measurement.getID()+"/image/";
         String[] images = SyncPic.encodePics(measurement.getPic_front(), measurement.getPic_side(),
                 measurement.getPic_back(), measurement.getID());
 
         SyncPic sp=new SyncPic();
         if(images[0]!=null){
-            sp.POST(imgURL+="body_front",images[0],CON_TIMEOUT,SOC_TIMEOUT);
+            InputStream response= null;
+            try {
+                response = sp.POST(imgURL+"body_front",images[0],CON_TIMEOUT,SOC_TIMEOUT).getEntity().getContent();
+                Log.d("syncMeasurepic",images[0]);
+                sp.convertInputStreamToString(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if(images[1]!=null){
-            sp.POST(imgURL+="body_side",images[1],CON_TIMEOUT,SOC_TIMEOUT);
+            sp.POST(imgURL+"body_side",images[1],CON_TIMEOUT,SOC_TIMEOUT);
         }
         if(images[2]!=null){
-            sp.POST(imgURL+="body_back",images[2],CON_TIMEOUT,SOC_TIMEOUT);
+            sp.POST(imgURL+"body_back",images[2],CON_TIMEOUT,SOC_TIMEOUT);
         }
         return result;
     }
@@ -135,7 +156,7 @@ public class SyncMeasurement extends Sync {
             result += line;
 
         inputStream.close();
-        //result = result.replaceAll("\"", "");
+        Log.d("convertInputStreamToString",result);
         JSONObject jObject;
         String out=null;
         try {
@@ -307,6 +328,7 @@ public class SyncMeasurement extends Sync {
             }
 
             MeasurementManager.getInstance(context).addMeasurement(measurement);
+            MeasurementManager.getInstance(context).setSyncedOnce(measurement.getID());
             return measurement.getID();
         }catch (Exception e){
             e.printStackTrace();

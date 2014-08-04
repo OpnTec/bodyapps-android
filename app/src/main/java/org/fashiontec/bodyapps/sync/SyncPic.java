@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import org.fashiontec.bodyapps.managers.MeasurementManager;
+import org.fashiontec.bodyapps.models.Measurement;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,7 +43,7 @@ public class SyncPic extends Sync{
             frontEnc = Base64.encodeToString(b, Base64.DEFAULT);
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.accumulate("binary_data",frontEnc);
+                jsonObject.accumulate("data",frontEnc);
                 frontEnc=jsonObject.toString();
 
             } catch (JSONException e) {
@@ -95,6 +96,7 @@ public class SyncPic extends Sync{
             result += line;
 
         inputStream.close();
+        Log.d("syncPic",result);
         //result = result.replaceAll("\"", "");
         JSONObject jObject;
         String out=null;
@@ -197,4 +199,5 @@ public class SyncPic extends Sync{
         }
 
     }
+
 }
