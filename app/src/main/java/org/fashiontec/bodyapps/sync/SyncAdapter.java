@@ -82,7 +82,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             boolean syncedOnce= MeasurementManager.getInstance(getContext().getApplicationContext())
                     .isSyncedOnce(measurement.getID());
 
-            String out = SyncMeasurement.sendMeasurement(measurement, person, syncedOnce);
+            String out = SyncMeasurement.sendMeasurement(measurement, person, syncedOnce, getContext().getApplicationContext());
 
             if (measurement.getID().equals(out)) {
                 measurement.setSynced(true);

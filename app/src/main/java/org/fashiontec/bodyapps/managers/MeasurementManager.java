@@ -324,19 +324,26 @@ public class MeasurementManager {
         return ms;
     }
 
-    public void setImagePath(int type, String path, String ID){
+    public void setImagePath(int type, String path, String ID, String picID){
         Log.d("measurementManager", "setImagePath");
         String name=null;
+        String picIDs=null;
         if (type == 1) {
             name = DBContract.Measurement.COLUMN_NAME_PIC_FRONT;
+            picIDs=DBContract.Measurement.COLUMN_NAME_PIC_FRONT_ID;
         } else if (type == 2) {
             name = DBContract.Measurement.COLUMN_NAME_PIC_SIDE;
+            picIDs= DBContract.Measurement.COLUMN_NAME_PIC_SIDE_ID;
         } else if (type == 3) {
             name = DBContract.Measurement.COLUMN_NAME_PIC_BACK;
+            picIDs= DBContract.Measurement.COLUMN_NAME_PIC_BACK_ID;
         }
         this.database = this.dbHandler.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(name, path);
+        if(path!=null) {
+            values.put(name, path);
+        }
+        values.put(picIDs,picID);
         database.update(DBContract.Measurement.TABLE_NAME, values,
                 DBContract.Measurement.COLUMN_NAME_ID + "='" + ID
                         + "'", null);
@@ -374,5 +381,30 @@ public class MeasurementManager {
             }
         }
         return false;
+    }
+
+    public String getPicID(String ID, int type) {
+        Log.d("measurementManager", "picID");
+        String name = null;
+        if (type == 1) {
+            name = DBContract.Measurement.COLUMN_NAME_PIC_FRONT_ID;
+        } else if (type == 2) {
+            name = DBContract.Measurement.COLUMN_NAME_PIC_SIDE_ID;
+        } else if (type == 3) {
+            name = DBContract.Measurement.COLUMN_NAME_PIC_BACK_ID;
+        }
+        this.database = this.dbHandler.getReadableDatabase();
+        Cursor cursor = database
+                .query(DBContract.Measurement.TABLE_NAME,
+                        new String[]{name},
+                        DBContract.Measurement.COLUMN_NAME_ID + " = '" + ID + "'"
+                        , null, null, null, null);
+        if (cursor.moveToFirst()) {
+            String val = cursor.getString(0);
+            cursor.close();
+            database.close();
+            return val;
+        }
+        return null;
     }
 }
