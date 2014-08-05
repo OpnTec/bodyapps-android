@@ -1064,7 +1064,7 @@ public class MeasurementActivity extends Activity {
 
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 8;
+                options.inSampleSize = 4;
 
                 if (type == FRONT) {
                     if(!measurement.getPic_front().equals("")) {
@@ -1104,21 +1104,19 @@ public class MeasurementActivity extends Activity {
 
         private void compress(Uri inFile, Uri outFile) {
             try {
-                Bitmap bitmap = null;
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8;
                 File file = new File(inFile.getPath());
                 try {
-                    bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-                } catch (FileNotFoundException e1) {
+                    FileOutputStream fos = new FileOutputStream(outFile.getPath());
+                    BitmapFactory.decodeFile(file.getPath(), options).compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    fos.flush();
+                    fos.close();
+                } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-
-                FileOutputStream fos = new FileOutputStream(outFile.getPath());
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 75, fos);
-
-                fos.flush();
-                fos.close();
             } catch (Exception e) {
-                Log.e("MyLog", e.toString());
+                e.printStackTrace();
             }
         }
 
