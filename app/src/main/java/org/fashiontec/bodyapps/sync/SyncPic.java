@@ -29,59 +29,23 @@ import java.io.InputStreamReader;
  */
 public class SyncPic extends Sync{
 
-    public static String[] encodePics(String front, String side, String back, String mid){
-        String frontEnc=null;
-        String sideEnc=null;
-        String backEnc=null;
-
-        if(!front.equals("")){
-            Bitmap bm = BitmapFactory.decodeFile(front);
+    public static String encodePics(String path){
+        String enc=null;
+            Bitmap bm = BitmapFactory.decodeFile(path);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            bm.compress(Bitmap.CompressFormat.JPEG, 50, baos);
             byte[] b = baos.toByteArray();
-            frontEnc = Base64.encodeToString(b, Base64.DEFAULT);
+            enc = Base64.encodeToString(b, Base64.DEFAULT);
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.accumulate("data",frontEnc);
-                frontEnc=jsonObject.toString();
+                jsonObject.accumulate("data",enc);
+                enc=jsonObject.toString();
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        if(!side.equals("")){
-            Bitmap bm = BitmapFactory.decodeFile(side);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] b = baos.toByteArray();
-            sideEnc = Base64.encodeToString(b, Base64.DEFAULT);
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.accumulate("binary_data",sideEnc);
-                sideEnc=jsonObject.toString();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        if(!back.equals("")){
-            Bitmap bm = BitmapFactory.decodeFile(back);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] b = baos.toByteArray();
-            backEnc = Base64.encodeToString(b, Base64.DEFAULT);
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.accumulate("binary_data",backEnc);
-                backEnc=jsonObject.toString();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        String[] encoded={frontEnc,sideEnc,backEnc};
-        return encoded;
+        Log.d("encodePics",enc);
+        return enc;
     }
 
     @Override
@@ -112,16 +76,18 @@ public class SyncPic extends Sync{
 
     }
 
-    public static int getPic(String id, Context context, int type){
-        String URL=serverID+"";
+    public static int getPic(String id, Context context, int type, String url){
+        Log.d("getPic",url);
+        String URL=url;
         SyncPic sp=new SyncPic();
         int CON_TIMEOUT = 5000;
         int SOC_TIMEOUT = 8000;
+        String picID=url.substring(url.lastIndexOf("/")+1);
 
         try {
             InputStream inputStream=sp.GET(URL, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
             if (inputStream != null){
-                return sp.savePic(inputStream,type,id,context);
+                return sp.savePic(inputStream, type, id, context, picID);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -129,7 +95,7 @@ public class SyncPic extends Sync{
         return -1;
     }
 
-    private static File getOutputMediaFile(int type, String id) {
+    private static File getOutputMediaFile(int type, String id, String picID) {
         String IMAGE_DIRECTORY_NAME = "BodyApp" + File.separator + id;
         File mediaStorageDir = new File(
                 Environment
@@ -155,14 +121,14 @@ public class SyncPic extends Sync{
         } else if (type == 3) {
             name = "back.jpg";
         } else {
-            name = null;
+            name = picID+".jpg";
         }
         mediaFile = new File(mediaStorageDir.getPath() + File.separator
                 + name);
         return mediaFile;
     }
 
-    private int savePic(InputStream inputStream, int type, String id, Context context)
+    private int savePic(InputStream inputStream, int type, String id, Context context, String picID)
             throws IOException {
         BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(inputStream));
@@ -178,18 +144,22 @@ public class SyncPic extends Sync{
         Bitmap bitmap;
         try {
             jObject = new JSONObject(result);
-            out= jObject.getString("binary_data");
+            out= jObject.getString("data");
+            jObject = new JSONObject(out);
+            out= jObject.getString("data");
             if(out.equals("")){
                 return 0;
             }
             decodedString = Base64.decode(out, Base64.DEFAULT);
             bitmap= BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            File file=getOutputMediaFile(type,id);
+            File file=getOutputMediaFile(type, id, picID);
             FileOutputStream fos=new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
-            MeasurementManager.getInstance(context).setImagePath(type,file.getPath(),id);
+            if(type!=0) {
+                MeasurementManager.getInstance(context).setImagePath(type, file.getPath(), id, picID);
+            }
             return 1;
 
         } catch (JSONException e) {

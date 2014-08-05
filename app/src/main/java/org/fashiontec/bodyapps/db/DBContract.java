@@ -117,6 +117,9 @@ public abstract class DBContract {
         public static final String COLUMN_NAME_CHEST_TYPE = "chest_type";
         public static final String COLUMN_NAME_BACK_SHAPE = "back_shape";
         public static final String COLUMN_NAME_STOMACH_SHAPE = "stomach_shape";
+        public static final String COLUMN_NAME_PIC_FRONT_ID = "pic_front_id";
+        public static final String COLUMN_NAME_PIC_SIDE_ID  = "pic_side_id";
+        public static final String COLUMN_NAME_PIC_BACK_ID  = "pic_back_id";
 		
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+Measurement.TABLE_NAME+"("
@@ -154,7 +157,10 @@ public abstract class DBContract {
                 +Measurement.COLUMN_NAME_ARM_TYPE+NUMBER_TYPE+COMMA_SEP
                 +Measurement.COLUMN_NAME_CHEST_TYPE+NUMBER_TYPE+COMMA_SEP
                 +Measurement.COLUMN_NAME_BACK_SHAPE+NUMBER_TYPE+COMMA_SEP
-                +Measurement.COLUMN_NAME_STOMACH_SHAPE+NUMBER_TYPE
+                +Measurement.COLUMN_NAME_STOMACH_SHAPE+NUMBER_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_PIC_FRONT_ID+TEXT_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_PIC_SIDE_ID+TEXT_TYPE+COMMA_SEP
+                +Measurement.COLUMN_NAME_PIC_BACK_ID+TEXT_TYPE
 				+")";
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 				+ Measurement.TABLE_NAME;
