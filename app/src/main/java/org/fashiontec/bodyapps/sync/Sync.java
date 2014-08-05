@@ -36,7 +36,7 @@ import android.util.Log;
  */
 public class Sync {
 
-    public static String serverID="http://192.168.1.2:8020";
+    public static String serverID="http://freelayers.org/";
 
     public static void setServerID(String serverID) {
         Sync.serverID = serverID;
