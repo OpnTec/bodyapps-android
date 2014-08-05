@@ -136,7 +136,7 @@ public class SyncMeasurement extends Sync {
                     imgID=sp.convertInputStreamToString(response);
                     MeasurementManager.getInstance(context).setImagePath(1,null,measurement.getID(),imgID);
                 }else{
-                    response = sp.PUT(serverID+"/image/"+imgID, frontJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                    response = sp.PUT(serverID+"/images/"+imgID, frontJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
                 }
 
 
@@ -155,7 +155,7 @@ public class SyncMeasurement extends Sync {
                     imgID=sp.convertInputStreamToString(response);
                     MeasurementManager.getInstance(context).setImagePath(2,null,measurement.getID(),imgID);
                 }else{
-                    response = sp.PUT(serverID+"/image/"+imgID, sideJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                    response = sp.PUT(serverID+"/images/"+imgID, sideJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
                 }
 
 
@@ -176,7 +176,7 @@ public class SyncMeasurement extends Sync {
                     imgID=sp.convertInputStreamToString(response);
                     MeasurementManager.getInstance(context).setImagePath(3,null,measurement.getID(),imgID);
                 }else{
-                    response = sp.PUT(serverID+"/image/"+imgID, backJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                    response = sp.PUT(serverID+"/images/"+imgID, backJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
                 }
 
 
