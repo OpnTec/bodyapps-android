@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -37,6 +38,7 @@ public class CreateActivity extends Activity {
     private Measurement measurement;
     Context context;
     private static AlertDialog alertDialog;
+    static final String TAG = CreateActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +110,7 @@ public class CreateActivity extends Activity {
                 Date date = new Date();
                 dateText = dateformat.format(date);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG, e.getMessage());
             }
 
             measurement.setCreated(dateText);
@@ -124,7 +126,7 @@ public class CreateActivity extends Activity {
                 Date date = new Date();
                 dateText = dateformat.format(date);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG, e.getMessage());
             }
 
             measurement.setCreated(dateText);
