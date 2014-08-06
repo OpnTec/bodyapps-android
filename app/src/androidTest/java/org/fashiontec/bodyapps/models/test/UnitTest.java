@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014, Fashiontec (http://fashiontec.org)
+ * Licensed under LGPL, Version 3
+ */
+
 package org.fashiontec.bodyapps.models.test;
 
 import junit.framework.TestCase;
