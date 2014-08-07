@@ -302,40 +302,44 @@ public class MeasurementManager {
      */
     private Measurement createMeasurement(Cursor cursor) {
         Measurement ms = null;
-        ms = new Measurement(cursor.getString(0), cursor.getString(1), cursor.getInt(2), Integer.parseInt(cursor.getString(6)));
-        ms.setCreated(cursor.getString(3));
-        ms.setMid_neck_girth(cursor.getString(7));
-        ms.setBust_girth(cursor.getString(8));
-        ms.setWaist_girth(cursor.getString(9));
-        ms.setHip_girth(cursor.getString(10));
-        ms.setAcross_back_shoulder_width(cursor.getString(11));
-        ms.setShoulder_drop(cursor.getString(12));
-        ms.setShoulder_slope_degrees(cursor.getString(13));
-        ms.setArm_length(cursor.getString(14));
-        ms.setUpper_arm_girth(cursor.getString(15));
-        ms.setArmscye_girth(cursor.getString(16));
-        ms.setHeight(cursor.getString(17));
-        ms.setHip_height(cursor.getString(18));
-        ms.setWrist_girth(cursor.getString(19));
-        ms.setHead_girth(cursor.getString(20));
-        ms.setHead_and_neck_length(cursor.getString(21));
-        ms.setUpper_chest_girth(cursor.getString(22));
-        ms.setShoulder_length(cursor.getString(23));
-        ms.setShoulder_and_arm_length(cursor.getString(24));
-        ms.setPic_front(cursor.getString(25));
-        ms.setPic_side(cursor.getString(26));
-        ms.setPic_back(cursor.getString(27));
-        ms.setNotes(cursor.getString(28));
-        if (cursor.getInt(29) == 1) {
+        ms = new Measurement(
+                cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_ID)),
+                cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_USER_ID)),
+                cursor.getInt(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_PERSON_ID)),
+                cursor.getInt(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_UNIT)));
+        ms.setCreated(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_CREATED)));
+        ms.setMid_neck_girth(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_MID_NECK_GIRTH)));
+        ms.setBust_girth(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_BUST_GIRTH)));
+        ms.setWaist_girth(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_WAIST_GIRTH)));
+        ms.setHip_girth(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_HIP_GIRTH)));
+        ms.setAcross_back_shoulder_width(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_ACROSS_BACK_SHOULDER_WIDTH)));
+        ms.setShoulder_drop(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_SHOULDER_DROP)));
+        ms.setShoulder_slope_degrees(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_SHOULDER_SLOPE_DEGREES)));
+        ms.setArm_length(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_ARM_LENGTH)));
+        ms.setUpper_arm_girth(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_UPPER_ARM_GIRTH)));
+        ms.setArmscye_girth(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_ARMSCYE_GIRTH)));
+        ms.setHeight(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_HEIGHT)));
+        ms.setHip_height(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_HIP_HEIGHT)));
+        ms.setWrist_girth(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_WRIST_GIRTH)));
+        ms.setHead_girth(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_HEAD_GIRTH)));
+        ms.setHead_and_neck_length(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_HEAD_AND_NECK_LENGTH)));
+        ms.setUpper_chest_girth(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_UPPER_CHEST_GIRTH)));
+        ms.setShoulder_length(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_SHOULDER_LENGTH)));
+        ms.setShoulder_and_arm_length(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_SHOULDER_AND_ARM_LENGTH)));
+        ms.setPic_front(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_PIC_FRONT)));
+        ms.setPic_side(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_PIC_SIDE)));
+        ms.setPic_back(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_PIC_BACK)));
+        ms.setNotes(cursor.getString(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_NOTES)));
+        if (cursor.getInt(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_IS_SYNCED)) == 1) {
             ms.setSynced(true);
         } else {
             ms.setSynced(false);
         }
-        ms.setShoulder_type(cursor.getInt(30));
-        ms.setArm_type(cursor.getInt(31));
-        ms.setChest_type(cursor.getInt(32));
-        ms.setBack_shape(cursor.getInt(33));
-        ms.setStomach_shape(cursor.getInt(34));
+        ms.setShoulder_type(cursor.getInt(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_SHOULDER_TYPE)));
+        ms.setArm_type(cursor.getInt(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_ARM_TYPE)));
+        ms.setChest_type(cursor.getInt(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_CHEST_TYPE)));
+        ms.setBack_shape(cursor.getInt(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_BACK_SHAPE)));
+        ms.setStomach_shape(cursor.getInt(cursor.getColumnIndex(DBContract.Measurement.COLUMN_NAME_STOMACH_SHAPE)));
 
         return ms;
     }
