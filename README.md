@@ -47,9 +47,4 @@ To get information from Google API it is required to create project in Google de
 
 ### Sync
 		
-**NOTE: Web application Running in the localhost and listening to port 8020 is essential if you try sync options. Otherwise App is fully functional offline**  
-And you can change the IP and URL according to your system by changing:  
-URL in SyncUser class(line:24)  
-URL in SyncMeasurement class(line: 19)  
-parameter in SettingsActivity class (line:280)  
-parameter in MeasurementActivity class (line: 166)
+You can test the sync options manually by cloning the web application and running it on local host if you dont want to work with online web service. Simply change the baseURL in Sync.java class according to your local host address and port.
