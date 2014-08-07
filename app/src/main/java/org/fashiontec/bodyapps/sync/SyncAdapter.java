@@ -49,8 +49,16 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                               SyncResult syncResult) {
         Log.d(TAG, "sync happened");
         Measurement measurement;
-
         String userID = UserManager.getInstance(getContext().getApplicationContext()).getCurrent();
+
+        String[] delListServer=SyncMeasurement.getDelList(userID);
+        if (delListServer != null) {
+            for (int i = 0; i < delListServer.length; i++) {
+                int personID=MeasurementManager.getInstance(getContext().getApplicationContext()).getMeasurement(delListServer[i]).getPersonID();
+                MeasurementManager.getInstance(getContext().getApplicationContext()).delMeasurement(delListServer[i], personID);
+            }
+        }
+
         List<String> delList=MeasurementManager.getInstance(getContext().getApplicationContext()).getDelList();
 
         for(String ID: delList){

@@ -206,7 +206,6 @@ public class SyncMeasurement extends Sync {
     }
 
     public static String[] getSyncList(long lastSync, String userID) {
-        Log.d("last sync", new Long(lastSync).toString());
         String[] out = null;
         String URL = baseURL + "/users/" + userID + "/measurements/?modifiedAfter=" + new Long(lastSync).toString();
         SyncMeasurement sm = new SyncMeasurement();
@@ -422,7 +421,7 @@ public class SyncMeasurement extends Sync {
                 out = sm.streamReader(inputStream);
                 JSONObject jObject = new JSONObject(out);
                 out = jObject.getString("data");
-                if(out.equals("measurement record deleted")){
+                if (out.equals("measurement record deleted")) {
                     return true;
                 }
             }
@@ -431,5 +430,26 @@ public class SyncMeasurement extends Sync {
             Log.e(TAG, e.getMessage());
         }
         return false;
+    }
+
+    public static String[] getDelList(String userID) {
+        Log.e(TAG, "getDelList");
+        String[] out = null;
+        String URL = baseURL + "/users/" + userID + "deleted/measurements";
+        SyncMeasurement sm = new SyncMeasurement();
+        int CON_TIMEOUT = 2000;
+        int SOC_TIMEOUT = 3000;
+
+        InputStream inputStream = null;
+        try {
+            inputStream = sm.GET(URL, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+            if (inputStream != null) {
+                out = sm.convertInputStreamToList(inputStream);
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+        return out;
     }
 }
