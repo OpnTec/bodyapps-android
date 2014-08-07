@@ -34,7 +34,7 @@ import java.net.URL;
 public class Sync {
 
     static final String TAG = Sync.class.getName();
-    public static String baseURL = "http://192.168.1.2:8020";
+    public static String baseURL = "http://freelayers.org";
 
     public static void setBaseURL(String baseURL) {
         Sync.baseURL = baseURL;
