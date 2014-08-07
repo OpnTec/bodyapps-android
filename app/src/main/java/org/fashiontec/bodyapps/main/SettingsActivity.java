@@ -364,14 +364,14 @@ public class SettingsActivity extends ActionBarActivity implements
 				// user.
 				// Then he will be added to the DB and set as current user.
 				progress.show();
-				new HttpAsyncTaskUser().execute("http://192.168.1.2:8020/users");
+				new HttpAsyncTaskUser().execute();
 			} else {
 
 				if (isUser.equals("NoID")) {
 					// if user exists in DB and doesn't have a ID, try to get ID
 					progress.show();
 					new HttpAsyncTaskUser()
-							.execute("http://192.168.1.2:8020/users");
+							.execute();
 				} else {
 					// if user exists in DB and has a ID just sets him current
 					// user
@@ -436,10 +436,8 @@ public class SettingsActivity extends ActionBarActivity implements
 
 	/**
 	 * Call to syncUser method
-	 * 
-	 * @param url
 	 */
-	public void postUser(String url) {
+	public void postUser() {
 
 		userID = SyncUser.getUserID(email, personName);
 	}
@@ -495,7 +493,7 @@ public class SettingsActivity extends ActionBarActivity implements
 		@Override
 		protected String doInBackground(String... urls) {
 
-			postUser(urls[0]);
+			postUser();
 			return userID;
 		}
 	}

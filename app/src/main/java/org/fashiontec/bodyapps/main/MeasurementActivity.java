@@ -37,21 +37,14 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.Serializable;
-import java.net.URI;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.fashiontec.bodyapps.managers.MeasurementManager;
-import org.fashiontec.bodyapps.managers.PersonManager;
 import org.fashiontec.bodyapps.managers.UserManager;
 import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.Person;
-import org.fashiontec.bodyapps.sync.SyncMeasurement;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.Serializable;
 
 /**
  * This is the view for adding data to created measurement. This view consist of
@@ -65,6 +58,7 @@ public class MeasurementActivity extends Activity {
     private static Context context;
     private static ProgressDialog progress;
     private static GridView gridView;
+    static final String TAG = MeasurementActivity.class.getName();
 
     private final static String HEAD_FILL = "/2";
     private final static String NECK_FILL = "/1";
@@ -80,7 +74,7 @@ public class MeasurementActivity extends Activity {
     private final static String PICS_FILL = "/3";
     private final static String NOTES_FILL = "/1";
     private static String[] filledFields = {"0/2", "0/1", "0/5", "0/2", "0/4",
-            "0/0", "0/2", "0/0", "0/0", "0/0", "0/2", "0/3","0/1"};
+            "0/0", "0/2", "0/0", "0/0", "0/0", "0/2", "0/3", "0/1"};
 
     // Constants to separate measurement fragments at switch
     private final static int HEAD = 0;
@@ -159,7 +153,7 @@ public class MeasurementActivity extends Activity {
                     final String ACCOUNT_TYPE = "fashiontec.org";
                     // The account name
                     final String ACCOUNT = "dummyaccount";
-                    if(UserManager.getInstance(v.getContext().getApplicationContext()).getAutoSync()) {
+                    if (UserManager.getInstance(v.getContext().getApplicationContext()).getAutoSync()) {
                         Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
                         AccountManager accountManager = (AccountManager) v.getContext().getSystemService(ACCOUNT_SERVICE);
                         accountManager.addAccountExplicitly(newAccount, null, null);
@@ -239,7 +233,7 @@ public class MeasurementActivity extends Activity {
             int trunk = 0;
             int heights = 0;
             int pics = 0;
-            int note=0;
+            int note = 0;
 
             if (!measurement.getMid_neck_girth().equals("")) {
                 neck += 1;
@@ -494,10 +488,9 @@ public class MeasurementActivity extends Activity {
 
         @Override
         public void onDestroy() {
-            // TODO Auto-generated method stub
             super.onDestroy();
             int filled = 0;
-            Log.d("measurement", "onDestroy");
+            Log.d(TAG, "onDestroy");
             measurement.setHead_girth(head_girth.getText().toString());
             measurement.setHead_and_neck_length(head_and_neck_length.getText().toString());
             if (!head_girth.getText().toString().equals("")) {
@@ -529,10 +522,9 @@ public class MeasurementActivity extends Activity {
 
         @Override
         public void onDestroy() {
-            // TODO Auto-generated method stub
             super.onDestroy();
             int filled = 0;
-            Log.d("measurement", "onDestroy");
+            Log.d(TAG, "onDestroy");
             measurement.setMid_neck_girth(mid_neck_girth.getText().toString());
             if (!mid_neck_girth.getText().toString().equals("")) {
                 filled += 1;
@@ -568,7 +560,7 @@ public class MeasurementActivity extends Activity {
                     .findViewById(R.id.shoulder_length);
             shoulder_and_arm_length = (EditText) rootView
                     .findViewById(R.id.shoulder_and_arm_length);
-            shoulder_type=(Spinner) rootView.findViewById(R.id.shoulder_type);
+            shoulder_type = (Spinner) rootView.findViewById(R.id.shoulder_type);
             ArrayAdapter<CharSequence> shoulderAdapter = ArrayAdapter
                     .createFromResource(rootView.getContext(), R.array.shoulder_type_array,
                             android.R.layout.simple_spinner_item);
@@ -638,7 +630,7 @@ public class MeasurementActivity extends Activity {
             View rootView = inflater.inflate(R.layout.chest, container, false);
             bust_girth = (EditText) rootView.findViewById(R.id.bust_girth);
             upper_chest_girth = (EditText) rootView.findViewById(R.id.upper_chest_girth);
-            chest_type=(Spinner) rootView.findViewById(R.id.chest_type);
+            chest_type = (Spinner) rootView.findViewById(R.id.chest_type);
             ArrayAdapter<CharSequence> chestAdapter = ArrayAdapter
                     .createFromResource(rootView.getContext(), R.array.chest_type_array,
                             android.R.layout.simple_spinner_item);
@@ -689,7 +681,7 @@ public class MeasurementActivity extends Activity {
             armscye_girth = (EditText) rootView
                     .findViewById(R.id.armscye_girth);
             wrist_girth = (EditText) rootView.findViewById(R.id.wrist_girth);
-            arm_type=(Spinner) rootView.findViewById(R.id.arm_type);
+            arm_type = (Spinner) rootView.findViewById(R.id.arm_type);
             ArrayAdapter<CharSequence> armAdapter = ArrayAdapter
                     .createFromResource(rootView.getContext(), R.array.arm_type_array,
                             android.R.layout.simple_spinner_item);
@@ -802,16 +794,17 @@ public class MeasurementActivity extends Activity {
     public static class Trunk extends Fragment {
         private static Spinner back_shape;
         private static Spinner stomach_shape;
+
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.trunk, container, false);
-            back_shape=(Spinner) rootView.findViewById(R.id.back_shape);
+            back_shape = (Spinner) rootView.findViewById(R.id.back_shape);
             ArrayAdapter<CharSequence> backShapeAdapter = ArrayAdapter
                     .createFromResource(rootView.getContext(), R.array.back_shape_array,
                             android.R.layout.simple_spinner_item);
             back_shape.setAdapter(backShapeAdapter);
 
-            stomach_shape=(Spinner) rootView.findViewById(R.id.stomach_shape);
+            stomach_shape = (Spinner) rootView.findViewById(R.id.stomach_shape);
             ArrayAdapter<CharSequence> stomachShapeAdapter = ArrayAdapter
                     .createFromResource(rootView.getContext(), R.array.stomach_shape_array,
                             android.R.layout.simple_spinner_item);
@@ -871,7 +864,7 @@ public class MeasurementActivity extends Activity {
 
     public static class Pics extends Fragment {
         private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
-        private static final int OPEN_IMAGE_REQUEST_CODE=101;
+        private static final int OPEN_IMAGE_REQUEST_CODE = 101;
         private static final int FRONT = 1;
         private static final int SIDE = 2;
         private static final int BACK = 3;
@@ -925,16 +918,16 @@ public class MeasurementActivity extends Activity {
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            if(measurement.getPic_front()!=null && !measurement.getPic_front().equals("")){
-                type=FRONT;
+            if (measurement.getPic_front() != null && !measurement.getPic_front().equals("")) {
+                type = FRONT;
                 previewCapturedImage();
             }
-            if(measurement.getPic_side()!=null && !measurement.getPic_side().equals("")){
-                type=SIDE;
+            if (measurement.getPic_side() != null && !measurement.getPic_side().equals("")) {
+                type = SIDE;
                 previewCapturedImage();
             }
-            if(measurement.getPic_back()!=null && !measurement.getPic_back().equals("")){
-                type=BACK;
+            if (measurement.getPic_back() != null && !measurement.getPic_back().equals("")) {
+                type = BACK;
                 previewCapturedImage();
             }
         }
@@ -967,12 +960,11 @@ public class MeasurementActivity extends Activity {
         }
 
         private void removeImage() {
-            if(type==FRONT){
+            if (type == FRONT) {
                 measurement.setPic_front("");
-            }else if(type==SIDE){
+            } else if (type == SIDE) {
                 measurement.setPic_side("");
-            }
-            else if(type==BACK){
+            } else if (type == BACK) {
                 measurement.setPic_back("");
             }
             previewCapturedImage();
@@ -992,7 +984,7 @@ public class MeasurementActivity extends Activity {
             // Create the storage directory if it does not exist
             if (!mediaStorageDir.exists()) {
                 if (!mediaStorageDir.mkdirs()) {
-                    Log.d(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
+                    Log.d(TAG, "Oops! Failed create "
                             + IMAGE_DIRECTORY_NAME + " directory");
                     return null;
                 }
@@ -1026,10 +1018,10 @@ public class MeasurementActivity extends Activity {
                     } else if (type == BACK) {
                         measurement.setPic_back(fileUri.getPath());
                     }
-                    compress();
+                    compress(fileUri, fileUri);
                     previewCapturedImage();
                 }
-            }else if(requestCode ==OPEN_IMAGE_REQUEST_CODE){
+            } else if (requestCode == OPEN_IMAGE_REQUEST_CODE) {
                 if (resultCode == RESULT_OK) {
 
                     Uri selectedImage = data.getData();
@@ -1040,8 +1032,8 @@ public class MeasurementActivity extends Activity {
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String filePath = cursor.getString(columnIndex);
                     cursor.close();
-                    fileUri= Uri.fromFile(new File(filePath));
-                    Log.d("path",fileUri.getPath());
+                    Uri inFile = Uri.fromFile(new File(filePath));
+                    fileUri = getOutputMediaFileUri();
 
                     if (type == FRONT) {
                         measurement.setPic_front(fileUri.getPath());
@@ -1050,7 +1042,7 @@ public class MeasurementActivity extends Activity {
                     } else if (type == BACK) {
                         measurement.setPic_back(fileUri.getPath());
                     }
-                    //compress();
+                    compress(inFile, fileUri);
                     previewCapturedImage();
                 }
             }
@@ -1063,65 +1055,59 @@ public class MeasurementActivity extends Activity {
 
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 8;
+                options.inSampleSize = 4;
 
                 if (type == FRONT) {
-                    if(!measurement.getPic_front().equals("")) {
+                    if (!measurement.getPic_front().equals("")) {
                         final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_front(),
                                 options);
                         imgFront.setVisibility(View.VISIBLE);
                         imgFront.setImageBitmap(bitmap);
                         imgFront.setRotation(90);
-                    }else {
+                    } else {
                         imgFront.setVisibility(View.GONE);
                     }
                 } else if (type == SIDE) {
-                    if(!measurement.getPic_side().equals("")) {
+                    if (!measurement.getPic_side().equals("")) {
                         final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_side(),
                                 options);
                         imgSide.setVisibility(View.VISIBLE);
                         imgSide.setImageBitmap(bitmap);
                         imgSide.setRotation(90);
-                    }else {
+                    } else {
                         imgSide.setVisibility(View.GONE);
                     }
                 } else if (type == BACK) {
-                    if(!measurement.getPic_back().equals("")) {
+                    if (!measurement.getPic_back().equals("")) {
                         final Bitmap bitmap = BitmapFactory.decodeFile(measurement.getPic_back(),
                                 options);
                         imgBack.setVisibility(View.VISIBLE);
                         imgBack.setImageBitmap(bitmap);
                         imgBack.setRotation(90);
-                    }else {
+                    } else {
                         imgBack.setVisibility(View.GONE);
                     }
                 }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
             }
         }
 
-        private void compress() {
+        private void compress(Uri inFile, Uri outFile) {
             try {
-                Bitmap bitmap = null;
-                File file = new File(fileUri.getPath());
-                try {
-                    bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                }
-
-                FileOutputStream fos = new FileOutputStream(fileUri.getPath());
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 75, fos);
-
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8;
+                File file = new File(inFile.getPath());
+                FileOutputStream fos = new FileOutputStream(outFile.getPath());
+                BitmapFactory.decodeFile(file.getPath(), options).compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.flush();
                 fos.close();
             } catch (Exception e) {
-                Log.e("MyLog", e.toString());
+                Log.e(TAG, e.getMessage());
             }
         }
 
-        public void dialog(){
+        public void dialog() {
             LayoutInflater factory = LayoutInflater.from(getActivity());
             final View dialogView = factory.inflate(
                     R.layout.choose_image_dialog, null);
@@ -1160,14 +1146,14 @@ public class MeasurementActivity extends Activity {
             super.onDestroy();
             int filled = 0;
 
-            if(measurement.getPic_front()!=null && !measurement.getPic_front().equals("")){
-                filled+=1;
+            if (measurement.getPic_front() != null && !measurement.getPic_front().equals("")) {
+                filled += 1;
             }
-            if(measurement.getPic_side()!=null && !measurement.getPic_side().equals("")){
-                filled+=1;
+            if (measurement.getPic_side() != null && !measurement.getPic_side().equals("")) {
+                filled += 1;
             }
-            if(measurement.getPic_back()!=null && !measurement.getPic_back().equals("")){
-                filled+=1;
+            if (measurement.getPic_back() != null && !measurement.getPic_back().equals("")) {
+                filled += 1;
             }
             GridAdapter ga = new GridAdapter(context);
             filledFields[PICS] = filled + PICS_FILL;
@@ -1197,9 +1183,7 @@ public class MeasurementActivity extends Activity {
 
             super.onDestroy();
             int filled = 0;
-
             measurement.setNotes(note.getText().toString());
-
             if (!note.getText().toString().equals("")) {
                 filled += 1;
             }
