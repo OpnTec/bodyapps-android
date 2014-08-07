@@ -15,7 +15,7 @@
     <item
         android:id="@+id/saved_options_menu_delete"
         android:title="@string/delete"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/delete"
         app:showAsAction="ifRoom"/>
 
 </menu>
