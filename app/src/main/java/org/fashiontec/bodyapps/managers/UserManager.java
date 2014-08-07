@@ -42,6 +42,7 @@ public class UserManager {
 		values.put(DBContract.User.COLUMN_NAME_NAME, user.getName());
 		values.put(DBContract.User.COLUMN_NAME_IS_CURRENT, 1);
         values.put(DBContract.User.COLUMN_NAME_AUTO_SYNC, user.getAutoSync());
+        values.put(DBContract.User.COLUMN_NAME_LAST_SYNC,0);
 		database.insert(DBContract.User.TABLE_NAME, null, values);
 		database.close();
 	}
@@ -183,6 +184,38 @@ public class UserManager {
 
         } else {
             return false;
+        }
+    }
+
+    public void setLastSync(long timeStamp){
+        Log.d("usermanager", "setLastSync");
+        String email = getCurrentEmail();
+        this.database = this.dbHandler.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DBContract.User.COLUMN_NAME_LAST_SYNC, timeStamp);
+        database.update(DBContract.User.TABLE_NAME, values,
+                DBContract.User.COLUMN_NAME_EMAIL + "='" + email + "'", null);
+        database.close();
+    }
+
+    public long getLastSync(){
+        Log.d("usermanager", "getAutoSync");
+        String email = getCurrentEmail();
+        this.database = this.dbHandler.getReadableDatabase();
+        Cursor cursor = database.query(DBContract.User.TABLE_NAME,
+                new String[] { DBContract.User.COLUMN_NAME_LAST_SYNC},
+                DBContract.User.COLUMN_NAME_EMAIL + " = '" + email+"'", null, null,
+                null, null);
+
+        if (cursor.moveToFirst()) {
+
+            long out = cursor.getLong(0);
+            cursor.close();
+            database.close();
+            return out;
+
+        } else {
+            return -1;
         }
     }
 }

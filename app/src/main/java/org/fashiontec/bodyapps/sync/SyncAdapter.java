@@ -16,6 +16,7 @@ import android.util.Log;
 
 import org.fashiontec.bodyapps.managers.MeasurementManager;
 import org.fashiontec.bodyapps.managers.PersonManager;
+import org.fashiontec.bodyapps.managers.UserManager;
 import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.Person;
 
@@ -27,7 +28,7 @@ import java.util.Date;
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     ContentResolver mContentResolver;
-
+    static final String TAG = SyncAdapter.class.getName();
 
 
     public SyncAdapter(Context context, boolean autoInitialize) {
@@ -45,16 +46,50 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle bundle, String s,
                               ContentProviderClient contentProviderClient,
                               SyncResult syncResult) {
-        Log.d("SyncAdapter","sync happened");
+        Log.d(TAG, "sync happened");
         Measurement measurement;
-        while ((measurement = MeasurementManager.getInstance(getContext().getApplicationContext()).getMeasurementSync())!=null) {
-            Person person = PersonManager.getInstance(getContext().getApplicationContext()).getPersonbyID(measurement.getPersonID());
-            String out = SyncMeasurement.sendMeasurement(measurement, person);
-            if(out.equals(measurement.getID())) {
-                measurement.setSynced(true);
-                MeasurementManager.getInstance(getContext().getApplicationContext()).addMeasurement(measurement);
+
+        String userID = UserManager.getInstance(getContext().getApplicationContext()).getCurrent();
+        String list[] = SyncMeasurement.getSyncList(UserManager.getInstance(
+                getContext().getApplicationContext()).getLastSync(), userID);
+        boolean syncOK = true;
+
+        if (list != null) {
+
+            for (int i = 0; i < list.length; i++) {
+                String out = SyncMeasurement.getMeasurement(list[i],
+                        getContext().getApplicationContext(), userID);
+                if (!out.equals(list[i])) {
+                    syncOK = false;
+                    break;
+                }
             }
-            Log.d("SyncAdapter",out);
+        }
+
+        while ((measurement = MeasurementManager.getInstance(
+                getContext().getApplicationContext()).getMeasurementSync()) != null) {
+
+            Person person = PersonManager.getInstance(getContext().getApplicationContext())
+                    .getPersonbyID(measurement.getPersonID());
+            boolean syncedOnce = MeasurementManager.getInstance(getContext().getApplicationContext())
+                    .isSyncedOnce(measurement.getID());
+
+            String out = SyncMeasurement.sendMeasurement(measurement, person, syncedOnce, getContext().getApplicationContext());
+
+            if (measurement.getID().equals(out)) {
+                measurement.setSynced(true);
+                MeasurementManager.getInstance(getContext().getApplicationContext())
+                        .addMeasurement(measurement);
+                MeasurementManager.getInstance(getContext().getApplicationContext())
+                        .setSyncedOnce(measurement.getID());
+            } else {
+                break;
+            }
+            Log.d(TAG, out);
+        }
+
+        if (syncOK) {
+            UserManager.getInstance(getContext().getApplicationContext()).setLastSync(new Date().getTime() + 120000);
         }
 
     }
