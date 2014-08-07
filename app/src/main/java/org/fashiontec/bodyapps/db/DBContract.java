@@ -213,7 +213,7 @@ public abstract class DBContract {
 		
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+Delete.TABLE_NAME+"("
-				+Delete.COLUMN_NAME_FILE_ID+" INTEGER PRIMARY KEY"
+				+Delete.COLUMN_NAME_FILE_ID+" TEXT PRIMARY KEY"
 				+")";
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 				+ Delete.TABLE_NAME;

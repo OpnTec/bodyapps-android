@@ -433,4 +433,33 @@ public class MeasurementManager {
         }
         return null;
     }
+
+    public void delMeasurement(String ID, int personID) {
+        Log.d(TAG, "delMeasurement");
+        this.database = this.dbHandler.getReadableDatabase();
+        boolean delPerson=false;
+        Cursor cursor = database
+                .query(DBContract.Measurement.TABLE_NAME,
+                        new String[]{DBContract.Measurement.COLUMN_NAME_ID},
+                        DBContract.Measurement.COLUMN_NAME_PERSON_ID + " = '" + personID + "'"
+                        , null, null, null, null);
+        if (!cursor.moveToFirst()) {
+            delPerson=true;
+        }
+        cursor.close();
+        database.close();
+        this.database = this.dbHandler.getWritableDatabase();
+        if (delPerson) {
+            database.delete(DBContract.Person.TABLE_NAME,
+                    DBContract.Person.COLUMN_NAME_ID + " ='" + ID + "'",
+                    null);
+        }
+        database.delete(DBContract.Measurement.TABLE_NAME,
+                DBContract.Measurement.COLUMN_NAME_ID + " ='" + ID + "'",
+                null);
+        ContentValues values = new ContentValues();
+        values.put(DBContract.Delete.COLUMN_NAME_FILE_ID, ID);
+        database.insert(DBContract.Delete.TABLE_NAME, null, values);
+        database.close();
+    }
 }

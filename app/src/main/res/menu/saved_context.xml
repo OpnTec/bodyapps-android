@@ -12,4 +12,9 @@
         android:id="@+id/saved_cont_menu_hdf"
         android:title="@string/get_hdf"
         android:icon="@drawable/ic_launcher"/>
+
+    <item
+        android:id="@+id/saved_cont_menu_delete"
+        android:title="@string/delete"
+        android:icon="@drawable/ic_launcher"/>
 </menu>

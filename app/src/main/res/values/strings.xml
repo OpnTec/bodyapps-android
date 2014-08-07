@@ -92,6 +92,7 @@
     <string name="camera">Camera</string>
     <string name="from_file">From file</string>
     <string name="remove">Remove</string>
+    <string name="delete">Delete</string>
 
 
 </resources>

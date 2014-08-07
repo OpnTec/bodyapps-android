@@ -54,8 +54,9 @@ import java.util.List;
 public class SavedActivity extends ActionBarActivity {
 
     public static String shownID;
+    public static int shownIndex = 0;
     ProgressDialog progress;
-    private static Activity activity;
+    private static SavedActivity activity;
     static SearchView search;
     static SavedAdapter adapter;
     public static List<MeasurementListModel> measurementsList;
@@ -86,6 +87,54 @@ public class SavedActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public AlertDialog options(final String ID){
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("This measurement will be deleted permanently. Are you sure?")
+                .setIcon(R.drawable.warning)
+
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        delete(ID);
+                        dialog.dismiss();
+                    }
+
+                })
+
+
+
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+    }
+
+    public void delete(String ID){
+        int personID=MeasurementManager.getInstance(this.getApplicationContext()).getMeasurement(ID).getPersonID();
+        MeasurementManager.getInstance(this.getApplicationContext()).delMeasurement(ID, personID);
+        measurementsList=getDataForListView(this);
+        adapter=new SavedAdapter(this,measurementsList);
+        ListView list = (ListView)findViewById(R.id.listView1);
+        list.setAdapter(adapter);
+        shownIndex=0;
+        if (measurementsList.size()!=0 && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            ViewSavedFragment vsf = new ViewSavedFragment();
+            vsf.setItem(measurementsList.get(shownIndex)
+                    .getID());
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.mesurements, vsf);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -131,6 +180,9 @@ public class SavedActivity extends ActionBarActivity {
             switch (item.getItemId()) {
                 case R.id.saved_options_menu_edit:
                     edit(shownID);
+                    return true;
+                case R.id.saved_options_menu_delete:
+                    options(shownID).show();
                     return true;
 
             }
@@ -205,23 +257,23 @@ public class SavedActivity extends ActionBarActivity {
     }
 
     /**
+     * Gets a List of measurementLisModel objects from database
+     */
+    public static List<MeasurementListModel> getDataForListView(
+            Context context) {
+        return MeasurementManager.getInstance(context).getList();
+
+    }
+
+    /**
      * UI fragment to display a list of measurements.
      */
     public static class SavedList extends Fragment {
-        int shownIndex = 0;
+
         ListView list;
         Boolean dualPane;
 
         public SavedList() {
-        }
-
-        /**
-         * Gets a List of measurementLisModel objects from database
-         */
-        public static List<MeasurementListModel> getDataForListView(
-                Context context) {
-            return MeasurementManager.getInstance(context).getList();
-
         }
 
         @Override
@@ -238,13 +290,6 @@ public class SavedActivity extends ActionBarActivity {
 
             list = (ListView) rootView.findViewById(R.id.listView1);
             registerForContextMenu(list);
-            measurementsList = getDataForListView(rootView.getContext().getApplicationContext());
-            adapter = new SavedAdapter(rootView.getContext(),
-                    measurementsList);
-            list.setAdapter(adapter);
-            if (measurementsList.size()!=0) {
-                shownID = measurementsList.get(shownIndex).getID();
-            }
             list.setOnItemClickListener(new OnItemClickListener() {
 
                 @Override
@@ -256,6 +301,18 @@ public class SavedActivity extends ActionBarActivity {
                 }
             });
             return rootView;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            measurementsList = getDataForListView(getActivity().getBaseContext().getApplicationContext());
+            adapter = new SavedAdapter(getActivity().getBaseContext(),
+                    measurementsList);
+            list.setAdapter(adapter);
+            if (measurementsList.size()!=0) {
+                shownID = measurementsList.get(shownIndex).getID();
+            }
         }
 
         @Override
@@ -289,13 +346,16 @@ public class SavedActivity extends ActionBarActivity {
             AdapterView.AdapterContextMenuInfo iteminfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int index = iteminfo.position;
             String ID = (String) measurementsList.get(index).getID();
-            SavedActivity sa = (SavedActivity) list.getContext();
+//            SavedActivity sa = (SavedActivity) list.getContext();
             switch (item.getItemId()) {
                 case R.id.saved_cont_menu_edit:
-                    sa.edit(ID);
+                    activity.edit(ID);
                     return true;
                 case R.id.saved_cont_menu_hdf:
-                    sa.getHDF();
+                    activity.getHDF();
+                    return true;
+                case R.id.saved_cont_menu_delete:
+                    activity.options(ID).show();
                     return true;
             }
             return super.onContextItemSelected(item);
@@ -368,33 +428,56 @@ public class SavedActivity extends ActionBarActivity {
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
 
-            // Inflate the menu; this adds items to the action bar if it is
-            // present.
             getMenuInflater().inflate(R.menu.view_saved, menu);
             return true;
         }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
             int id = item.getItemId();
             switch (item.getItemId()) {
                 case R.id.saved_options_menu_edit:
                     edit(shownID);
                     return true;
-
+                case R.id.saved_options_menu_delete:
+                    options(shownID, this).show();
+                    return true;
             }
             return super.onOptionsItemSelected(item);
         }
+        public AlertDialog options(final String ID, Context context){
+            AlertDialog myQuittingDialogBox =new AlertDialog.Builder(context)
+                    .setTitle("Delete")
+                    .setMessage("This measurement will be deleted permanently. Are you sure?")
+                    .setIcon(R.drawable.warning)
+                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            delete(ID);
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+            return myQuittingDialogBox;
+        }
+
+        public void delete(String ID){
+            int personID=MeasurementManager.getInstance(this.getApplicationContext()).getMeasurement(ID).getPersonID();
+            MeasurementManager.getInstance(this.getApplicationContext()).delMeasurement(ID, personID);
+            shownIndex=0;
+            this.finish();
+        }
+
         public void edit(String ID) {
             Measurement editMeasurement = MeasurementManager.getInstance(this.getApplicationContext()).getMeasurement(ID);
             Intent intent = new Intent(ViewSavedActivity.this, MeasurementActivity.class);
             intent.putExtra("measurement", editMeasurement);
             startActivity(intent);
         }
-
     }
 
     /**
