@@ -19,8 +19,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -31,8 +29,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -64,8 +60,8 @@ public class SavedActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity=this;
-        progress=new ProgressDialog(this);
+        activity = this;
+        progress = new ProgressDialog(this);
         progress.setTitle("Loading");
         progress.setMessage("Wait while loading...");
         setContentView(R.layout.activity_saved);
@@ -78,6 +74,7 @@ public class SavedActivity extends ActionBarActivity {
 
     /**
      * Go to edit View
+     *
      * @param ID
      */
     public void edit(String ID) {
@@ -87,44 +84,35 @@ public class SavedActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    public AlertDialog options(final String ID){
-        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
-                //set message, title, and icon
-                .setTitle("Delete")
-                .setMessage("This measurement will be deleted permanently. Are you sure?")
+    public AlertDialog options(final String ID) {
+        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.delete))
+                .setMessage(getString(R.string.delete_msg))
                 .setIcon(R.drawable.warning)
-
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-
+                .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         delete(ID);
                         dialog.dismiss();
                     }
-
                 })
-
-
-
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
                         dialog.dismiss();
-
                     }
                 })
                 .create();
         return myQuittingDialogBox;
     }
 
-    public void delete(String ID){
-        int personID=MeasurementManager.getInstance(this.getApplicationContext()).getMeasurement(ID).getPersonID();
+    public void delete(String ID) {
+        int personID = MeasurementManager.getInstance(this.getApplicationContext()).getMeasurement(ID).getPersonID();
         MeasurementManager.getInstance(this.getApplicationContext()).delMeasurement(ID, personID);
-        measurementsList=getDataForListView(this);
-        adapter=new SavedAdapter(this,measurementsList);
-        ListView list = (ListView)findViewById(R.id.listView1);
+        measurementsList = getDataForListView(this);
+        adapter = new SavedAdapter(this, measurementsList);
+        ListView list = (ListView) findViewById(R.id.listView1);
         list.setAdapter(adapter);
-        shownIndex=0;
-        if (measurementsList.size()!=0 && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        shownIndex = 0;
+        if (measurementsList.size() != 0 && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             ViewSavedFragment vsf = new ViewSavedFragment();
             vsf.setItem(measurementsList.get(shownIndex)
                     .getID());
@@ -175,8 +163,7 @@ public class SavedActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && shownID!=null) {
-            int id = item.getItemId();
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && shownID != null) {
             switch (item.getItemId()) {
                 case R.id.saved_options_menu_edit:
                     edit(shownID);
@@ -194,37 +181,39 @@ public class SavedActivity extends ActionBarActivity {
     /**
      * Manages the HDF getting process
      */
-    public void getHDF(){
-        Measurement m=MeasurementManager.getInstance(this).getMeasurement(shownID);
-        Person p=PersonManager.getInstance(this).getPersonbyID(m.getPersonID());
-        if(m.isSynced()==true){
-            String path=getPath(p.getName(),shownID);
-            new DownloadFileAsync().execute(m.getUserID(),m.getID(),path,p.getName());
-        }else {
+    public void getHDF() {
+        Measurement m = MeasurementManager.getInstance(this).getMeasurement(shownID);
+        Person p = PersonManager.getInstance(this).getPersonbyID(m.getPersonID());
+        if (m.isSynced() == true) {
+            String path = getPath(p.getName(), shownID);
+            new DownloadFileAsync().execute(m.getUserID(), m.getID(), path, p.getName());
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Sync needed")
-                    .setMessage("You have to sync before getting HDF!")
+            builder.setTitle(getString(R.string.sync_needed))
+                    .setMessage(getString(R.string.sync_needed_msg))
                     .setIcon(R.drawable.warning)
                     .setCancelable(false)
-                    .setNegativeButton("Close",
+                    .setNegativeButton(getString(R.string.close),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,
                                                     int id) {
                                     dialog.cancel();
                                 }
-                            });
+                            }
+                    );
             builder.create().show();
         }
     }
 
     /**
      * Returns a file path to save the HDF
+     *
      * @param name
      * @param measurementID
      * @return
      */
-    public String getPath(String name, String measurementID){
-        String out=null;
+    public String getPath(String name, String measurementID) {
+        String out = null;
         String HDF_DIRECTORY_NAME = "BodyApp" + File.separator + name;
         File mediaStorageDir = new File(
                 Environment
@@ -241,12 +230,12 @@ public class SavedActivity extends ActionBarActivity {
         }
 
         File mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                + measurementID+".zip");
+                + measurementID + ".zip");
         return mediaFile.getPath();
     }
 
-    public static void mail(String path){
-        File file=new File(path);
+    public static void mail(String path) {
+        File file = new File(path);
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
         i.putExtra(Intent.EXTRA_SUBJECT, "Title");
@@ -296,7 +285,7 @@ public class SavedActivity extends ActionBarActivity {
                 public void onItemClick(AdapterView<?> arg0, View view,
                                         int index, long arg3) {
                     shownIndex = index;
-                    shownID=measurementsList.get(index).getID();
+                    shownID = measurementsList.get(index).getID();
                     viewSet(view);
                 }
             });
@@ -310,7 +299,7 @@ public class SavedActivity extends ActionBarActivity {
             adapter = new SavedAdapter(getActivity().getBaseContext(),
                     measurementsList);
             list.setAdapter(adapter);
-            if (measurementsList.size()!=0) {
+            if (measurementsList.size() != 0) {
                 shownID = measurementsList.get(shownIndex).getID();
             }
         }
@@ -326,7 +315,7 @@ public class SavedActivity extends ActionBarActivity {
             list.setChoiceMode(ListView.CHOICE_MODE_NONE);
 
             if (dualPane) {
-                if(measurementsList.size()!=0) {
+                if (measurementsList.size() != 0) {
                     viewSet(getView());
                 }
             }
@@ -346,7 +335,6 @@ public class SavedActivity extends ActionBarActivity {
             AdapterView.AdapterContextMenuInfo iteminfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
             int index = iteminfo.position;
             String ID = (String) measurementsList.get(index).getID();
-//            SavedActivity sa = (SavedActivity) list.getContext();
             switch (item.getItemId()) {
                 case R.id.saved_cont_menu_edit:
                     activity.edit(ID);
@@ -385,7 +373,7 @@ public class SavedActivity extends ActionBarActivity {
 
                 Intent intent = new Intent(view.getContext(),
                         ViewSavedActivity.class);
-                if (measurementsList.size()!=0) {
+                if (measurementsList.size() != 0) {
                     intent.putExtra("ID",
                             (CharSequence) measurementsList.get(shownIndex)
                                     .getID()
@@ -397,7 +385,6 @@ public class SavedActivity extends ActionBarActivity {
 
         public void onSaveInstanceState(Bundle outState) {
             super.onSaveInstanceState(outState);
-
             outState.putInt("shownIndex", shownIndex);
         }
 
@@ -445,18 +432,19 @@ public class SavedActivity extends ActionBarActivity {
             }
             return super.onOptionsItemSelected(item);
         }
-        public AlertDialog options(final String ID, Context context){
-            AlertDialog myQuittingDialogBox =new AlertDialog.Builder(context)
-                    .setTitle("Delete")
-                    .setMessage("This measurement will be deleted permanently. Are you sure?")
+
+        public AlertDialog options(final String ID, Context context) {
+            AlertDialog myQuittingDialogBox = new AlertDialog.Builder(context)
+                    .setTitle(getString(R.string.delete))
+                    .setMessage(getString(R.string.delete_msg))
                     .setIcon(R.drawable.warning)
-                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             delete(ID);
                             dialog.dismiss();
                         }
                     })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
@@ -465,10 +453,10 @@ public class SavedActivity extends ActionBarActivity {
             return myQuittingDialogBox;
         }
 
-        public void delete(String ID){
-            int personID=MeasurementManager.getInstance(this.getApplicationContext()).getMeasurement(ID).getPersonID();
+        public void delete(String ID) {
+            int personID = MeasurementManager.getInstance(this.getApplicationContext()).getMeasurement(ID).getPersonID();
             MeasurementManager.getInstance(this.getApplicationContext()).delMeasurement(ID, personID);
-            shownIndex=0;
+            shownIndex = 0;
             this.finish();
         }
 
@@ -559,32 +547,32 @@ public class SavedActivity extends ActionBarActivity {
             if (measurement != null) {
                 String unit;
                 if (measurement.getUnit() == 0) {
-                    unit = " cm";
+                    unit = " " + getString(R.string.cm);
                 } else {
-                    unit = " inch";
+                    unit = " " + getString(R.string.inch);
                 }
-                person_name.setText("Name : " + person.getName());
-                person_email.setText("Email : " + person.getEmail());
+                person_name.setText(getString(R.string.name) + " : " + person.getName());
+                person_email.setText(getString(R.string.email) + " : " + person.getEmail());
                 String genderSt;
                 if (person.getGender() == 0) {
-                    genderSt = "fmale";
+                    genderSt = getString(R.string.female);
                 } else {
-                    genderSt = "male";
+                    genderSt = getString(R.string.male);
                 }
-                gender.setText("Gender : " + genderSt);
-                mid_neck_girth.setText("Mid neck girth : " + measurement.getMid_neck_girth() + unit);
-                across_back_shoulder_width.setText("Across back shoulder width : " + measurement.getAcross_back_shoulder_width() + unit);
-                shoulder_drop.setText("Shoulder drop : " + measurement.getShoulder_drop() + unit);
-                shoulder_slope_degrees.setText("Shoulder slope degrees : " + measurement.getShoulder_slope_degrees() + " degrees");
-                bust_girth.setText("Bust girth : " + measurement.getBust_girth() + unit);
-                arm_length.setText("Arm length : " + measurement.getArm_length() + unit);
-                armscye_girth.setText("Armscye girth : " + measurement.getArmscye_girth() + unit);
-                upper_arm_girth.setText("Upper arm girth : " + measurement.getUpper_arm_girth() + unit);
-                wrist_girth.setText("Wrist girth : " + measurement.getWrist_girth() + unit);
-                hip_girth.setText("Hip girth : " + measurement.getHip_girth() + unit);
-                waist_girth.setText("Waist girth : " + measurement.getWaist_girth() + unit);
-                height.setText("Height : " + measurement.getHeight() + unit);
-                hip_height.setText("Hip height : " + measurement.getHip_height() + unit);
+                gender.setText(getString(R.string.gender) + " : " + genderSt);
+                mid_neck_girth.setText(getString(R.string.mid_neck_girth) + " : " + measurement.getMid_neck_girth() + unit);
+                across_back_shoulder_width.setText(getString(R.string.across_back_shoulder_width) + " : " + measurement.getAcross_back_shoulder_width() + unit);
+                shoulder_drop.setText(getString(R.string.shoulder_drop) + " : " + measurement.getShoulder_drop() + unit);
+                shoulder_slope_degrees.setText(getString(R.string.shoulder_slope_degrees) + " : " + measurement.getShoulder_slope_degrees() + " degrees");
+                bust_girth.setText(getString(R.string.bust_girth) + " : " + measurement.getBust_girth() + unit);
+                arm_length.setText(getString(R.string.arm_length) + " : " + measurement.getArm_length() + unit);
+                armscye_girth.setText(getString(R.string.armscye_girth) + " : " + measurement.getArmscye_girth() + unit);
+                upper_arm_girth.setText(getString(R.string.upper_arm_girth) + " : " + measurement.getUpper_arm_girth() + unit);
+                wrist_girth.setText(getString(R.string.wrist_girth) + " : " + measurement.getWrist_girth() + unit);
+                hip_girth.setText(getString(R.string.hip_girth) + " : " + measurement.getHip_girth() + unit);
+                waist_girth.setText(getString(R.string.waist_girth) + " : " + measurement.getWaist_girth() + unit);
+                height.setText(getString(R.string.height) + " : " + measurement.getHeight() + unit);
+                hip_height.setText(getString(R.string.hip_height) + " : " + measurement.getHip_height() + unit);
 
 
             }
@@ -597,8 +585,8 @@ public class SavedActivity extends ActionBarActivity {
      * Async task to download the HDF
      */
     private class DownloadFileAsync extends AsyncTask<String, String, String> {
-        int result=0;
-        String path="Downloads/BodyApp/";
+        int result = 0;
+        String path = "Downloads/BodyApp/";
         String actualPath;
 
         @Override
@@ -606,21 +594,22 @@ public class SavedActivity extends ActionBarActivity {
             super.onPreExecute();
             progress.show();
         }
+
         @Override
         protected String doInBackground(String... val) {
-            path=path+val[3]+"/"+val[1]+".zip";
-            actualPath=val[2];
-            result=HDF.getHDF(val[0],val[1],val[2]);
+            path = path + val[3] + "/" + val[1] + ".zip";
+            actualPath = val[2];
+            result = HDF.getHDF(val[0], val[1], val[2]);
             return null;
         }
 
         @Override
         protected void onPostExecute(String unused) {
             progress.dismiss();
-            Log.d("asynct1","posr exe");
-            if(result>0){
+            Log.d("asynct1", "posr exe");
+            if (result > 0) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                builder.setMessage("Your HDF is saved at "+path+". Do you want to send it now?")
+                builder.setMessage("Your HDF is saved at " + path + ". Do you want to send it now?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -634,8 +623,7 @@ public class SavedActivity extends ActionBarActivity {
                             }
                         });
                 AlertDialog alert = builder.create();
-            alert.show();
-            Log.d("asynct1","posr exe2");
+                alert.show();
             }
         }
     }

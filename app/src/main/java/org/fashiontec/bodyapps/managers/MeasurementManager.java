@@ -437,14 +437,14 @@ public class MeasurementManager {
     public void delMeasurement(String ID, int personID) {
         Log.d(TAG, "delMeasurement");
         this.database = this.dbHandler.getReadableDatabase();
-        boolean delPerson=false;
+        boolean delPerson = false;
         Cursor cursor = database
                 .query(DBContract.Measurement.TABLE_NAME,
                         new String[]{DBContract.Measurement.COLUMN_NAME_ID},
                         DBContract.Measurement.COLUMN_NAME_PERSON_ID + " = '" + personID + "'"
                         , null, null, null, null);
         if (!cursor.moveToFirst()) {
-            delPerson=true;
+            delPerson = true;
         }
         cursor.close();
         database.close();
@@ -463,9 +463,9 @@ public class MeasurementManager {
         database.close();
     }
 
-    public List<String > getDelList(){
+    public List<String> getDelList() {
         Log.d(TAG, "getDelList");
-        List<String > list = new ArrayList<String >();
+        List<String> list = new ArrayList<String>();
         this.database = this.dbHandler.getReadableDatabase();
         Cursor cursor = database
                 .query(DBContract.Delete.TABLE_NAME,

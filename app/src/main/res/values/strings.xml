@@ -93,6 +93,11 @@
     <string name="from_file">From file</string>
     <string name="remove">Remove</string>
     <string name="delete">Delete</string>
+    <string name="cm">cm</string>
+    <string name="delete_msg">This measurement will be deleted permanently. Are you sure?</string>
+    <string name="sync_needed">Sync needed</string>
+    <string name="sync_needed_msg">You have to sync before getting HDF!</string>
+    <string name="close">Close</string>
 
 
 </resources>
