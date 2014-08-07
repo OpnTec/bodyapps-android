@@ -9,6 +9,7 @@ import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -33,7 +34,7 @@ import java.net.URL;
 public class Sync {
 
     static final String TAG = Sync.class.getName();
-    public static String baseURL = "http://freelayers.org";
+    public static String baseURL = "http://192.168.1.2:8020";
 
     public static void setBaseURL(String baseURL) {
         Sync.baseURL = baseURL;
@@ -145,6 +146,22 @@ public class Sync {
             request.setEntity(se);
             request.setHeader("Accept", "application/json");
             request.setHeader("Content-type", "application/json");
+            response = client.execute(request);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+        return response;
+    }
+
+    public HttpResponse DELETE(String url, int conTimeOut, int socTimeOut) {
+        HttpResponse response = null;
+        try {
+            HttpParams httpParameters = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpParameters, conTimeOut);
+            HttpConnectionParams.setSoTimeout(httpParameters, socTimeOut);
+            HttpClient client = new DefaultHttpClient(httpParameters);
+            HttpDelete request = new HttpDelete(url);
+            request.setHeader("Accept", "application/json");
             response = client.execute(request);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

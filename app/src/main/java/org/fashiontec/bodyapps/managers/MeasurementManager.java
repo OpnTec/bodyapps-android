@@ -462,4 +462,30 @@ public class MeasurementManager {
         database.insert(DBContract.Delete.TABLE_NAME, null, values);
         database.close();
     }
+
+    public List<String > getDelList(){
+        Log.d(TAG, "getDelList");
+        List<String > list = new ArrayList<String >();
+        this.database = this.dbHandler.getReadableDatabase();
+        Cursor cursor = database
+                .query(DBContract.Delete.TABLE_NAME,
+                        new String[]{DBContract.Delete.COLUMN_NAME_FILE_ID},
+                        null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
+    public void removeDelEntry(String ID) {
+        Log.d(TAG, "removeDelEntry");
+        this.database = this.dbHandler.getWritableDatabase();
+        database.delete(DBContract.Delete.TABLE_NAME,
+                DBContract.Delete.COLUMN_NAME_FILE_ID + " ='" + ID + "'",
+                null);
+        database.close();
+    }
 }
