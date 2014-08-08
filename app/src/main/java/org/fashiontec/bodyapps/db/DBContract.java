@@ -87,7 +87,6 @@ public abstract class DBContract {
 		public static final String COLUMN_NAME_PERSON_ID = "person_id";
 		public static final String COLUMN_NAME_CREATED = "created";
 		public static final String COLUMN_NAME_SYNCED_ONCE = "sync";
-		public static final String COLUMN_NAME_LAST_EDIT = "edit";
 		public static final String COLUMN_NAME_UNIT = "unit";
 		public static final String COLUMN_NAME_MID_NECK_GIRTH = "mid_neck_girth";
 		public static final String COLUMN_NAME_BUST_GIRTH = "bust_girth";
@@ -128,7 +127,6 @@ public abstract class DBContract {
 				+Measurement.COLUMN_NAME_PERSON_ID+NUMBER_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_CREATED+TEXT_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_SYNCED_ONCE+NUMBER_TYPE+COMMA_SEP
-				+Measurement.COLUMN_NAME_LAST_EDIT+NUMBER_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_UNIT+TEXT_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_MID_NECK_GIRTH+TEXT_TYPE+COMMA_SEP
 				+Measurement.COLUMN_NAME_BUST_GIRTH+TEXT_TYPE+COMMA_SEP
@@ -171,7 +169,6 @@ public abstract class DBContract {
 			Measurement.COLUMN_NAME_PERSON_ID,
 			Measurement.COLUMN_NAME_CREATED,
 			Measurement.COLUMN_NAME_SYNCED_ONCE,
-			Measurement.COLUMN_NAME_LAST_EDIT,
 			Measurement.COLUMN_NAME_UNIT,
 			Measurement.COLUMN_NAME_MID_NECK_GIRTH,
 			Measurement.COLUMN_NAME_BUST_GIRTH,
@@ -200,7 +197,7 @@ public abstract class DBContract {
             Measurement.COLUMN_NAME_ARM_TYPE,
             Measurement.COLUMN_NAME_CHEST_TYPE,
             Measurement.COLUMN_NAME_BACK_SHAPE,
-            Measurement.COLUMN_NAME_STOMACH_SHAPE+NUMBER_TYPE
+            Measurement.COLUMN_NAME_STOMACH_SHAPE
 		};
 	}
 	
@@ -213,7 +210,7 @@ public abstract class DBContract {
 		
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+Delete.TABLE_NAME+"("
-				+Delete.COLUMN_NAME_FILE_ID+" INTEGER PRIMARY KEY"
+				+Delete.COLUMN_NAME_FILE_ID+" TEXT PRIMARY KEY"
 				+")";
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 				+ Delete.TABLE_NAME;
