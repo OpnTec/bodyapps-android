@@ -13,12 +13,14 @@ public class Person {
 	private String name;
 	private int gender;// 1 for male
 	private int ID;
+    private long dob;
 
-	public Person(String email, String name, int gender) {
+	public Person(String email, String name, int gender, long dob) {
 		super();
 		this.email = email;
 		this.name = name;
 		this.gender = gender;
+        this.dob=dob;
 	}
 
 	public String getEmail() {
@@ -53,4 +55,11 @@ public class Person {
 		ID = iD;
 	}
 
+    public long getDob() {
+        return dob;
+    }
+
+    public void setDob(long dob) {
+        this.dob = dob;
+    }
 }

@@ -7,6 +7,7 @@ package org.fashiontec.bodyapps.main;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,20 +27,24 @@ import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.Person;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
 public class CreateActivity extends Activity {
     private Button btnCreate;
+    private Button btnDoB;
     private Spinner spnUnits;
     private Spinner spnGender;
     private TextView txtEmail;
     private TextView txtName;
+    private TextView txtDoB;
     private Person person;
     private Measurement measurement;
     Context context;
     private static AlertDialog alertDialog;
     static final String TAG = CreateActivity.class.getName();
+    static final Calendar myCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +72,40 @@ public class CreateActivity extends Activity {
                         android.R.layout.simple_spinner_item);
         spnGender.setAdapter(genderAdapter);
         context = this;
+        txtDoB = (TextView) findViewById(R.id.create_txt_dob);
+        updateLabel();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        btnDoB = (Button) findViewById(R.id.create_btn_dob);
+        btnDoB.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(CreateActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)
+                ).show();
+            }
+        });
+
+    }
+
+    private void updateLabel() {
+
+        String myFormat = "MM/dd/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        txtDoB.setText(sdf.format(myCalendar.getTime()));
     }
 
     public boolean setData() {
@@ -89,7 +128,8 @@ public class CreateActivity extends Activity {
     }
 
     private void setMeasurement(String name, String email) {
-        person = new Person(email, name, spnGender.getSelectedItemPosition());
+        Date bdate = myCalendar.getTime();
+        person = new Person(email, name, spnGender.getSelectedItemPosition(), bdate.getTime());
         // adds the person to DB and gets his ID
         int personID = PersonManager.getInstance(this.getApplicationContext()).getPerson(person);
         if (personID == -1) {

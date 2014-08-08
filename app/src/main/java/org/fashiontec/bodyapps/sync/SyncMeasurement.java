@@ -78,7 +78,11 @@ public class SyncMeasurement extends Sync {
             JSONObject personJSON = new JSONObject();
             personJSON.accumulate("name", person.getName());
             personJSON.accumulate("email", person.getEmail());
-            personJSON.accumulate("dob", "12/10/1990");// just dummy data to fulfill API post
+
+            Date date = new Date(person.getDob());
+            SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
+            String dateText = df2.format(date);
+            personJSON.accumulate("dob", dateText);
 
             if (person.getGender() == 1) {
                 personJSON.accumulate("gender", "male");
@@ -160,7 +164,6 @@ public class SyncMeasurement extends Sync {
 
         String imgBack = measurement.getPic_back();
         if (!imgBack.equals("")) {
-            System.out.println("body back clause");
             String backJSON = SyncPic.encodePics(imgBack);
             InputStream response = null;
             String imgID = MeasurementManager.getInstance(context).getPicID(measurement.getID(), PicTypes.BACK);
@@ -252,7 +255,6 @@ public class SyncMeasurement extends Sync {
     }
 
     public static String getMeasurement(String id, Context context, String userID) {
-        Log.d("getMeasurement id", id);
         String out = null;
         String URL = baseURL + "/users/" + userID + "/measurements/" + id;
         int CON_TIMEOUT = 2000;
@@ -278,7 +280,6 @@ public class SyncMeasurement extends Sync {
 
         Measurement measurement = null;
         Person person = null;
-        Log.d("convertToMeasurement", result);
         JSONObject jMeasurement;
         JSONObject jPerson;
         int personID = 0;
@@ -290,7 +291,10 @@ public class SyncMeasurement extends Sync {
             if (jPerson.getString("gender").equals("male")) {
                 gender = 1;
             }
-            person = new Person(jPerson.getString("email"), jPerson.getString("name"), gender);
+            String dob = jPerson.getString("dob");
+            dob = dob.substring(0, dob.lastIndexOf("-") + 3);
+            Date bdate = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
+            person = new Person(jPerson.getString("email"), jPerson.getString("name"), gender, bdate.getTime());
             if (PersonManager.getInstance(context).getPerson(person) == -1) {
                 PersonManager.getInstance(context).addPerson(person);
             }
@@ -404,11 +408,11 @@ public class SyncMeasurement extends Sync {
             result += line;
 
         inputStream.close();
+        Log.d("streamReader", result);
         return result;
     }
 
     public static boolean delMeasurement(String id, String userID) {
-        Log.d("getMeasurement id", id);
         String out = null;
         String URL = baseURL + "/users/" + userID + "/measurements/" + id;
         int CON_TIMEOUT = 2000;

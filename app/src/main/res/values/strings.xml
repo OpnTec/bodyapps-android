@@ -98,6 +98,7 @@
     <string name="sync_needed">Sync needed</string>
     <string name="sync_needed_msg">You have to sync before getting HDF!</string>
     <string name="close">Close</string>
+    <string name="dob">Date of birth</string>
 
 
 </resources>
