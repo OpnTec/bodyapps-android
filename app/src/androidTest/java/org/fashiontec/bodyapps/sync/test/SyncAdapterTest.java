@@ -32,7 +32,7 @@ public class SyncAdapterTest extends AndroidTestCase {
     public void setUp() throws Exception {
         context = getContext().getApplicationContext();
 
-        Person person=new Person("test_mail","test_name",1);
+        Person person = new Person("test_mail", "test_name", 1, 103L);
         PersonManager.getInstance(context).addPerson(person);
         Measurement measurement=new Measurement("test","test2",PersonManager.getInstance(context).getPerson(person),1);
         MeasurementManager.getInstance(context).addMeasurement(measurement);

@@ -31,7 +31,7 @@ public class SyncPic extends Sync {
 
     static final String TAG = SyncPic.class.getName();
 
-    public static String encodePics(String path) {
+    public String encodePics(String path) {
         String enc = null;
         Bitmap bm = BitmapFactory.decodeFile(path);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -50,7 +50,6 @@ public class SyncPic extends Sync {
         return enc;
     }
 
-    @Override
     public String convertInputStreamToString(InputStream inputStream)
             throws IOException {
         BufferedReader bufferedReader = new BufferedReader(
@@ -75,10 +74,9 @@ public class SyncPic extends Sync {
         }
 
         return out;
-
     }
 
-    public static int getPic(String id, Context context, PicTypes type, String url) {
+    public int getPic(String id, Context context, PicTypes type, String url) {
         Log.d("getPic", url);
         String URL = url;
         SyncPic sp = new SyncPic();
@@ -87,7 +85,7 @@ public class SyncPic extends Sync {
         String picID = url.substring(url.lastIndexOf("/") + 1);
 
         try {
-            InputStream inputStream = sp.GET(URL, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+            InputStream inputStream = sp.get(URL, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
             if (inputStream != null) {
                 return sp.savePic(inputStream, type, id, context, picID);
             }
@@ -97,7 +95,7 @@ public class SyncPic extends Sync {
         return -1;
     }
 
-    private static File getOutputMediaFile(PicTypes type, String id, String picID) {
+    private File getOutputMediaFile(PicTypes type, String id, String picID) {
         String IMAGE_DIRECTORY_NAME = "BodyApp" + File.separator + id;
         File mediaStorageDir = new File(
                 Environment

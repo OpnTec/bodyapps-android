@@ -20,12 +20,17 @@ import java.io.InputStreamReader;
  */
 public class SyncUser extends Sync {
 
+    private final String URL;
+
     private static String json;
-    private static final String URL = baseURL + "/users";
     private static String result = "";
     private static final int CON_TIMEOUT = 5000;
     private static final int SOC_TIMEOUT = 5000;
     static final String TAG = SyncUser.class.getName();
+
+    public SyncUser() {
+        URL = baseURL + "/users";
+    }
 
     /**
      * Get the user ID of the given user from web application
@@ -34,7 +39,7 @@ public class SyncUser extends Sync {
      * @param name
      * @return
      */
-    public static String getUserID(String email, String name) {
+    public String getUserID(String email, String name) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.accumulate("name", name);
@@ -46,30 +51,29 @@ public class SyncUser extends Sync {
             Log.e(TAG, e.getMessage());
         }
 
-        SyncUser su = new SyncUser();
-        InputStream inputStream = null;
         try {
-            inputStream = su.POST(URL, json, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+            InputStream inputStream = this.post(URL, json, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
             if (inputStream != null) {
-                result = su.convertInputStreamToString(inputStream);
-            }
-            else
+                result = this.convertInputStreamToString(inputStream);
+            } else {
                 result = "";
+            }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
         return result;
     }
 
-    @Override
-    public String convertInputStreamToString(InputStream inputStream)
-            throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(
-                new InputStreamReader(inputStream));
+    public String convertInputStreamToString(InputStream inputStream) throws IOException {
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
         String line = "";
         String result = "";
-        while ((line = bufferedReader.readLine()) != null)
+
+        while ((line = bufferedReader.readLine()) != null) {
             result += line;
+        }
 
         inputStream.close();
         JSONObject jObject;
@@ -82,10 +86,6 @@ public class SyncUser extends Sync {
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
         }
-
         return out;
-
     }
-
-
 }

@@ -20,7 +20,7 @@ public class PersonManagerTest extends AndroidTestCase {
         context = getContext().getApplicationContext();
         pm=PersonManager.getInstance(context);
         assertNotNull("Person Manager null",pm);
-        person=new Person("test_mail","test_name",1);
+        person=new Person("test_mail","test_name",1, 1407640921L);
     }
 
     public void testAddPerson() throws Exception {
