@@ -302,13 +302,6 @@ public class SavedActivity extends ActionBarActivity {
             if (measurementsList.size() != 0) {
                 shownID = measurementsList.get(shownIndex).getID();
             }
-        }
-
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-
-            super.onActivityCreated(savedInstanceState);
-
             View viewSaved = getActivity().findViewById(R.id.mesurements);
             dualPane = viewSaved != null
                     && viewSaved.getVisibility() == View.VISIBLE;

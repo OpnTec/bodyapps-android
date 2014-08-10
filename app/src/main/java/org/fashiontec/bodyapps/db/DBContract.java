@@ -22,21 +22,24 @@ public abstract class DBContract {
 		public static final String COLUMN_NAME_EMAIL = "email";
 		public static final String COLUMN_NAME_NAME = "name";
 		public static final String COLUMN_NAME_GENDER = "gender";
+        public static final String COLUMN_NAME_DOB = "dob";
 
 		public static final String SQL_CREATE_ENTRIES = "CREATE TABLE "
 				+ Person.TABLE_NAME + " (" 
 				+ Person.COLUMN_NAME_ID + " INTEGER PRIMARY KEY autoincrement" + COMMA_SEP 
 				+ Person.COLUMN_NAME_EMAIL + TEXT_TYPE + COMMA_SEP 
 				+ Person.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP 
-				+ Person.COLUMN_NAME_GENDER + NUMBER_TYPE
-				+ ")";
+				+ Person.COLUMN_NAME_GENDER + NUMBER_TYPE+ COMMA_SEP
+                +Person.COLUMN_NAME_DOB + NUMBER_TYPE
+                + ")";
 		public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 				+ Person.TABLE_NAME;
 
 		public static final String[] allColumns = {  
 			Person.COLUMN_NAME_EMAIL,
 			Person.COLUMN_NAME_NAME,
-			Person.COLUMN_NAME_GENDER };
+			Person.COLUMN_NAME_GENDER,
+            Person.COLUMN_NAME_DOB};
 
 	
 	}
