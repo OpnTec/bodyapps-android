@@ -9,11 +9,11 @@ package org.fashiontec.bodyapps.models;
  * Model object for measurements to in save measurement list
  */
 public class MeasurementListModel {
-	private String ID;
-	private int personID;
-	private String personName;
-	private String created;
-	private String personEmail;
+    private String ID;
+    private int personID;
+    private String personName;
+    private String created;
+    private String personEmail;
     private boolean isSynced;
 
     public boolean isSynced() {
@@ -25,43 +25,43 @@ public class MeasurementListModel {
     }
 
     public String getPersonEmail() {
-		return personEmail;
-	}
+        return personEmail;
+    }
 
-	public void setPersonEmail(String personEmail) {
-		this.personEmail = personEmail;
-	}
+    public void setPersonEmail(String personEmail) {
+        this.personEmail = personEmail;
+    }
 
-	public String getID() {
-		return ID;
-	}
+    public String getID() {
+        return ID;
+    }
 
-	public void setID(String iD) {
-		ID = iD;
-	}
+    public void setID(String iD) {
+        ID = iD;
+    }
 
-	public int getPersonID() {
-		return personID;
-	}
+    public int getPersonID() {
+        return personID;
+    }
 
-	public void setPersonID(int personID) {
-		this.personID = personID;
-	}
+    public void setPersonID(int personID) {
+        this.personID = personID;
+    }
 
-	public String getPersonName() {
-		return personName;
-	}
+    public String getPersonName() {
+        return personName;
+    }
 
-	public void setPersonName(String personName) {
-		this.personName = personName;
-	}
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
 
-	public String getCreated() {
-		return created;
-	}
+    public String getCreated() {
+        return created;
+    }
 
-	public void setCreated(String created) {
-		this.created = created;
-	}
+    public void setCreated(String created) {
+        this.created = created;
+    }
 
 }
