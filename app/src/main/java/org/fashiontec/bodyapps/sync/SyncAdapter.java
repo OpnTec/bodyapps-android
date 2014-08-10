@@ -29,84 +29,85 @@ import java.util.List;
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     ContentResolver mContentResolver;
+    MeasurementManager measurementMgr;
+    PersonManager personMgr;
+    UserManager userMgr;
+
     static final String TAG = SyncAdapter.class.getName();
 
-
     public SyncAdapter(Context context, boolean autoInitialize) {
-        super(context, autoInitialize);
-        mContentResolver = context.getContentResolver();
+        this(context, autoInitialize, false);
     }
 
     public SyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
-
         super(context, autoInitialize, allowParallelSyncs);
         mContentResolver = context.getContentResolver();
+
+        measurementMgr = MeasurementManager.getInstance(context.getApplicationContext());
+        personMgr = PersonManager.getInstance(context.getApplicationContext());
+        userMgr = UserManager.getInstance(context.getApplicationContext());
     }
 
     @Override
-    public void onPerformSync(Account account, Bundle bundle, String s,
+    public void onPerformSync(Account account,
+                              Bundle bundle,
+                              String s,
                               ContentProviderClient contentProviderClient,
                               SyncResult syncResult) {
-        Log.d(TAG, "sync happened");
-        Measurement measurement;
-        String userID = UserManager.getInstance(getContext().getApplicationContext()).getCurrent();
 
-        String[] delListServer = SyncMeasurement.getDelList(userID);
+        Log.d(TAG, "sync happened");
+
+        SyncMeasurement sync = new SyncMeasurement();
+        String userID = userMgr.getCurrent();
+        Context appContext = getContext().getApplicationContext();
+
+        String[] delListServer = sync.getDelList(userID);
+
         if (delListServer != null) {
-            for (int i = 0; i < delListServer.length; i++) {
-                int personID = MeasurementManager.getInstance(getContext().getApplicationContext())
-                        .getMeasurement(delListServer[i]).getPersonID();
-                MeasurementManager.getInstance(getContext().getApplicationContext())
-                        .delMeasurement(delListServer[i], personID);
+            for (String aDelListServer : delListServer) {
+                int personID = measurementMgr.getMeasurement(aDelListServer).getPersonID();
+                measurementMgr.delMeasurement(aDelListServer, personID);
             }
         }
 
-        List<String> delList = MeasurementManager.getInstance(getContext()
-                .getApplicationContext()).getDelList();
+        List<String> delList = measurementMgr.getDelList();
 
         for (String ID : delList) {
-            boolean out = SyncMeasurement.delMeasurement(ID, userID);
             Log.d(TAG, ID);
+            boolean out = sync.delMeasurement(ID, userID);
             if (out) {
-                MeasurementManager.getInstance(getContext().getApplicationContext())
-                        .removeDelEntry(ID);
+                measurementMgr.removeDelEntry(ID);
             }
         }
 
-        String list[] = SyncMeasurement.getSyncList(UserManager.getInstance(
-                getContext().getApplicationContext()).getLastSync(), userID);
+        String list[] = sync.getSyncList(userMgr.getLastSync(), userID);
         boolean syncOK = true;
 
         if (list != null) {
-
-            for (int i = 0; i < list.length; i++) {
-                String out = SyncMeasurement.getMeasurement(list[i],
-                        getContext().getApplicationContext(), userID);
-                if (!out.equals(list[i])) {
+            for (String aList : list) {
+                String out = sync.getMeasurement(aList, appContext, userID);
+                if (!out.equals(aList)) {
                     syncOK = false;
                     break;
                 }
             }
         }
 
-        while ((measurement = MeasurementManager.getInstance(
-                getContext().getApplicationContext()).getMeasurementSync()) != null) {
+        Measurement measurement;
+        Person person;
 
-            Person person = PersonManager.getInstance(getContext().getApplicationContext())
-                    .getPersonbyID(measurement.getPersonID());
-            boolean syncedOnce = MeasurementManager.getInstance(getContext()
-                    .getApplicationContext())
-                    .isSyncedOnce(measurement.getID());
+        while ((measurement = measurementMgr.getMeasurementSync()) != null) {
 
-            String out = SyncMeasurement.sendMeasurement(measurement, person, syncedOnce,
+            person = personMgr.getPersonbyID(measurement.getPersonID());
+            boolean syncedOnce = measurementMgr.isSyncedOnce(measurement.getID());
+
+            String out = sync.sendMeasurement(measurement, person, syncedOnce,
                     getContext().getApplicationContext());
 
             if (measurement.getID().equals(out)) {
                 measurement.setSynced(true);
-                MeasurementManager.getInstance(getContext().getApplicationContext())
-                        .addMeasurement(measurement);
-                MeasurementManager.getInstance(getContext().getApplicationContext())
-                        .setSyncedOnce(measurement.getID());
+                measurementMgr.addMeasurement(measurement);
+                measurementMgr.setSyncedOnce(measurement.getID());
             } else {
                 break;
             }
@@ -114,9 +115,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
 
         if (syncOK) {
-            UserManager.getInstance(getContext().getApplicationContext()).setLastSync(
-                    new Date().getTime() + 120000);
+            userMgr.setLastSync(new Date().getTime() + 120000);
         }
-
     }
 }

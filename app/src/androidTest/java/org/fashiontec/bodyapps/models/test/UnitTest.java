@@ -13,8 +13,8 @@ import org.fashiontec.bodyapps.models.User;
 
 public class UnitTest extends TestCase {
 
-    public void testPersorn() throws Exception {
-        Person person= new Person("test1","test2",1);
+    public void testPerson() throws Exception {
+        Person person= new Person("test1","test2",1, 1407640921L);
         assertNotNull(person);
         assertEquals("test1", person.getEmail());
         assertEquals("test2",person.getName());

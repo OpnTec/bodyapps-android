@@ -34,20 +34,20 @@ import java.net.URL;
 public class Sync {
 
     static final String TAG = Sync.class.getName();
-    public static String baseURL = "http://freelayers.org";
+    protected String baseURL = "http://freelayers.org";
 
-    public static void setBaseURL(String baseURL) {
-        Sync.baseURL = baseURL;
+    public void setBaseURL(String baseURL) {
+        this.baseURL = baseURL;
     }
 
     /**
-     * Method which makes all the POST calls
+     * Method which makes all the post calls
      *
      * @param url
      * @param json
      * @return
      */
-    public HttpResponse POST(String url, String json, int conTimeOut, int socTimeOut) {
+    public HttpResponse post(String url, String json, int conTimeOut, int socTimeOut) {
         HttpResponse response = null;
         try {
 
@@ -66,28 +66,6 @@ public class Sync {
         }
 
         return response;
-    }
-
-    /**
-     * Converts the given input stream to a string.
-     *
-     * @param inputStream
-     * @return
-     * @throws IOException
-     */
-    public String convertInputStreamToString(InputStream inputStream)
-            throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(
-                new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while ((line = bufferedReader.readLine()) != null)
-            result += line;
-
-        inputStream.close();
-        result = result.replaceAll("\"", "");
-        return result;
-
     }
 
     public int download(String url, String file) {
@@ -117,7 +95,7 @@ public class Sync {
         return 1;
     }
 
-    public HttpResponse GET(String url, int conTimeOut, int socTimeOut) {
+    public HttpResponse get(String url, int conTimeOut, int socTimeOut) {
         HttpResponse response = null;
         try {
             HttpParams httpParameters = new BasicHttpParams();
@@ -134,7 +112,7 @@ public class Sync {
 
     }
 
-    public HttpResponse PUT(String url, String json, int conTimeOut, int socTimeOut) {
+    public HttpResponse put(String url, String json, int conTimeOut, int socTimeOut) {
         HttpResponse response = null;
         try {
             HttpParams httpParameters = new BasicHttpParams();

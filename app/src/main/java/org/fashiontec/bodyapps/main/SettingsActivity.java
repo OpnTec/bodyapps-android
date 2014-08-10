@@ -438,8 +438,7 @@ public class SettingsActivity extends ActionBarActivity implements
 	 * Call to syncUser method
 	 */
 	public void postUser() {
-
-		userID = SyncUser.getUserID(email, personName);
+        userID = new SyncUser().getUserID(email, personName);
 	}
 
 	/**
