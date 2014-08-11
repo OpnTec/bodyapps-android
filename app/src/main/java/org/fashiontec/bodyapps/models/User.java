@@ -11,53 +11,53 @@ import java.io.Serializable;
  * Model object for user
  */
 public class User implements Serializable {
-	private String email;
-	private String name;
-	private String pic;
-	private String id;
-	private Boolean isCurrent;
+    private String email;
+    private String name;
+    private String pic;
+    private String id;
+    private Boolean isCurrent;
 
     private Boolean autoSync;
 
-	public User(String email, String name, String id, boolean autoSync) {
-		super();
-		this.email = email;
-		this.name = name;
-		this.id = id;
+    public User(String email, String name, String id, boolean autoSync) {
+        super();
+        this.email = email;
+        this.name = name;
+        this.id = id;
         this.autoSync=autoSync;
-	}
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public Boolean getIsCurrent() {
-		return isCurrent;
-	}
+    public Boolean getIsCurrent() {
+        return isCurrent;
+    }
 
-	public void setIsCurrent(Boolean isCurrent) {
-		this.isCurrent = isCurrent;
-	}
+    public void setIsCurrent(Boolean isCurrent) {
+        this.isCurrent = isCurrent;
+    }
 
     public Boolean getAutoSync() {
         return autoSync;
