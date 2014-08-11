@@ -27,4 +27,9 @@ public class MeasurementManagerTest extends AndroidTestCase {
         mm.addMeasurement(measurement);
         assertNotNull(mm.getMeasurement("test"));
     }
+
+    public void testDelMeasurement() throws Exception {
+        mm.delMeasurement("test",2);
+        assertNull(mm.getMeasurement("test"));
+    }
 }
