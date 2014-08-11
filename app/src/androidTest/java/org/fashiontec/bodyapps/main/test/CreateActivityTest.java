@@ -69,12 +69,12 @@ public class CreateActivityTest extends ActivityInstrumentationTestCase2<CreateA
 
             @Override
             public void run() {
-                email.setText("test_email");
+                email.setText("test@email.com");
             }
         });
 
         getInstrumentation().waitForIdleSync();
-        assertEquals("Email incorrect", "test_email", email.getText().toString());
+        assertEquals("Email incorrect", "test@email.com", email.getText().toString());
         Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(MeasurementActivity.class.getName(), null, false);
         activity.setData();
 //        activity.closer();

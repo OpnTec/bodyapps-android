@@ -16,8 +16,10 @@ import junit.framework.Assert;
 
 import org.fashiontec.bodyapps.managers.MeasurementManager;
 import org.fashiontec.bodyapps.managers.PersonManager;
+import org.fashiontec.bodyapps.managers.UserManager;
 import org.fashiontec.bodyapps.models.Measurement;
 import org.fashiontec.bodyapps.models.Person;
+import org.fashiontec.bodyapps.sync.SyncUser;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -31,12 +33,11 @@ public class SyncAdapterTest extends AndroidTestCase {
     @Override
     public void setUp() throws Exception {
         context = getContext().getApplicationContext();
-
-        Person person = new Person("test_mail", "test_name", 1, 103L);
-        PersonManager.getInstance(context).addPerson(person);
-        Measurement measurement=new Measurement("test","test2",PersonManager.getInstance(context).getPerson(person),1);
+        SyncUser su=new SyncUser();
+        String userID=su.getUserID("rand@email2.com","rand");
+        Measurement measurement=new Measurement("eb35a165-8e22-4cee-a9b0-7196e3",userID,1,1);
         MeasurementManager.getInstance(context).addMeasurement(measurement);
-
+//        assertNull(userID,userID);
     }
 
     public void testSync() throws InterruptedException {
@@ -47,7 +48,7 @@ public class SyncAdapterTest extends AndroidTestCase {
         ContentResolver.requestSync(newAccount, "org.fashiontec.bodyapps.sync.provider", Bundle.EMPTY);
         final CountDownLatch signal = new CountDownLatch(1);
         signal.await(30, TimeUnit.SECONDS);
-        assertNull(MeasurementManager.getInstance(context).getMeasurementSync());
+        assertNull("not null",MeasurementManager.getInstance(context).getMeasurementSync());
     }
 
 }
