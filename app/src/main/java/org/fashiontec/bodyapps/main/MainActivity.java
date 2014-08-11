@@ -25,68 +25,21 @@ import org.fashiontec.bodyapps.managers.UserManager;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 67241c0... Formatted the code.
     private Button create;
     private Button saved;
     private Button settings;
     private Button exit;
-<<<<<<< HEAD
-=======
-	private Button create;
-	private Button saved;
-	private Button settings;
-	private Button exit;
-=======
->>>>>>> 67241c0... Formatted the code.
     private static AlertDialog alertDialog;
->>>>>>> 113b835... Disabled "saved" and "create" if user is not logged in.
 
     public static final String AUTHORITY = "org.fashiontec.bodyapps.sync.provider";
     public static final String ACCOUNT_TYPE = "fashiontec.org";
     public static final String ACCOUNT = "dummyaccount";
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 67241c0... Formatted the code.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-<<<<<<< HEAD
-        exit=(Button)findViewById(R.id.main_btn_exit);
-        exit.setOnClickListener(this);
-        saved=(Button)findViewById(R.id.main_btn_saved);
-        saved.setOnClickListener(this);
-        settings=(Button)findViewById(R.id.main_btn_settings);
-        settings.setOnClickListener(this);
-        create=(Button)findViewById(R.id.main_btn_create);
-        create.setOnClickListener(this);
-=======
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
-		exit=(Button)findViewById(R.id.main_btn_exit);
-		exit.setOnClickListener(this);
-		saved=(Button)findViewById(R.id.main_btn_saved);
-		saved.setOnClickListener(this);
-		settings=(Button)findViewById(R.id.main_btn_settings);
-		settings.setOnClickListener(this);
-		create=(Button)findViewById(R.id.main_btn_create);
-		create.setOnClickListener(this);
-        if(UserManager.getInstance(getBaseContext().getApplicationContext()).getCurrent()==null){
-            dialog("Login", "Go to \"Settings\" and sign in to continue.");
-        }
->>>>>>> 113b835... Disabled "saved" and "create" if user is not logged in.
-        if(UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync()) {
-=======
         exit = (Button) findViewById(R.id.main_btn_exit);
         exit.setOnClickListener(this);
         saved = (Button) findViewById(R.id.main_btn_saved);
@@ -99,7 +52,6 @@ public class MainActivity extends Activity implements OnClickListener {
             dialog("Login", "Go to \"Settings\" and sign in to continue.");
         }
         if (UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync()) {
->>>>>>> 67241c0... Formatted the code.
             Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
             AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
             accountManager.addAccountExplicitly(newAccount, null, null);
@@ -108,35 +60,6 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        //Handles the clicks of every Button
-        Intent intent;
-        switch (v.getId()) {
-        case R.id.main_btn_create:
-            intent=new Intent(MainActivity.this, CreateActivity.class);
-            startActivity(intent);
-            break;
-        case R.id.main_btn_saved:
-            intent=new Intent(MainActivity.this, SavedActivity.class);
-            startActivity(intent);
-            break;
-        case R.id.main_btn_settings:
-            intent=new Intent(MainActivity.this, SettingsActivity.class);
-            startActivity(intent);
-            break;
-        case R.id.main_btn_exit:
-            finish();
-            break;
-        }
-
-<<<<<<< HEAD
-    }
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
-=======
     @Override
     protected void onResume() {
         super.onResume();
@@ -150,37 +73,6 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     @Override
-<<<<<<< HEAD
-	public void onClick(View v) {
-		//Handles the clicks of every Button
-		Intent intent;
-		switch (v.getId()) {
-		case R.id.main_btn_create:
-			intent=new Intent(MainActivity.this, CreateActivity.class);
-			startActivity(intent);
-			break;
-		case R.id.main_btn_saved:
-			intent=new Intent(MainActivity.this, SavedActivity.class);
-			startActivity(intent);
-			break;
-		case R.id.main_btn_settings:
-			intent=new Intent(MainActivity.this, SettingsActivity.class);
-			startActivity(intent);
-			break;
-		case R.id.main_btn_exit:
-			finish();
-			break;
-		}
-		
-	}
-	@Override
-	public void onBackPressed() {
-		finish();
-	}
->>>>>>> 113b835... Disabled "saved" and "create" if user is not logged in.
-
-    public void dialog(String title, String message){
-=======
     public void onClick(View v) {
         //Handles the clicks of every Button
         Intent intent;
@@ -210,7 +102,6 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     public void dialog(String title, String message) {
->>>>>>> 67241c0... Formatted the code.
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title)
