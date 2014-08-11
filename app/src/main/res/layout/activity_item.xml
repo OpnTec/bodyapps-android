@@ -1,50 +1,53 @@
-<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
-<!--Licensed under LGPL, Version 3-->
+<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)--><!--Licensed under LGPL, Version 3-->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#ffffff"
-    android:orientation="vertical" 
-    android:weightSum="1.0"
     android:focusable="false"
-    android:focusableInTouchMode="false">
-<FrameLayout 
-    android:id="@+id/item_container"
-    android:layout_width="match_parent"
-    android:layout_height="0dip"
-    android:layout_weight=".9"
-/>
+    android:focusableInTouchMode="false"
+    android:orientation="vertical">
 
-<LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
+    <FrameLayout
+        android:id="@+id/item_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/item_layout" />
+
+    <LinearLayout
+        android:id="@+id/item_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:baselineAligned="false"
+        android:gravity="bottom"
+        android:weightSum="1.0">
+
+        <Button
+            android:id="@+id/item_btn_prev"
+            style="@style/btnStyleios"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight=".1"
-            android:weightSum="1.0" >
+            android:layout_weight=".5"
+            android:focusable="false"
+            android:text="@string/previous"
+            android:textColor="@drawable/btn_txt" />
 
-            <Button
-                android:id="@+id/item_btn_prev"
-                style="@style/btnStyleios"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight=".5"
-                android:text="@string/previous"
-                android:textColor="@drawable/btn_txt"
-                android:focusable="false" />
+        <Button
+            android:id="@+id/item_btn_next"
+            style="@style/btnStyleios"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight=".5"
+            android:focusable="false"
+            android:text="@string/next"
+            android:textColor="@drawable/btn_txt" />
 
-            <Button
-                android:id="@+id/item_btn_next"
-                style="@style/btnStyleios"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight=".5"
-                android:text="@string/next"
-                android:textColor="@drawable/btn_txt"
-                android:focusable="false" />
+    </LinearLayout>
 
-        </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

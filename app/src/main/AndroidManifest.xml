@@ -95,7 +95,7 @@
         </activity>
         <activity
             android:name="org.fashiontec.bodyapps.main.MeasurementActivity$ItemActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:label="@string/title_activity_item" >
         </activity>
     </application>
