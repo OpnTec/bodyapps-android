@@ -215,7 +215,7 @@ public class SyncMeasurement extends Sync {
             }
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.toString());
         }
         return out;
     }
@@ -442,7 +442,7 @@ public class SyncMeasurement extends Sync {
             }
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.toString());
         }
         return out;
     }
