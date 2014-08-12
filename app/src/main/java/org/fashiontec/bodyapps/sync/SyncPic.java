@@ -17,13 +17,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.InputStreamEntity;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.fashiontec.bodyapps.managers.MeasurementManager;
-import org.fashiontec.bodyapps.models.Measurement;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +26,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -94,12 +88,12 @@ public class SyncPic extends Sync {
         int CON_TIMEOUT = 5000;
         int SOC_TIMEOUT = 8000;
         String picID = url.substring(url.lastIndexOf("/") + 1);
-        String filePath=getOutputMediaFile(type,id, picID).getPath();
+        String filePath = getOutputMediaFile(type, id, picID).getPath();
 
         try {
-            int out = download(url,filePath);
-            if(out==1 && type!=PicTypes.OTHER){
-                Log.d("getPic", out+" @*");
+            int out = download(url, filePath);
+            if (out == 1 && type != PicTypes.OTHER) {
+                Log.d("getPic", out + " @*");
                 MeasurementManager.getInstance(context).setImagePath(type, filePath, id, picID);
             }
         } catch (Exception e) {
@@ -147,7 +141,7 @@ public class SyncPic extends Sync {
     }
 
     public HttpResponse put(String url, String path) {
-        HttpResponse response=null;
+        HttpResponse response = null;
         try {
             File file = new File(path);
             HttpClient client = new DefaultHttpClient();
@@ -159,7 +153,7 @@ public class SyncPic extends Sync {
             post.setEntity(entity);
 
 
-            response=client.execute(post);
+            response = client.execute(post);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -167,7 +161,7 @@ public class SyncPic extends Sync {
     }
 
     public HttpResponse post(String url, String path) {
-        HttpResponse response=null;
+        HttpResponse response = null;
         try {
             File file = new File(path);
             HttpClient client = new DefaultHttpClient();
@@ -179,7 +173,7 @@ public class SyncPic extends Sync {
             post.setEntity(entity);
 
 
-            response=client.execute(post);
+            response = client.execute(post);
         } catch (IOException e) {
             e.printStackTrace();
         }
