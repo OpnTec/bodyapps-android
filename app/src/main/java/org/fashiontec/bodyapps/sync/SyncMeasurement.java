@@ -81,7 +81,7 @@ public class SyncMeasurement extends Sync {
             personJSON.accumulate("email", person.getEmail());
 
             Date date = new Date(person.getDob());
-            SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat df2 = new SimpleDateFormat("MM/dd/yyyy");
             String dateText = df2.format(date);
             personJSON.accumulate("dob", dateText);
 
