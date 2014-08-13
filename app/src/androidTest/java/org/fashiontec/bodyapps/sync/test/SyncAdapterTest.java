@@ -32,7 +32,6 @@ public class SyncAdapterTest extends AndroidTestCase {
         String userID = su.getUserID("rand@email2.com", "rand");
         Measurement measurement = new Measurement("eb35a165-8e22-4cee-a9b0-7196e3", userID, 1, 1);
         MeasurementManager.getInstance(context).addMeasurement(measurement);
-        MeasurementManager.getInstance(context).setSyncedOnce("eb35a165-8e22-4cee-a9b0-7196e3");
     }
 
     public void testSync() throws InterruptedException {
