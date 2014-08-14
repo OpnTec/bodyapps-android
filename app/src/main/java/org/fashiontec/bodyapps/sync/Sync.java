@@ -31,7 +31,7 @@ import java.net.URL;
 public class Sync {
 
     static final String TAG = Sync.class.getName();
-    protected String baseURL = "http://freelayers.org";
+    protected String baseURL = "http://192.168.1.2:8020"; //base URL of the API
 
     public void setBaseURL(String baseURL) {
         this.baseURL = baseURL;
@@ -65,6 +65,13 @@ public class Sync {
         return response;
     }
 
+    /**
+     * Downloads a file from given URL.
+     *
+     * @param url
+     * @param file
+     * @return
+     */
     public int download(String url, String file) {
 
         try {
@@ -92,6 +99,14 @@ public class Sync {
         return 1;
     }
 
+    /**
+     * Manages get requests.
+     *
+     * @param url
+     * @param conTimeOut
+     * @param socTimeOut
+     * @return
+     */
     public HttpResponse get(String url, int conTimeOut, int socTimeOut) {
         HttpResponse response = null;
         try {
@@ -109,6 +124,15 @@ public class Sync {
 
     }
 
+    /**
+     * Manages put requests
+     *
+     * @param url
+     * @param json
+     * @param conTimeOut
+     * @param socTimeOut
+     * @return
+     */
     public HttpResponse put(String url, String json, int conTimeOut, int socTimeOut) {
         HttpResponse response = null;
         try {
@@ -128,6 +152,14 @@ public class Sync {
         return response;
     }
 
+    /**
+     * Manages delete requests.
+     *
+     * @param url
+     * @param conTimeOut
+     * @param socTimeOut
+     * @return
+     */
     public HttpResponse DELETE(String url, int conTimeOut, int socTimeOut) {
         HttpResponse response = null;
         try {

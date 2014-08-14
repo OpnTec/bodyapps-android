@@ -5,20 +5,23 @@
 
 package org.fashiontec.bodyapps.sync;
 
-import android.os.Environment;
-import android.util.Log;
-
-import java.io.File;
-
-public class HDF extends Sync{
+public class HDF extends Sync {
 
     private static String result;
 
-    public static int getHDF(String userID, String measurementID, String path){
+    /**
+     * Gets HDF file from server
+     *
+     * @param userID
+     * @param measurementID
+     * @param path
+     * @return
+     */
+    public static int getHDF(String userID, String measurementID, String path) {
         String URL = "http://192.168.1.2:8020/users/";
-        URL=URL+userID+"/measurements/"+measurementID;
+        URL = URL + userID + "/measurements/" + measurementID;
         System.out.println("URL = " + URL);
         HDF hdf = new HDF();
-        return hdf.download(URL,path);
+        return hdf.download(URL, path);
     }
 }

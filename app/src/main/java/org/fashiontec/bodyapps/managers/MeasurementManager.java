@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Manages the DB requests to measurements table
+ * Manages the DB requests to measurements table and delete table
  */
 public class MeasurementManager {
     private SQLiteDatabase database;
@@ -344,6 +344,14 @@ public class MeasurementManager {
         return ms;
     }
 
+    /**
+     * Sets the path for given image type in given measurement record
+     *
+     * @param type
+     * @param path
+     * @param ID
+     * @param picID
+     */
     public void setImagePath(PicTypes type, String path, String ID, String picID) {
         Log.d(TAG, "setImagePath");
         String name = null;
@@ -374,6 +382,11 @@ public class MeasurementManager {
         );
     }
 
+    /**
+     * set the synced once to true.
+     *
+     * @param ID
+     */
     public void setSyncedOnce(String ID) {
         Log.d(TAG, "setSyncedOnce");
 
@@ -388,6 +401,12 @@ public class MeasurementManager {
         database.close();
     }
 
+    /**
+     * Checks given measurement has synced once.
+     *
+     * @param ID
+     * @return
+     */
     public boolean isSyncedOnce(String ID) {
         Log.d(TAG, "isSyncedOnce");
         this.database = this.dbHandler.getReadableDatabase();
@@ -409,6 +428,13 @@ public class MeasurementManager {
         return false;
     }
 
+    /**
+     * Get the picture Id given from API to the given measurements given picture type.
+     *
+     * @param ID
+     * @param type
+     * @return
+     */
     public String getPicID(String ID, PicTypes type) {
         Log.d(TAG, "picID");
         String name = null;
@@ -438,6 +464,12 @@ public class MeasurementManager {
         return null;
     }
 
+    /**
+     * Deletes the given measurement and add it's ID to delete table.
+     *
+     * @param ID
+     * @param personID
+     */
     public void delMeasurement(String ID, int personID) {
         Log.d(TAG, "delMeasurement");
         this.database = this.dbHandler.getReadableDatabase();
@@ -467,6 +499,11 @@ public class MeasurementManager {
         database.close();
     }
 
+    /**
+     * Gets a list of deleted measurements IDs.
+     *
+     * @return
+     */
     public List<String> getDelList() {
         Log.d(TAG, "getDelList");
         List<String> list = new ArrayList<String>();
@@ -484,6 +521,11 @@ public class MeasurementManager {
         return list;
     }
 
+    /**
+     * Removes the given ID from delete table.
+     *
+     * @param ID
+     */
     public void removeDelEntry(String ID) {
         Log.d(TAG, "removeDelEntry");
         this.database = this.dbHandler.getWritableDatabase();

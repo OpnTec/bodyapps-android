@@ -5,25 +5,6 @@
 
 package org.fashiontec.bodyapps.main;
 
-import java.io.InputStream;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
-
-import org.fashiontec.bodyapps.managers.MeasurementManager;
-import org.fashiontec.bodyapps.managers.UserManager;
-import org.fashiontec.bodyapps.models.User;
-import org.fashiontec.bodyapps.sync.SyncUser;
-
-import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -33,9 +14,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -45,6 +25,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
+
+import org.fashiontec.bodyapps.managers.MeasurementManager;
+import org.fashiontec.bodyapps.managers.UserManager;
+import org.fashiontec.bodyapps.models.User;
+import org.fashiontec.bodyapps.sync.SyncUser;
+
+import java.io.InputStream;
 
 /**
  * Activity for settings. This activity handles user authentication via Google
@@ -102,13 +100,13 @@ public class SettingsActivity extends ActionBarActivity implements
         txtConnected = (TextView) findViewById(R.id.settings_txt_connected);
         llProfileLayout = (LinearLayout) findViewById(R.id.settings_layout);
 
-        chkAutoSync=(CheckBox)findViewById(R.id.settings_chk_autosync);
+        chkAutoSync = (CheckBox) findViewById(R.id.settings_chk_autosync);
         chkAutoSync.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     UserManager.getInstance(getBaseContext().getApplicationContext()).setAutoSync(true);
-                }else{
+                } else {
                     UserManager.getInstance(getBaseContext().getApplicationContext()).setAutoSync(false);
                 }
             }
@@ -138,7 +136,8 @@ public class SettingsActivity extends ActionBarActivity implements
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
-                        });
+                        }
+                );
         alertDialog = builder.create();
 
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
@@ -151,7 +150,8 @@ public class SettingsActivity extends ActionBarActivity implements
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
-                        });
+                        }
+                );
         alertDialog2 = builder2.create();
     }
 
@@ -211,7 +211,7 @@ public class SettingsActivity extends ActionBarActivity implements
 
     /**
      * Revoking access from google
-     * */
+     */
     private void revokeGplusAccess() {
         if (mGoogleApiClient.isConnected()) {
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
@@ -252,22 +252,25 @@ public class SettingsActivity extends ActionBarActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-        case R.id.settings_btn_signin:
-            // Signin button clicked
-            signInWithGplus();
-            break;
-        case R.id.settings_btn_signout:
-            // Signout button clicked
-            signOutFromGplus();
-            break;
-        case R.id.settings_btn_reovke:
-            // Revoke access button clicked
-            revokeGplusAccess();
-            break;
+            case R.id.settings_btn_signin:
+                // Signin button clicked
+                signInWithGplus();
+                break;
+            case R.id.settings_btn_signout:
+                // Signout button clicked
+                signOutFromGplus();
+                break;
+            case R.id.settings_btn_reovke:
+                // Revoke access button clicked
+                revokeGplusAccess();
+                break;
         }
 
     }
 
+    /**
+     * Get user's information from G plus profile
+     */
     private void getProfileInformation() {
         try {
             if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
@@ -308,7 +311,7 @@ public class SettingsActivity extends ActionBarActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int responseCode,
-            Intent intent) {
+                                    Intent intent) {
         if (requestCode == RC_SIGN_IN) {
             if (responseCode != RESULT_OK) {
                 mSignInClicked = false;
@@ -395,6 +398,9 @@ public class SettingsActivity extends ActionBarActivity implements
         updateUI(false);
     }
 
+    /**
+     * Reloads the view
+     */
     public void reload() {
 
         Intent intent = getIntent();
@@ -466,7 +472,7 @@ public class SettingsActivity extends ActionBarActivity implements
                 //if user added measurements before sign in, those measurements will be added to the signed in user
                 MeasurementManager.getInstance(getBaseContext().getApplicationContext()).setUserID(userID);
                 txtConnected.setText("User connected");
-                chkAutoSync.setChecked( UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync());
+                chkAutoSync.setChecked(UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync());
             } else {
                 Log.d(TAG, "cannot");
                 // adds the user to the DB, but without the ID if the user

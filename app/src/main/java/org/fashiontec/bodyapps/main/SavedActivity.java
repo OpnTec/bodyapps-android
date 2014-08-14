@@ -46,6 +46,7 @@ import java.util.List;
 
 /**
  * Shows a list of saved measurements in the database.
+ * And handles the options such as edit,delete and getting HDF.
  */
 public class SavedActivity extends ActionBarActivity {
 
@@ -84,6 +85,12 @@ public class SavedActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    /**
+     * Warning dialog which invokes delete.
+     *
+     * @param ID
+     * @return
+     */
     public AlertDialog options(final String ID) {
         AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.delete))
@@ -104,6 +111,11 @@ public class SavedActivity extends ActionBarActivity {
         return myQuittingDialogBox;
     }
 
+    /**
+     * Deletes selected measurement.
+     *
+     * @param ID
+     */
     public void delete(String ID) {
         int personID = MeasurementManager.getInstance(this.getApplicationContext()).getMeasurement(ID).getPersonID();
         MeasurementManager.getInstance(this.getApplicationContext()).delMeasurement(ID, personID);
@@ -126,6 +138,7 @@ public class SavedActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //This options menu will be different according to orientation of device
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getMenuInflater().inflate(R.menu.saved_options_land, menu);
             search = (SearchView) menu.findItem(R.id.saved_search_land).getActionView();
@@ -234,6 +247,11 @@ public class SavedActivity extends ActionBarActivity {
         return mediaFile.getPath();
     }
 
+    /**
+     * Opens email dialog with HDF attached.
+     *
+     * @param path
+     */
     public static void mail(String path) {
         File file = new File(path);
         Intent i = new Intent(Intent.ACTION_SEND);

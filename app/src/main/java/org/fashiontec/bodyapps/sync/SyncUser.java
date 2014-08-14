@@ -64,6 +64,12 @@ public class SyncUser extends Sync {
         return result;
     }
 
+    /**
+     * Converts given input stream to a string and process encoded JSON and returns image ID.
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
     public String convertInputStreamToString(InputStream inputStream) throws IOException {
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));

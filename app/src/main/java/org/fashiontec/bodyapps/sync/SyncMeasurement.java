@@ -38,14 +38,15 @@ public class SyncMeasurement extends Sync {
     }
 
     /**
-     * Converts measurement object to JSON string
+     * Converts measurement object to JSON string and sends it to server.
+     * Manages sending attached pics to server.
      *
      * @param measurement
      * @param person
      * @return
      */
     public String sendMeasurement(Measurement measurement, Person person,
-                                         boolean syncedOnce, Context context) {
+                                  boolean syncedOnce, Context context) {
         String result = null;
         String URL = baseURL + "/users/" + measurement.getUserID() + "/measurements";
         int CON_TIMEOUT = 10000;
@@ -62,17 +63,17 @@ public class SyncMeasurement extends Sync {
                 case 1:
                     jsonObject.accumulate("m_unit", "inch");
             }
-            jsonObject.accumulate("mid_neck_girth",measurement.getMid_neck_girth());
+            jsonObject.accumulate("mid_neck_girth", measurement.getMid_neck_girth());
             jsonObject.accumulate("bust_girth", measurement.getBust_girth());
             jsonObject.accumulate("waist_girth", measurement.getWaist_girth());
             jsonObject.accumulate("hip_girth", measurement.getHip_girth());
-            jsonObject.accumulate("across_back_shoulder_width",measurement.getAcross_back_shoulder_width());
-            jsonObject.accumulate("shoulder_drop",measurement.getShoulder_drop());
-            jsonObject.accumulate("shoulder_slope_degrees",measurement.getShoulder_slope_degrees());
+            jsonObject.accumulate("across_back_shoulder_width", measurement.getAcross_back_shoulder_width());
+            jsonObject.accumulate("shoulder_drop", measurement.getShoulder_drop());
+            jsonObject.accumulate("shoulder_slope_degrees", measurement.getShoulder_slope_degrees());
             jsonObject.accumulate("arm_length", measurement.getArm_length());
             jsonObject.accumulate("wrist_girth", measurement.getWrist_girth());
-            jsonObject.accumulate("upper_arm_girth",measurement.getUpper_arm_girth());
-            jsonObject.accumulate("armscye_girth",measurement.getArmscye_girth());
+            jsonObject.accumulate("upper_arm_girth", measurement.getUpper_arm_girth());
+            jsonObject.accumulate("armscye_girth", measurement.getArmscye_girth());
             jsonObject.accumulate("height", measurement.getHeight());
             jsonObject.accumulate("hip_height", measurement.getHip_height());
             jsonObject.accumulate("user_id", measurement.getUserID());
@@ -123,13 +124,12 @@ public class SyncMeasurement extends Sync {
 
         String imgFront = measurement.getPic_front();
         if (!imgFront.equals("")) {
-//            String frontJSON = syncPic.encodePics(imgFront);
             InputStream response = null;
             String imgID = MeasurementManager.getInstance(context).getPicID(measurement.getID(), PicTypes.FRONT);
             try {
                 if (imgID == null) {
                     Log.i(TAG, "sync pic");
-                    response =syncPic.post(imgURL + "body_front",imgFront).getEntity().getContent();
+                    response = syncPic.post(imgURL + "body_front", imgFront).getEntity().getContent();
                     imgID = syncPic.convertInputStreamToString(response);
                     MeasurementManager.getInstance(context).setImagePath(PicTypes.FRONT, null, measurement.getID(), imgID);
                 } else {
@@ -141,7 +141,6 @@ public class SyncMeasurement extends Sync {
         }
         String imgSide = measurement.getPic_side();
         if (!imgSide.equals("")) {
-            String sideJSON = syncPic.encodePics(imgSide);
             InputStream response = null;
             String imgID = MeasurementManager.getInstance(context).getPicID(measurement.getID(), PicTypes.SIDE);
             try {
@@ -159,7 +158,6 @@ public class SyncMeasurement extends Sync {
 
         String imgBack = measurement.getPic_back();
         if (!imgBack.equals("")) {
-            String backJSON = syncPic.encodePics(imgBack);
             InputStream response = null;
             String imgID = MeasurementManager.getInstance(context).getPicID(measurement.getID(), PicTypes.BACK);
             try {
@@ -177,6 +175,13 @@ public class SyncMeasurement extends Sync {
         return result;
     }
 
+    /**
+     * Converts iput stream and process encoded JSON.
+     *
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
     private String convertInputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(inputStream));
@@ -199,6 +204,13 @@ public class SyncMeasurement extends Sync {
         return out;
     }
 
+    /**
+     * Gets a list of measurements which has been modified from server side after last sync.
+     *
+     * @param lastSync
+     * @param userID
+     * @return
+     */
     public String[] getSyncList(long lastSync, String userID) {
         String[] out = null;
         String URL = baseURL + "/users/" + userID + "/measurements/?modifiedAfter=" + new Long(lastSync).toString();
@@ -220,6 +232,13 @@ public class SyncMeasurement extends Sync {
         return out;
     }
 
+    /**
+     * Converts the given input strem to a string array.
+     *
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
     private String[] convertInputStreamToList(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(inputStream));
@@ -245,6 +264,14 @@ public class SyncMeasurement extends Sync {
         return out;
     }
 
+    /**
+     * Manages getting a measurement record from server.
+     *
+     * @param id
+     * @param context
+     * @param userID
+     * @return
+     */
     public String getMeasurement(String id, Context context, String userID) {
         String out = null;
         String url = baseURL + "/users/" + userID + "/measurements/" + id;
@@ -265,6 +292,15 @@ public class SyncMeasurement extends Sync {
         return out;
     }
 
+    /**
+     * Converts given JSON string to a measurement object and person object and then add them to DB
+     *
+     * @param result
+     * @param userID
+     * @param context
+     * @return
+     * @throws IOException
+     */
     private String convertToMeasurement(String result, String userID,
                                         Context context) throws IOException {
 
@@ -358,6 +394,14 @@ public class SyncMeasurement extends Sync {
         }
     }
 
+    /**
+     * Gets pic attached with measurement from server.
+     *
+     * @param result
+     * @param context
+     * @param ID
+     * @throws IOException
+     */
     private void getPics(String result, Context context, String ID) throws IOException {
 
         try {
@@ -389,6 +433,13 @@ public class SyncMeasurement extends Sync {
         }
     }
 
+    /**
+     * Reads a input stream and out puts the string.
+     *
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
     private String streamReader(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(inputStream));
@@ -402,6 +453,13 @@ public class SyncMeasurement extends Sync {
         return result;
     }
 
+    /**
+     * Deletes a measurement from server.
+     *
+     * @param id
+     * @param userID
+     * @return
+     */
     public boolean delMeasurement(String id, String userID) {
         String out = null;
         String URL = baseURL + "/users/" + userID + "/measurements/" + id;
@@ -426,6 +484,12 @@ public class SyncMeasurement extends Sync {
         return false;
     }
 
+    /**
+     * Get list of deleted entries from server
+     *
+     * @param userID
+     * @return
+     */
     public String[] getDelList(String userID) {
         Log.e(TAG, "getDelList");
         String[] out = null;

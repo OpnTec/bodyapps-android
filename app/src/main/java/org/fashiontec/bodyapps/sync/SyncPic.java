@@ -37,25 +37,12 @@ public class SyncPic extends Sync {
 
     static final String TAG = SyncPic.class.getName();
 
-    public String encodePics(String path) {
-        String enc = null;
-        Bitmap bm = BitmapFactory.decodeFile(path);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-        byte[] b = baos.toByteArray();
-        enc = Base64.encodeToString(b, Base64.DEFAULT);
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.accumulate("data", enc);
-            enc = jsonObject.toString();
-
-        } catch (JSONException e) {
-            Log.e(TAG, e.getMessage());
-        }
-        Log.d("encodePics", enc);
-        return enc;
-    }
-
+    /**
+     * Converts given input stream to a string and process encoded JSON and returns image ID.
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
     public String convertInputStreamToString(InputStream inputStream)
             throws IOException {
         BufferedReader bufferedReader = new BufferedReader(
@@ -81,6 +68,14 @@ public class SyncPic extends Sync {
         return out;
     }
 
+    /**
+     * Manages getting pictures from server.
+     * @param id
+     * @param context
+     * @param type
+     * @param url
+     * @return
+     */
     public int getPic(String id, Context context, PicTypes type, String url) {
         Log.d("getPic", url);
         String URL = url;
@@ -102,6 +97,13 @@ public class SyncPic extends Sync {
         return -1;
     }
 
+    /**
+     * Gets path to save the images downloaded from API.
+     * @param type
+     * @param id
+     * @param picID
+     * @return
+     */
     private File getOutputMediaFile(PicTypes type, String id, String picID) {
         String IMAGE_DIRECTORY_NAME = "BodyApp" + File.separator + id;
         File mediaStorageDir = new File(
@@ -140,6 +142,12 @@ public class SyncPic extends Sync {
         return mediaFile;
     }
 
+    /**
+     * Multipart put request for images.
+     * @param url
+     * @param path
+     * @return
+     */
     public HttpResponse put(String url, String path) {
         HttpResponse response = null;
         try {
@@ -160,6 +168,12 @@ public class SyncPic extends Sync {
         return response;
     }
 
+    /**
+     * Multipart post for images.
+     * @param url
+     * @param path
+     * @return
+     */
     public HttpResponse post(String url, String path) {
         HttpResponse response = null;
         try {

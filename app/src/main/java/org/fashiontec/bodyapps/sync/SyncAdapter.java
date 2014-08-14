@@ -61,6 +61,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         String userID = userMgr.getCurrent();
         Context appContext = getContext().getApplicationContext();
 
+        //Gets a list of measurements deleted from server side and deletes them from device too
         String[] delListServer = sync.getDelList(userID);
 
         if (delListServer != null) {
@@ -70,6 +71,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             }
         }
 
+        //Gets a list of measurements deleted from device and sent it to server
         List<String> delList = measurementMgr.getDelList();
 
         for (String ID : delList) {
@@ -80,6 +82,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             }
         }
 
+        //Gets a list of measurements updated from server side since last sync and
+        // get them to device.
         String list[] = sync.getSyncList(userMgr.getLastSync(), userID);
         boolean syncOK = true;
 
@@ -96,6 +100,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Measurement measurement;
         Person person;
 
+        //sends all the changed measurements to server
         while ((measurement = measurementMgr.getMeasurementSync()) != null) {
 
             person = personMgr.getPersonbyID(measurement.getPersonID());

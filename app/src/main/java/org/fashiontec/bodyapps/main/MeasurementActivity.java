@@ -149,10 +149,9 @@ public class MeasurementActivity extends Activity {
                 public void onClick(View v) {
                     DBSaver(v.getContext().getApplicationContext());
                     String AUTHORITY = "org.fashiontec.bodyapps.sync.provider";
-                    // An account type, in the form of a domain name
                     final String ACCOUNT_TYPE = "fashiontec.org";
-                    // The account name
                     final String ACCOUNT = "dummyaccount";
+                    //calls for sync adapter after save button is clicked
                     if (UserManager.getInstance(v.getContext().getApplicationContext()).getAutoSync()) {
                         Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
                         AccountManager accountManager = (AccountManager) v.getContext().getSystemService(ACCOUNT_SERVICE);
@@ -385,7 +384,7 @@ public class MeasurementActivity extends Activity {
         }
 
         /**
-         * Saves the measurement to the database
+         * Saves the measurement to the database.
          *
          * @param context
          * @return
@@ -862,6 +861,9 @@ public class MeasurementActivity extends Activity {
         }
     }
 
+    /**
+     * Fragment which handles the pictures in measurement record
+     */
     public static class Pics extends Fragment {
         private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
         private static final int OPEN_IMAGE_REQUEST_CODE = 101;
@@ -959,6 +961,9 @@ public class MeasurementActivity extends Activity {
             startActivityForResult(photoPickerIntent, OPEN_IMAGE_REQUEST_CODE);
         }
 
+        /**
+         * Removes a added image.
+         */
         private void removeImage() {
             if (type == FRONT) {
                 measurement.setPic_front("");
@@ -970,10 +975,20 @@ public class MeasurementActivity extends Activity {
             previewCapturedImage();
         }
 
+        /**
+         * Gives output image file path as a Uri
+         *
+         * @return
+         */
         public Uri getOutputMediaFileUri() {
             return Uri.fromFile(getOutputMediaFile());
         }
 
+        /**
+         * Creates output image file folder and creates file path based on file type.
+         *
+         * @return
+         */
         private static File getOutputMediaFile() {
             File mediaStorageDir = new File(
                     Environment
@@ -1093,6 +1108,12 @@ public class MeasurementActivity extends Activity {
             }
         }
 
+        /**
+         * compress and saves image to given path.
+         *
+         * @param inFile
+         * @param outFile
+         */
         private void compress(Uri inFile, Uri outFile) {
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
@@ -1107,6 +1128,9 @@ public class MeasurementActivity extends Activity {
             }
         }
 
+        /**
+         * Display dialog with image options such as camera ot from file.
+         */
         public void dialog() {
             LayoutInflater factory = LayoutInflater.from(getActivity());
             final View dialogView = factory.inflate(
@@ -1163,6 +1187,9 @@ public class MeasurementActivity extends Activity {
 
     }
 
+    /**
+     * Fragment which handles additional notes added to measurement record.
+     */
     public static class Notes extends Fragment {
         private static EditText note;
 

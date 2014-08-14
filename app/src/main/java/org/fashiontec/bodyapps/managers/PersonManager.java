@@ -91,6 +91,12 @@ public class PersonManager {
         database.close();
     }
 
+    /**
+     * Gets person from ID.
+     *
+     * @param id
+     * @return
+     */
     public Person getPersonbyID(int id) {
         Log.d(TAG, "getPerson");
         this.database = this.dbHandler.getReadableDatabase();

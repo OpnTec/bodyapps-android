@@ -35,6 +35,11 @@ public class UserManager {
         return userManager;
     }
 
+    /**
+     * Adds user to DB
+     *
+     * @param user
+     */
     public void addUser(User user) {
         Log.d(TAG, "addUser");
         this.database = this.dbHandler.getWritableDatabase();
@@ -49,6 +54,12 @@ public class UserManager {
         database.close();
     }
 
+    /**
+     * Check if the user exists.
+     *
+     * @param user
+     * @return
+     */
     public String isUser(User user) {
         Log.d(TAG, "isUser");
         this.database = this.dbHandler.getReadableDatabase();
@@ -69,6 +80,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * Sets the given user as the current user.
+     *
+     * @param user
+     */
     public void setCurrent(User user) {
         Log.d(TAG, "setCurrent");
         this.database = this.dbHandler.getWritableDatabase();
@@ -82,6 +98,11 @@ public class UserManager {
 
     }
 
+    /**
+     * Gets the current user.
+     *
+     * @return
+     */
     public String getCurrent() {
         this.database = this.dbHandler.getReadableDatabase();
         Cursor cursor = database.query(DBContract.User.TABLE_NAME,
@@ -100,6 +121,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * Delets given user from DB
+     *
+     * @param user
+     */
     public void delUser(User user) {
         this.database = this.dbHandler.getWritableDatabase();
         database.delete(DBContract.User.TABLE_NAME,
@@ -108,6 +134,11 @@ public class UserManager {
         database.close();
     }
 
+    /**
+     * Set ID given to the user from API.
+     *
+     * @param user
+     */
     public void setID(User user) {
         Log.d(TAG, "setID");
         String userID = user.getId();
@@ -122,6 +153,9 @@ public class UserManager {
         database.close();
     }
 
+    /**
+     * Unset as the current user
+     */
     public void unsetCurrent() {
         Log.d(TAG, "unsetCurrent");
         String email = getCurrentEmail();
@@ -133,6 +167,11 @@ public class UserManager {
         database.close();
     }
 
+    /**
+     * Get current user's email.
+     *
+     * @return
+     */
     public String getCurrentEmail() {
         Log.d(TAG, "getCurrentEmail");
         this.database = this.dbHandler.getReadableDatabase();
@@ -152,6 +191,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * Enable or disable auto sync.
+     *
+     * @param autoSync
+     */
     public void setAutoSync(Boolean autoSync) {
         Log.d(TAG, "setAutoSync");
         String email = getCurrentEmail();
@@ -193,6 +237,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * Sets the time of last sync.
+     *
+     * @param timeStamp
+     */
     public void setLastSync(long timeStamp) {
         Log.d(TAG, "setLastSync");
         String email = getCurrentEmail();
@@ -204,6 +253,11 @@ public class UserManager {
         database.close();
     }
 
+    /**
+     * Gets the time of last sync
+     *
+     * @return
+     */
     public long getLastSync() {
         Log.d(TAG, "getAutoSync");
         String email = getCurrentEmail();

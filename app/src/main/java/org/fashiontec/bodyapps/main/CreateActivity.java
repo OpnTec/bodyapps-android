@@ -31,6 +31,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * This activity handles creation of measurement record.
+ */
 public class CreateActivity extends Activity {
     private Button btnCreate;
     private Button btnDoB;
@@ -79,13 +82,11 @@ public class CreateActivity extends Activity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
             }
-
         };
 
         btnDoB = (Button) findViewById(R.id.create_btn_dob);
@@ -98,16 +99,22 @@ public class CreateActivity extends Activity {
                 ).show();
             }
         });
-
     }
 
+    /**
+     * Update the DoB label when a date is selected.
+     */
     private void updateLabel() {
-
         String myFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
         txtDoB.setText(sdf.format(myCalendar.getTime()));
     }
 
+    /**
+     * Checks for validity of data entered by user
+     *
+     * @return
+     */
     public boolean setData() {
         txtEmail = (TextView) findViewById(R.id.create_txt_gmail);
         txtName = (TextView) findViewById(R.id.create_txt_name);
@@ -127,6 +134,12 @@ public class CreateActivity extends Activity {
         return true;
     }
 
+    /**
+     * Creates a measurement object and person object using entered data. Adds the person to DB.
+     *
+     * @param name
+     * @param email
+     */
     private void setMeasurement(String name, String email) {
         Date bdate = myCalendar.getTime();
         person = new Person(email, name, spnGender.getSelectedItemPosition(), bdate.getTime());
@@ -172,14 +185,12 @@ public class CreateActivity extends Activity {
             measurement.setCreated(dateText);
             closer();
         }
-
-
     }
 
     /**
      * Gets a UUID for measurement
      *
-     * @return
+     * @return UUID
      */
     public String getID() {
         UUID uuid = UUID.randomUUID();
@@ -187,6 +198,9 @@ public class CreateActivity extends Activity {
         return randomUUIDString;
     }
 
+    /**
+     * closes current view and opens MeasurementActivity
+     */
     public void closer() {
         Intent intent = new Intent(CreateActivity.this,
                 MeasurementActivity.class);
@@ -196,6 +210,12 @@ public class CreateActivity extends Activity {
         host.finish();
     }
 
+    /**
+     * Shows a alert dialog with given title and message
+     *
+     * @param title
+     * @param message
+     */
     public void dialog(String title, String message) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -211,7 +231,6 @@ public class CreateActivity extends Activity {
                             }
                         }
                 );
-
         alertDialog = builder.create();
         alertDialog.show();
     }

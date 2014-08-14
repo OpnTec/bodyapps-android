@@ -48,9 +48,11 @@ public class MainActivity extends Activity implements OnClickListener {
         settings.setOnClickListener(this);
         create = (Button) findViewById(R.id.main_btn_create);
         create.setOnClickListener(this);
+        //Shows the alert dialog mentioning to sign in
         if (UserManager.getInstance(getBaseContext().getApplicationContext()).getCurrent() == null) {
             dialog("Login", "Go to \"Settings\" and sign in to continue.");
         }
+        //Starts sync adapter at the start of the app
         if (UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync()) {
             Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
             AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
@@ -63,6 +65,7 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        //Disables saved and create buttons if user is not signed in
         if (UserManager.getInstance(getBaseContext().getApplicationContext()).getCurrent() == null) {
             saved.setEnabled(false);
             create.setEnabled(false);
@@ -101,6 +104,12 @@ public class MainActivity extends Activity implements OnClickListener {
         finish();
     }
 
+    /**
+     * Shows a alert dialog with given title and message
+     *
+     * @param title
+     * @param message
+     */
     public void dialog(String title, String message) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
