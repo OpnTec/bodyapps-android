@@ -16,28 +16,28 @@ public class UserManagerTest extends AndroidTestCase {
     UserManager um;
     User user;
 
-    public void setUp(){
+    public void setUp() {
         context = getContext().getApplicationContext();
-        um=UserManager.getInstance(context);
-        assertNotNull("User Manger null",um);
-        user=new User("test_email","test_name","test_id",true);
+        um = UserManager.getInstance(context);
+        assertNotNull("User Manger null", um);
+        user = new User("test_email", "test_name", "test_id", true);
 
     }
 
     public void testAddUser() throws Exception {
         um.addUser(user);
-        assertNotNull(um.isUser(user));
+        assertNotNull("user not added to db", um.isUser(user));
     }
 
     public void testUnsetCurrent() throws Exception {
         um.unsetCurrent();
-        assertNull(um.getCurrent());
+        assertNull("user unset current failed", um.getCurrent());
 
     }
 
 
     public void testSetCurrent() throws Exception {
         um.setCurrent(user);
-        assertNotNull(um.getCurrent());
+        assertNotNull("user set current failed", um.getCurrent());
     }
 }

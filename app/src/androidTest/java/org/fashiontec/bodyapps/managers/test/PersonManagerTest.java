@@ -18,20 +18,20 @@ public class PersonManagerTest extends AndroidTestCase {
 
     public void setUp() throws Exception {
         context = getContext().getApplicationContext();
-        pm=PersonManager.getInstance(context);
-        assertNotNull("Person Manager null",pm);
-        person=new Person("test_mail","test_name",1, 1407640921L);
+        pm = PersonManager.getInstance(context);
+        assertNotNull("Person Manager null", pm);
+        person = new Person("test_mail", "test_name", 1, 1407640921L);
     }
 
     public void testAddPerson() throws Exception {
         pm.addPerson(person);
-        assertNotNull(pm.getPerson(person));
+        assertNotNull("person not added to DB", pm.getPerson(person));
     }
 
     public int testGetPersonByID() throws Exception {
-        int id=pm.getPerson(person);
-        assertFalse("No person",id==-1);
-        Person p=pm.getPersonbyID(id);
+        int id = pm.getPerson(person);
+        assertFalse("No person", id == -1);
+        Person p = pm.getPersonbyID(id);
         assertTrue(person.getEmail().equals(p.getEmail()));
         return id;
     }

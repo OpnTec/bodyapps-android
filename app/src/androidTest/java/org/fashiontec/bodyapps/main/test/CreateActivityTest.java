@@ -7,9 +7,7 @@ package org.fashiontec.bodyapps.main.test;
 
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
 import android.view.KeyEvent;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +25,7 @@ public class CreateActivityTest extends ActivityInstrumentationTestCase2<CreateA
     Spinner unit;
     Spinner gender;
 
-    public CreateActivityTest(){
+    public CreateActivityTest() {
         super(CreateActivity.class);
     }
 
@@ -35,12 +33,12 @@ public class CreateActivityTest extends ActivityInstrumentationTestCase2<CreateA
     public void setUp() throws Exception {
         super.setUp();
         activity = getActivity();
-        create=(Button)activity.findViewById(R.id.create_btn_create);
-        email=(EditText)activity.findViewById(R.id.create_txt_gmail);
-        name=(EditText)activity.findViewById(R.id.create_txt_name);
-        unit=(Spinner)activity.findViewById(R.id.create_spn_unit);
-        gender=(Spinner)activity.findViewById(R.id.create_spn_gender);
-        InputMethodManager imm = (InputMethodManager)activity.getBaseContext().getSystemService(
+        create = (Button) activity.findViewById(R.id.create_btn_create);
+        email = (EditText) activity.findViewById(R.id.create_txt_gmail);
+        name = (EditText) activity.findViewById(R.id.create_txt_name);
+        unit = (Spinner) activity.findViewById(R.id.create_spn_unit);
+        gender = (Spinner) activity.findViewById(R.id.create_spn_gender);
+        InputMethodManager imm = (InputMethodManager) activity.getBaseContext().getSystemService(
                 activity.getBaseContext().INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(email.getWindowToken(), 0);
     }
@@ -69,17 +67,17 @@ public class CreateActivityTest extends ActivityInstrumentationTestCase2<CreateA
 
             @Override
             public void run() {
-                email.setText("test_email");
+                email.setText("test@email.com");
             }
         });
 
         getInstrumentation().waitForIdleSync();
-        assertEquals("Email incorrect", "test_email", email.getText().toString());
+        assertEquals("Email incorrect", "test@email.com", email.getText().toString());
         Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(MeasurementActivity.class.getName(), null, false);
         activity.setData();
-//        activity.closer();
+
         MeasurementActivity startedActivity = (MeasurementActivity) monitor.waitForActivityWithTimeout(3000);
-        assertNotNull("incorrect",startedActivity);
+        assertNotNull("MeasurementActivity not started", startedActivity);
 
         this.sendKeys(KeyEvent.KEYCODE_BACK);
         this.sendKeys(KeyEvent.KEYCODE_BACK);
