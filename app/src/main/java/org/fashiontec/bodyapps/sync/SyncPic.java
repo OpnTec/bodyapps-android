@@ -12,6 +12,12 @@ import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.fashiontec.bodyapps.managers.MeasurementManager;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +25,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -60,8 +66,7 @@ public class SyncPic extends Sync {
             result += line;
 
         inputStream.close();
-        Log.d("syncPic", result);
-        //result = result.replaceAll("\"", "");
+        Log.d("syncPic : ", result);
         JSONObject jObject;
         String out = null;
         try {
@@ -83,13 +88,15 @@ public class SyncPic extends Sync {
         int CON_TIMEOUT = 5000;
         int SOC_TIMEOUT = 8000;
         String picID = url.substring(url.lastIndexOf("/") + 1);
+        String filePath = getOutputMediaFile(type, id, picID).getPath();
 
         try {
-            InputStream inputStream = sp.get(URL, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
-            if (inputStream != null) {
-                return sp.savePic(inputStream, type, id, context, picID);
+            int out = download(url, filePath);
+            if (out == 1 && type != PicTypes.OTHER) {
+                Log.d("getPic", out + " @*");
+                MeasurementManager.getInstance(context).setImagePath(type, filePath, id, picID);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
         return -1;
@@ -133,45 +140,44 @@ public class SyncPic extends Sync {
         return mediaFile;
     }
 
-    private int savePic(InputStream inputStream, PicTypes type, String id, Context context, String picID)
-            throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(
-                new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while ((line = bufferedReader.readLine()) != null)
-            result += line;
-
-        inputStream.close();
-        JSONObject jObject;
-        String out;
-        byte[] decodedString;
-        Bitmap bitmap;
+    public HttpResponse put(String url, String path) {
+        HttpResponse response = null;
         try {
-            jObject = new JSONObject(result);
-            out = jObject.getString("data");
-            jObject = new JSONObject(out);
-            out = jObject.getString("data");
-            if (out.equals("")) {
-                return 0;
-            }
-            decodedString = Base64.decode(out, Base64.DEFAULT);
-            bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            File file = getOutputMediaFile(type, id, picID);
-            FileOutputStream fos = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-            if (type != PicTypes.OTHER) {
-                MeasurementManager.getInstance(context).setImagePath(type, file.getPath(), id, picID);
-            }
-            return 1;
+            File file = new File(path);
+            HttpClient client = new DefaultHttpClient();
+            HttpPut post = new HttpPut(url);
 
-        } catch (JSONException e) {
-            Log.e(TAG, e.getMessage());
-            return -1;
+            InputStreamEntity entity = new InputStreamEntity(new FileInputStream(file.getPath()), file.length());
+            entity.setContentType("image/jpeg");
+            entity.setChunked(true);
+            post.setEntity(entity);
+
+
+            response = client.execute(post);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return response;
+    }
 
+    public HttpResponse post(String url, String path) {
+        HttpResponse response = null;
+        try {
+            File file = new File(path);
+            HttpClient client = new DefaultHttpClient();
+            HttpPost post = new HttpPost(url);
+
+            InputStreamEntity entity = new InputStreamEntity(new FileInputStream(file.getPath()), file.length());
+            entity.setContentType("image/jpeg");
+            entity.setChunked(true);
+            post.setEntity(entity);
+
+
+            response = client.execute(post);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 
 }

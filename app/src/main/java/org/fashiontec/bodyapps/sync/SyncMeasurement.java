@@ -81,7 +81,7 @@ public class SyncMeasurement extends Sync {
             personJSON.accumulate("email", person.getEmail());
 
             Date date = new Date(person.getDob());
-            SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat df2 = new SimpleDateFormat("MM/dd/yyyy");
             String dateText = df2.format(date);
             personJSON.accumulate("dob", dateText);
 
@@ -123,18 +123,19 @@ public class SyncMeasurement extends Sync {
 
         String imgFront = measurement.getPic_front();
         if (!imgFront.equals("")) {
-            String frontJSON = syncPic.encodePics(imgFront);
+//            String frontJSON = syncPic.encodePics(imgFront);
             InputStream response = null;
             String imgID = MeasurementManager.getInstance(context).getPicID(measurement.getID(), PicTypes.FRONT);
             try {
                 if (imgID == null) {
-                    response = syncPic.post(imgURL + "body_front", frontJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                    Log.i(TAG, "sync pic");
+                    response =syncPic.post(imgURL + "body_front",imgFront).getEntity().getContent();
                     imgID = syncPic.convertInputStreamToString(response);
                     MeasurementManager.getInstance(context).setImagePath(PicTypes.FRONT, null, measurement.getID(), imgID);
                 } else {
-                    response = syncPic.put(baseURL + "/images/" + imgID, frontJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                    response = syncPic.put(baseURL + "/images/" + imgID, imgFront).getEntity().getContent();
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
             }
         }
@@ -145,11 +146,11 @@ public class SyncMeasurement extends Sync {
             String imgID = MeasurementManager.getInstance(context).getPicID(measurement.getID(), PicTypes.SIDE);
             try {
                 if (imgID == null) {
-                    response = syncPic.post(imgURL + "body_side", sideJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                    response = syncPic.post(imgURL + "body_side", imgSide).getEntity().getContent();
                     imgID = syncPic.convertInputStreamToString(response);
                     MeasurementManager.getInstance(context).setImagePath(PicTypes.SIDE, null, measurement.getID(), imgID);
                 } else {
-                    syncPic.put(baseURL + "/images/" + imgID, sideJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                    syncPic.put(baseURL + "/images/" + imgID, imgSide).getEntity().getContent();
                 }
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage());
@@ -163,11 +164,11 @@ public class SyncMeasurement extends Sync {
             String imgID = MeasurementManager.getInstance(context).getPicID(measurement.getID(), PicTypes.BACK);
             try {
                 if (imgID == null) {
-                    response = syncPic.post(imgURL + "body_back", backJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                    response = syncPic.post(imgURL + "body_back", imgBack).getEntity().getContent();
                     imgID = syncPic.convertInputStreamToString(response);
                     MeasurementManager.getInstance(context).setImagePath(PicTypes.BACK, null, measurement.getID(), imgID);
                 } else {
-                    syncPic.put(baseURL + "/images/" + imgID, backJSON, CON_TIMEOUT, SOC_TIMEOUT).getEntity().getContent();
+                    syncPic.put(baseURL + "/images/" + imgID, imgBack).getEntity().getContent();
                 }
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage());
@@ -214,7 +215,7 @@ public class SyncMeasurement extends Sync {
             }
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.toString());
         }
         return out;
     }
@@ -441,7 +442,7 @@ public class SyncMeasurement extends Sync {
             }
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.toString());
         }
         return out;
     }
