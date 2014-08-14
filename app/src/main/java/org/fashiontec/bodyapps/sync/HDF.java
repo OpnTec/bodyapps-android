@@ -17,10 +17,8 @@ public class HDF extends Sync {
      * @param path
      * @return
      */
-    public static int getHDF(String userID, String measurementID, String path) {
-        String URL = "http://192.168.1.2:8020/users/";
-        URL = URL + userID + "/measurements/" + measurementID;
-        System.out.println("URL = " + URL);
+    public int getHDF(String userID, String measurementID, String path) {
+        String URL = baseURL + "/users/" + userID + "/measurements/" + measurementID;
         HDF hdf = new HDF();
         return hdf.download(URL, path);
     }

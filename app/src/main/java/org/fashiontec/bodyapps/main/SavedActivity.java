@@ -610,7 +610,8 @@ public class SavedActivity extends ActionBarActivity {
         protected String doInBackground(String... val) {
             path = path + val[3] + "/" + val[1] + ".zip";
             actualPath = val[2];
-            result = HDF.getHDF(val[0], val[1], val[2]);
+            HDF hdf=new HDF();
+            result = hdf.getHDF(val[0], val[1], val[2]);
             return null;
         }
 
