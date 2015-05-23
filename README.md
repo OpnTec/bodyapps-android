@@ -2,6 +2,8 @@
 
 # bodyapps-android
 
+[![Join the chat at https://gitter.im/fashiontec/bodyapps-android](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fashiontec/bodyapps-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Android app for the #bodyapps project with Gradle  
 
 ## Project Setup
