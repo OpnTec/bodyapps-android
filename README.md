@@ -2,7 +2,7 @@
 
 # bodyapps-android
 
-[![Join the chat at https://gitter.im/fossasia/bodyapps-android](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fossasia/bodyapps-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/fossasia/bodyapps-android](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fossasia/bodyapps?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Android app for the #bodyapps project with Gradle  
 
