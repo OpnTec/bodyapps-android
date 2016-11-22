@@ -46,7 +46,7 @@
             android:layout_gravity="center_vertical"
             android:paddingLeft="20dp"
             android:text="Hi"
-            android:textSize="@dimen/abc_action_bar_title_text_size" />
+            android:textSize="@dimen/abc_action_bar_title_text_size"/>
 
     </LinearLayout>
 

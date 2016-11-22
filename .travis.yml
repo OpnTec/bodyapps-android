@@ -1,14 +1,14 @@
 language: android
-jdk: oraclejdk7
+jdk: oraclejdk8
 env:
   matrix:
-    - ANDROID_TARGET=android-17  ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-23  ANDROID_ABI=armeabi-v7a
 
 before_install:
  - chmod +x gradlew
 android:
   components:
-    - build-tools-19.1.0
+    - build-tools-23.0.2
   licenses:
     - android-sdk-license-5be876d5
 
