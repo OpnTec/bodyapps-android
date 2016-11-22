@@ -8,6 +8,7 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 23
+        applicationId "org.fashiontec.bodyapps"
     }
 
     buildTypes {
