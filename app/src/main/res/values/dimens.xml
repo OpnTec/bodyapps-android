@@ -1,10 +1,12 @@
-<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
-<!--Licensed under LGPL, Version 3-->
+<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)--><!--Licensed under LGPL, Version 3-->
 
 <resources>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="abc_action_bar_default_height">30dp</dimen>
+    <dimen name="abc_action_bar_title_text_size">18sp</dimen>
 
 </resources>
