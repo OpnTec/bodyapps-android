@@ -1,44 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
-<!--Licensed under LGPL, Version 3-->
+<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)--><!--Licensed under LGPL, Version 3-->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.fashiontec.bodyapps.main"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
-    <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="19" />
+    <!--<uses-sdk-->
+    <!--android:minSdkVersion="11"-->
+    <!--android:targetSdkVersion="19" />-->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
-	<uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+
+    <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
+        android:allowClearUserData="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        android:vmSafeMode="true"       
-        android:allowClearUserData="true"
-        android:hardwareAccelerated="true"  >
+        android:vmSafeMode="true">
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <service
-            android:name="org.fashiontec.bodyapps.sync.SyncAuth">
+        <service android:name="org.fashiontec.bodyapps.sync.SyncAuth">
             <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator"/>
+                <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
@@ -49,55 +47,56 @@
             android:name="org.fashiontec.bodyapps.sync.SyncService"
             android:exported="true"
             android:process=":sync">
-        <intent-filter>
-            <action android:name="android.content.SyncAdapter"/>
-        </intent-filter>
-        <meta-data
-            android:name="android.content.SyncAdapter"
-            android:resource="@xml/sync_adapter" />
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_adapter" />
         </service>
 
         <provider
             android:name="org.fashiontec.bodyapps.db.DataContentProvider"
             android:authorities="org.fashiontec.bodyapps.sync.provider"
             android:exported="false"
-            android:syncable="true"/>
+            android:syncable="true" />
 
         <activity
             android:name="org.fashiontec.bodyapps.main.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="org.fashiontec.bodyapps.main.SavedActivity"
-            android:label="@string/title_activity_saved" >
-        </activity>
+            android:label="@string/title_activity_saved" />
+
         <activity
             android:name="org.fashiontec.bodyapps.main.SavedActivity$ViewSavedActivity"
-            android:label="@string/title_activity_view_saved" >
-        </activity>
+            android:label="@string/title_activity_view_saved" />
+
         <activity
             android:name="org.fashiontec.bodyapps.main.SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
+            android:label="@string/title_activity_settings" />
+
         <activity
             android:name="org.fashiontec.bodyapps.main.CreateActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:label="@string/title_activity_create" >
-        </activity>
+            android:label="@string/title_activity_create"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name="org.fashiontec.bodyapps.main.MeasurementActivity"
-            android:label="@string/title_activity_measurement">
-        </activity>
+            android:label="@string/title_activity_measurement" />
+
         <activity
             android:name="org.fashiontec.bodyapps.main.MeasurementActivity$ItemActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"
-            android:label="@string/title_activity_item" >
-        </activity>
+            android:label="@string/title_activity_item"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+
     </application>
 
 </manifest>
