@@ -25,15 +25,14 @@ import org.fashiontec.bodyapps.managers.UserManager;
 
 public class MainActivity extends Activity implements OnClickListener {
 
+    public static final String AUTHORITY = "org.fashiontec.bodyapps.sync.provider";
+    public static final String ACCOUNT_TYPE = "fashiontec.org";
+    public static final String ACCOUNT = "dummyaccount";
+    private static AlertDialog alertDialog;
     private Button create;
     private Button saved;
     private Button settings;
     private Button exit;
-    private static AlertDialog alertDialog;
-
-    public static final String AUTHORITY = "org.fashiontec.bodyapps.sync.provider";
-    public static final String ACCOUNT_TYPE = "fashiontec.org";
-    public static final String ACCOUNT = "dummyaccount";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
