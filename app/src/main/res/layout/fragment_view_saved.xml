@@ -1,157 +1,420 @@
-<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
-<!--Licensed under LGPL, Version 3-->
+<!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)--><!--Licensed under LGPL, Version 3-->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_corner_color"
-            android:text="@string/person"
-            android:textColor="#ffffff" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/vsa_txt_person_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/vsa_txt_person_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/vsa_txt_person_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="72dp"
+                android:padding="16dp"
+                android:src="@drawable/person" />
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_corner_color"
-            android:text="@string/neck"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/vsa_txt_mid_neck_girth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-       
-        <TextView
-            android:id="@+id/textView1"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_saved_list_height"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/name"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/vsa_txt_person_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_saved_list_height"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/vsa_txt_person_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_saved_list_height"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gender"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/vsa_txt_person_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_corner_color"
-            android:text="@string/shoulders"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/vsa_txt_across_back_shoulder_width"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-         <TextView
-            android:id="@+id/vsa_txt_shoulder_drop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-        <TextView
-            android:id="@+id/vsa_txt_shoulder_slope_degrees"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-        
-         <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_corner_color"
-            android:text="@string/chest"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/vsa_txt_bust_girth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-        
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_corner_color"
-            android:text="@string/arm"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/vsa_txt_arm_length"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-         <TextView
-            android:id="@+id/vsa_txt_upper_arm_girth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-        <TextView
-            android:id="@+id/vsa_txt_armscye_girth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-        <TextView
-            android:id="@+id/vsa_txt_wrist_girth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-        
-         <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_corner_color"
-            android:text="@string/hip_and_waist"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/vsa_txt_hip_girth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-         <TextView
-            android:id="@+id/vsa_txt_waist_girth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-         
-          <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_corner_color"
-            android:text="@string/heights"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/vsa_txt_height"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-         <TextView
-            android:id="@+id/vsa_txt_hip_height"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-       
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightGray"
+                android:paddingBottom="16dp"
+                android:paddingLeft="56dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:text="@string/neck"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mid_neck_girth"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_mid_neck_girth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorLightGray"
+                android:paddingBottom="16dp"
+                android:paddingLeft="56dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:text="@string/shoulders"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/across_back_shoulder_width"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_across_back_shoulder_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/shoulder_drop"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_shoulder_drop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/shoulder_slope_degrees"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_shoulder_slope_degrees"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightGray"
+                android:paddingBottom="16dp"
+                android:paddingLeft="56dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:text="@string/chest"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bust_girth"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_bust_girth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightGray"
+                android:padding="16dp"
+                android:text="@string/arm"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/arm_length"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_arm_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upper_arm_girth"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_upper_arm_girth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/armscye_girth"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_armscye_girth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wrist_girth"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_wrist_girth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightGray"
+                android:paddingBottom="16dp"
+                android:paddingLeft="56dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:text="@string/hip_and_waist"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hip_girth"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_hip_girth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/waist_girth"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_waist_girth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightGray"
+                android:paddingBottom="16dp"
+                android:paddingLeft="56dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:text="@string/heights"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/height"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_saved_list_height"
+                android:layout_marginLeft="56dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hip_height"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/vsa_txt_hip_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
-
 </ScrollView>

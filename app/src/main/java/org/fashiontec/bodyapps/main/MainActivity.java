@@ -8,11 +8,11 @@ package org.fashiontec.bodyapps.main;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,28 +28,24 @@ public class MainActivity extends Activity implements OnClickListener {
     public static final String AUTHORITY = "org.fashiontec.bodyapps.sync.provider";
     public static final String ACCOUNT_TYPE = "fashiontec.org";
     public static final String ACCOUNT = "dummyaccount";
-    private static AlertDialog alertDialog;
-    private Button create;
+    private FloatingActionButton create;
     private Button saved;
     private Button settings;
-    private Button exit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        exit = (Button) findViewById(R.id.main_btn_exit);
-        exit.setOnClickListener(this);
         saved = (Button) findViewById(R.id.main_btn_saved);
         saved.setOnClickListener(this);
         settings = (Button) findViewById(R.id.main_btn_settings);
         settings.setOnClickListener(this);
-        create = (Button) findViewById(R.id.main_btn_create);
+        create = (FloatingActionButton) findViewById(R.id.main_btn_create);
         create.setOnClickListener(this);
         //Shows the alert dialog mentioning to sign in
         if (UserManager.getInstance(getBaseContext().getApplicationContext()).getCurrent() == null) {
-            dialog("Login", "Go to \"Settings\" and sign in to continue.");
+            dialog("Go to \"Settings\" and sign in to continue.");
         }
         //Starts sync adapter at the start of the app
         if (UserManager.getInstance(getBaseContext().getApplicationContext()).getAutoSync()) {
@@ -91,9 +87,6 @@ public class MainActivity extends Activity implements OnClickListener {
                 intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.main_btn_exit:
-                finish();
-                break;
         }
 
     }
@@ -104,28 +97,11 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     /**
-     * Shows a alert dialog with given title and message
+     * Shows a alert dialog with given message
      *
-     * @param title
      * @param message
      */
-    public void dialog(String title, String message) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-                .setMessage(message)
-                .setIcon(R.drawable.warning)
-                .setCancelable(false)
-                .setNegativeButton("Close",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int id) {
-                                dialog.cancel();
-                            }
-                        }
-                );
-
-        alertDialog = builder.create();
-        alertDialog.show();
+    public void dialog(String message) {
+        Snackbar.make(create, message, Snackbar.LENGTH_LONG).show();
     }
 }

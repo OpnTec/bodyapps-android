@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:text="@string/camera"
             android:id="@+id/imgdialog_btn_cam"
-            android:textColor="@drawable/btn_txt"
-            style="@style/btnStyleios"
+            android:textColor="@android:color/white"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_weight=".5"/>
 
     </LinearLayout>
@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:text="@string/from_file"
             android:id="@+id/imgdialog_btn_file"
-            android:textColor="@drawable/btn_txt"
-            style="@style/btnStyleios"
+            android:textColor="@android:color/white"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_weight=".5"
             android:layout_marginBottom="7dp" />
 
@@ -65,8 +65,8 @@
             android:layout_height="wrap_content"
             android:text="@string/remove"
             android:id="@+id/imgdialog_btn_remove"
-            android:textColor="@drawable/btn_txt"
-            style="@style/btnStyleios"
+            android:textColor="@android:color/white"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_weight=".5"/>
 
     </LinearLayout>

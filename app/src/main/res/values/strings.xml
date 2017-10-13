@@ -13,7 +13,7 @@
     <string name="title_activity_create">Create</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
-    <string name="email">e-mail</string>
+    <string name="email">Email</string>
     <string name="name">Name</string>
     <string name="gender">Gender</string>
     <string name="unit">Unit</string>

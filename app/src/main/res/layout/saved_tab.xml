@@ -1,21 +1,18 @@
 <!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)-->
 <!--Licensed under LGPL, Version 3-->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/saved_list_selector" >
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1.0" >
+    android:orientation="horizontal"
+    android:background="?selectableItemBackground" >
 
         <LinearLayout
-            android:layout_width="0dip"
+            android:padding="16dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical" 
-            android:layout_weight=".8">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/svd_name"
@@ -42,11 +39,10 @@
 
         <ImageView
             android:id="@+id/svd_image"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:layout_weight=".2"
-            android:src="@drawable/not_synced" />
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/cloud_off"
+            android:padding="16dp"/>
 
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

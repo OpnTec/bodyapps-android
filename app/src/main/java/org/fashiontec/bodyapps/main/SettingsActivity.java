@@ -14,7 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,7 +49,7 @@ import java.io.InputStream;
  * play services and obtains user ID from web application. Then user gets added
  * to the DB
  */
-public class SettingsActivity extends ActionBarActivity implements
+public class SettingsActivity extends AppCompatActivity implements
         OnClickListener, ConnectionCallbacks, OnConnectionFailedListener {
 
     private static final int RC_SIGN_IN = 0;
@@ -173,6 +173,7 @@ public class SettingsActivity extends ActionBarActivity implements
      * Sign in the user to Google
      */
     private void signInWithGplus() {
+        updateUI(true);
         if (!mGoogleApiClient.isConnecting()) {
             mSignInClicked = true;
             resolveSignInError();
@@ -185,7 +186,6 @@ public class SettingsActivity extends ActionBarActivity implements
         }
 
         if (mConnectionResult.hasResolution()) {
-
             try {
                 mIntentInProgress = true;
                 mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);

@@ -12,7 +12,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -34,9 +36,9 @@ import java.util.UUID;
 /**
  * This activity handles creation of measurement record.
  */
-public class CreateActivity extends Activity {
+public class CreateActivity extends AppCompatActivity {
     private Button btnCreate;
-    private Button btnDoB;
+    private View btnDoB;
     private Spinner spnUnits;
     private Spinner spnGender;
     private TextView txtEmail;
@@ -67,12 +69,14 @@ public class CreateActivity extends Activity {
         ArrayAdapter<CharSequence> uitsAdapter = ArrayAdapter
                 .createFromResource(this, R.array.units_array,
                         android.R.layout.simple_spinner_item);
+        uitsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnUnits.setAdapter(uitsAdapter);
 
         spnGender = (Spinner) findViewById(R.id.create_spn_gender);
         ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter
                 .createFromResource(this, R.array.gender_array,
                         android.R.layout.simple_spinner_item);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnGender.setAdapter(genderAdapter);
         context = this;
         txtDoB = (TextView) findViewById(R.id.create_txt_dob);
@@ -89,7 +93,7 @@ public class CreateActivity extends Activity {
             }
         };
 
-        btnDoB = (Button) findViewById(R.id.create_btn_dob);
+        btnDoB = findViewById(R.id.create_btn_dob);
         btnDoB.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +103,7 @@ public class CreateActivity extends Activity {
                 ).show();
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     /**
@@ -240,4 +245,15 @@ public class CreateActivity extends Activity {
         finish();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
