@@ -13,8 +13,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:paddingLeft="10sp" >
+        android:orientation="horizontal">
 
         <fragment
             android:id="@+id/fragment1"

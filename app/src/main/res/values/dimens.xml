@@ -9,4 +9,5 @@
     <dimen name="abc_action_bar_default_height">30dp</dimen>
     <dimen name="abc_action_bar_title_text_size">18sp</dimen>
 
+    <dimen name="view_saved_list_height">72dp</dimen>
 </resources>

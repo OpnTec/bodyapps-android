@@ -1,112 +1,76 @@
 <!--Copyright (c) 2014, Fashiontec (http://fashiontec.org)--><!--Licensed under LGPL, Version 3-->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:orientation="vertical"
-    android:weightSum="1.0">
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight=".075"
-        android:orientation="vertical" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight=".20"
-        android:orientation="horizontal"
-        android:weightSum="1.0">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight=".2"
-            android:orientation="vertical" />
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight=".2"
-            android:src="@drawable/pro_pic" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:text="Hi"
-            android:textSize="@dimen/abc_action_bar_title_text_size" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight=".075" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight=".7"
-        android:gravity="center"
-        android:weightSum="1.0">
-
-        <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight=".5"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/main_btn_create"
-                style="@style/btnStyleios"
-                android:layout_width="match_parent"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/new_string"
-                android:textColor="@drawable/btn_txt" />
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/pro_pic" />
 
-            <Button
-                android:id="@+id/main_btn_saved"
-                style="@style/btnStyleios"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="@string/saved"
-                android:textColor="@drawable/btn_txt" />
-
-            <Button
-                android:id="@+id/main_btn_settings"
-                style="@style/btnStyleios"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="@string/settings"
-                android:textColor="@drawable/btn_txt" />
-
-            <Button
-                android:id="@+id/main_btn_exit"
-                style="@style/btnStyleios"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/abc_action_bar_default_height"
-                android:text="@string/exit"
-                android:textColor="@drawable/btn_txt" />
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Hi"
+                android:textSize="@dimen/abc_action_bar_title_text_size" />
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/main_btn_saved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="@string/saved"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/main_btn_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/settings"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/main_btn_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/add"
+        app:fabSize="normal" />
+
+</android.support.design.widget.CoordinatorLayout>

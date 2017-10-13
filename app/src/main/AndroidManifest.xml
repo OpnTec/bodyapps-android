@@ -86,7 +86,7 @@
         <activity
             android:name="org.fashiontec.bodyapps.main.CreateActivity"
             android:label="@string/title_activity_create"
-            android:windowSoftInputMode="adjustResize" />
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name="org.fashiontec.bodyapps.main.MeasurementActivity"

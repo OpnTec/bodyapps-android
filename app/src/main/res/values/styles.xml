@@ -8,6 +8,9 @@
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -19,8 +22,8 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-<style name="btnStyleios" parent="@android:style/Widget.Button">
-<!--        <item name="android:textSize">20sp</item> -->
+    <style name="btnStyleios" parent="@android:style/Widget.Button">
+    <!--        <item name="android:textSize">20sp</item> -->
 		<item name="android:textStyle">bold</item>
        <item name="android:gravity">center</item>
 

@@ -18,7 +18,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -48,7 +48,7 @@ import java.util.List;
  * Shows a list of saved measurements in the database.
  * And handles the options such as edit,delete and getting HDF.
  */
-public class SavedActivity extends ActionBarActivity {
+public class SavedActivity extends AppCompatActivity {
 
     public static String shownID;
     public static int shownIndex = 0;
@@ -404,7 +404,7 @@ public class SavedActivity extends ActionBarActivity {
     /**
      * Activity to show saved data if UI is in vertical mode.
      */
-    public static class ViewSavedActivity extends ActionBarActivity {
+    public static class ViewSavedActivity extends AppCompatActivity {
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -425,7 +425,6 @@ public class SavedActivity extends ActionBarActivity {
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
-
             getMenuInflater().inflate(R.menu.view_saved, menu);
             return true;
         }
@@ -562,28 +561,28 @@ public class SavedActivity extends ActionBarActivity {
                 } else {
                     unit = " " + getString(R.string.inch);
                 }
-                person_name.setText(getString(R.string.name) + " : " + person.getName());
-                person_email.setText(getString(R.string.email) + " : " + person.getEmail());
+                person_name.setText(person.getName());
+                person_email.setText(person.getEmail());
                 String genderSt;
                 if (person.getGender() == 0) {
                     genderSt = getString(R.string.female);
                 } else {
                     genderSt = getString(R.string.male);
                 }
-                gender.setText(getString(R.string.gender) + " : " + genderSt);
-                mid_neck_girth.setText(getString(R.string.mid_neck_girth) + " : " + measurement.getMid_neck_girth() + unit);
-                across_back_shoulder_width.setText(getString(R.string.across_back_shoulder_width) + " : " + measurement.getAcross_back_shoulder_width() + unit);
-                shoulder_drop.setText(getString(R.string.shoulder_drop) + " : " + measurement.getShoulder_drop() + unit);
-                shoulder_slope_degrees.setText(getString(R.string.shoulder_slope_degrees) + " : " + measurement.getShoulder_slope_degrees() + " degrees");
-                bust_girth.setText(getString(R.string.bust_girth) + " : " + measurement.getBust_girth() + unit);
-                arm_length.setText(getString(R.string.arm_length) + " : " + measurement.getArm_length() + unit);
-                armscye_girth.setText(getString(R.string.armscye_girth) + " : " + measurement.getArmscye_girth() + unit);
-                upper_arm_girth.setText(getString(R.string.upper_arm_girth) + " : " + measurement.getUpper_arm_girth() + unit);
-                wrist_girth.setText(getString(R.string.wrist_girth) + " : " + measurement.getWrist_girth() + unit);
-                hip_girth.setText(getString(R.string.hip_girth) + " : " + measurement.getHip_girth() + unit);
-                waist_girth.setText(getString(R.string.waist_girth) + " : " + measurement.getWaist_girth() + unit);
-                height.setText(getString(R.string.height) + " : " + measurement.getHeight() + unit);
-                hip_height.setText(getString(R.string.hip_height) + " : " + measurement.getHip_height() + unit);
+                gender.setText(genderSt);
+                mid_neck_girth.setText(measurement.getMid_neck_girth() + unit);
+                across_back_shoulder_width.setText(measurement.getAcross_back_shoulder_width() + unit);
+                shoulder_drop.setText(measurement.getShoulder_drop() + unit);
+                shoulder_slope_degrees.setText(measurement.getShoulder_slope_degrees() + " degrees");
+                bust_girth.setText(measurement.getBust_girth() + unit);
+                arm_length.setText(measurement.getArm_length() + unit);
+                armscye_girth.setText(measurement.getArmscye_girth() + unit);
+                upper_arm_girth.setText(measurement.getUpper_arm_girth() + unit);
+                wrist_girth.setText(measurement.getWrist_girth() + unit);
+                hip_girth.setText(measurement.getHip_girth() + unit);
+                waist_girth.setText(measurement.getWaist_girth() + unit);
+                height.setText(measurement.getHeight() + unit);
+                hip_height.setText(measurement.getHip_height() + unit);
 
 
             }
